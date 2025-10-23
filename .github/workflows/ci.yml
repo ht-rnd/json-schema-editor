@@ -1,14 +1,9 @@
-/*
 name: CI/CD for json-schema-editor
 
 on:
   push:
     branches:
       - main
-
-permissions:
-  id-token: write
-  contents: read
 
 jobs:
   release:
@@ -29,8 +24,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Publish to npm
-        run: npm publish --access public --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-*/
+      - name: Check version and publish
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          access: public
