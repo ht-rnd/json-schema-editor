@@ -8,6 +8,11 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -24,8 +29,5 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Check version and publish
-        uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: public
+      - name: Publish to npm
+        run: npm publish --access public
