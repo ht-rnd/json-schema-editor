@@ -41,7 +41,7 @@ export const BooleanSettings = ({
                 </SelectTrigger>
               </FormControl>
               <SelectContent
-                className={`${theme} bg-background text-foreground border-input`}
+                className={`${theme} max-h-48 bg-background text-foreground border-input`}
               >
                 <SelectItem value="true">True</SelectItem>
                 <SelectItem value="false">False</SelectItem>

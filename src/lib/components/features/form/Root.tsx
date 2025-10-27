@@ -30,7 +30,7 @@ export const Root = ({
           <SelectValue />
         </SelectTrigger>
         <SelectContent
-          className={`${theme} bg-background text-foreground border-input`}
+          className={`${theme} max-h-52 bg-background text-foreground border-input`}
         >
           <SelectItem value={rootType}>{rootType}</SelectItem>
         </SelectContent>

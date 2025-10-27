@@ -122,7 +122,7 @@ export const StringSettings = ({
                 </SelectTrigger>
               </FormControl>
               <SelectContent
-                className={`${theme} bg-background text-foreground border-input`}
+                className={`${theme} max-h-48 bg-background text-foreground border-input`}
               >
                 <SelectItem value="none">none</SelectItem>
                 {stringFormats.map((format) => (
