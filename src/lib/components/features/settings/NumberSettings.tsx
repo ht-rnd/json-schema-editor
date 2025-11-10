@@ -177,27 +177,27 @@ export const NumberSettings = ({
         render={({ field }) => (
           <FormItem>
             <FormLabel>Format</FormLabel>
-            <Select
-              onValueChange={field.onChange}
-              defaultValue={field.value}
-              disabled={readOnly}
-            >
-              <FormControl>
+            <FormControl>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                disabled={readOnly}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Choose data type" />
                 </SelectTrigger>
-              </FormControl>
-              <SelectContent
-                className={`${theme} max-h-48 bg-background text-foreground border-input`}
-              >
-                <SelectItem value="none">none</SelectItem>
-                {numberDataTypes.map((format) => (
-                  <SelectItem key={format} value={format}>
-                    {format}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                <SelectContent
+                  className={`${theme} max-h-48 bg-background text-foreground border-input`}
+                >
+                  <SelectItem value="none">none</SelectItem>
+                  {numberDataTypes.map((format) => (
+                    <SelectItem key={format} value={format}>
+                      {format}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}

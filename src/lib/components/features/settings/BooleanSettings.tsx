@@ -43,7 +43,7 @@ export const BooleanSettings = ({
               <SelectContent
                 className={`${theme} max-h-48 bg-background text-foreground border-input`}
               >
-                <SelectItem value="true">True</SelectItem>
+                <SelectItem value="true" data-testid="true">True</SelectItem>
                 <SelectItem value="false">False</SelectItem>
               </SelectContent>
             </Select>

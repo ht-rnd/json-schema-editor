@@ -104,6 +104,7 @@ export const Root = ({
       <Button
         size="icon"
         variant="ghost"
+        data-testid="root-settings-button"
         onClick={() => onOpenSettings("root")}
       >
         <Settings className="text-blue-500" />
@@ -113,6 +114,7 @@ export const Root = ({
         <Button
           size="icon"
           variant="ghost"
+          data-testid="root-add-button"
           disabled={readOnly}
           onClick={onAddField}
         >

@@ -145,6 +145,7 @@ export const ObjectSettings = ({ basePath, readOnly }: SchemaSettingsProps) => {
         <FormItem>
           <FormControl>
             <Textarea
+              data-testid="schema-textarea"
               rows={6}
               disabled={readOnly}
               className="font-mono"
