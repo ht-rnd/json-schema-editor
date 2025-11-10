@@ -81,7 +81,10 @@ export const Field = ({
       )}
 
       {fieldType === "array" && (
-        <div className="ml-2 pl-2 border-l-2 border-input mr-11">
+        <div
+          className="ml-2 pl-2 border-l-2 border-input mr-11"
+          data-testid="field-array"
+        >
           <Field
             theme={theme}
             readOnly={readOnly}

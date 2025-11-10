@@ -36,18 +36,13 @@ export const FieldRow = ({
   onOpenSettings,
   onTypeChange,
 }: FieldRowProps) => {
-  const fieldType = useWatch({
-    control,
-    name: `${fieldPath}.schema.type`,
-  });
-
   const fieldName = useWatch({
     control,
     name: `${fieldPath}.key`,
   });
 
   return (
-    <div className="p-2 flex gap-2">
+    <div className="p-2 flex gap-2" data-testid="field">
       {isSimpleType && (
         <Controller
           control={control}
@@ -126,6 +121,7 @@ export const FieldRow = ({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
+                    data-testid="required"
                     disabled={readOnly}
                     size="icon"
                     variant={field.value ? "default" : "outline"}
@@ -182,7 +178,12 @@ export const FieldRow = ({
       {isRootLevel && (
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button size="icon" variant="ghost" disabled={readOnly}>
+            <Button
+              size="icon"
+              variant="ghost"
+              data-testid="delete-button"
+              disabled={readOnly}
+            >
               <Trash2 className="text-red-500" />
             </Button>
           </AlertDialogTrigger>

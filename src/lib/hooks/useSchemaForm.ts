@@ -38,6 +38,7 @@ export type JSONSchema = z.infer<typeof baseSchema> & {
   properties?: { [key: string]: JSONSchema };
   items?: JSONSchema | JSONSchema[];
   required?: string[];
+  additionalProperties?: boolean | JSONSchema;
 };
 
 const jsonSchema: z.ZodType<JSONSchema> = baseSchema.extend({
@@ -89,6 +90,10 @@ const formToSchema = (formData: z.infer<typeof formSchema>): JSONSchema => {
       !Array.isArray(newSchema.items)
     ) {
       newSchema.items = transformToSchema(newSchema.items);
+    } else if (Array.isArray(newSchema.items)) {
+      newSchema.items = newSchema.items.map((itemSchema: any) =>
+        transformToSchema(itemSchema)
+      );
     }
 
     return newSchema;
@@ -145,6 +150,10 @@ const schemaToForm = (schema: JSONSchema): z.infer<typeof formSchema> => {
       !Array.isArray(newSchema.items)
     ) {
       newSchema.items = transformToForm(newSchema.items);
+    } else if (Array.isArray(newSchema.items)) {
+      newSchema.items = newSchema.items.map((itemSchema: any) =>
+        transformToForm(itemSchema)
+      );
     }
 
     return newSchema;
