@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="105" failures="0" errors="0" time="28.8250689">
+    <testsuite name="src/test/components/JsonSchemaEditor.test.tsx" timestamp="2025-11-17T11:28:22.943Z" hostname="wmau3401" tests="9" failures="0" errors="0" skipped="0" time="4.0525228">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; renders the editor with a default schema" time="1.3023743">
+        </testcase>
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; calls onChange when the schema changes" time="0.6168499">
+            <system-err>
+Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at div
+    at Root (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/Root.tsx:254:3)
+    at div
+    at div
+    at div
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at JsonSchemaEditor (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/JsonSchemaEditor.tsx:1635:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; displays AJV errors when the schema is invalid" time="0.2508443">
+        </testcase>
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; displays AJV errors for the root schema" time="0.120191">
+        </testcase>
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; initializes with a default schema when no defaultValue is provided" time="0.3532512">
+        </testcase>
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; adds a new field when the add button is clicked" time="0.3452857">
+        </testcase>
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; removes a field when the remove button is clicked" time="0.4127657">
+            <system-err>
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Primitive.div.SlotClone`.
+    at AlertDialogOverlay (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:44:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-primitive/dist/index.mjs:28:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-portal/dist/index.mjs:11:22
+    at Presence (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-presence/dist/index.mjs:19:11)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at DialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:85:11)
+    at AlertDialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs:34:11)
+    at AlertDialogPortal (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:35:6)
+    at AlertDialogContent (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:68:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at Dialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:25:5)
+    at AlertDialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs:18:11)
+    at AlertDialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:17:6)
+    at div
+    at FieldRow (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/FieldRow.tsx:586:3)
+    at div
+    at Field (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/Field.tsx:587:3)
+    at div
+    at FieldList (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/FieldList.tsx:154:3)
+    at div
+    at div
+    at div
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at JsonSchemaEditor (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/JsonSchemaEditor.tsx:1635:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; opens the settings dialog when the settings button is clicked" time="0.4920703">
+            <system-err>
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Primitive.div.SlotClone`.
+    at DialogOverlay (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:52:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-primitive/dist/index.mjs:28:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-portal/dist/index.mjs:11:22
+    at Presence (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-presence/dist/index.mjs:19:11)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at DialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:85:11)
+    at DialogPortal (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:34:6)
+    at DialogContent (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:76:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at Dialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:25:5)
+    at Dialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:16:6)
+    at SettingsDialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/SettingsDialog.tsx:260:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at JsonSchemaEditor (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/JsonSchemaEditor.tsx:1635:3)
+Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; renders correctly with rootType=&apos;array&apos;" time="0.1506131">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/utils/validator.test.ts" timestamp="2025-11-17T11:28:22.959Z" hostname="wmau3401" tests="3" failures="0" errors="0" skipped="0" time="0.0208341">
+        <testcase classname="src/test/utils/validator.test.ts" name="validator &gt; should return null for a valid schema" time="0.0106446">
+        </testcase>
+        <testcase classname="src/test/utils/validator.test.ts" name="validator &gt; should return an array of errors for an invalid schema" time="0.0020008">
+        </testcase>
+        <testcase classname="src/test/utils/validator.test.ts" name="validator &gt; should return an empty array if validation fails but ajv.errors is null" time="0.0018171">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/form/Field.test.tsx" timestamp="2025-11-17T11:28:22.964Z" hostname="wmau3401" tests="10" failures="0" errors="0" skipped="0" time="3.7347075">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; renders Field for a string type" time="0.4165729">
+        </testcase>
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; recursively renders fields for an object type" time="0.2570181">
+        </testcase>
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; adds a new field when &apos;Add Field&apos; button is clicked for an object" time="0.5438002">
+        </testcase>
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; removes a field when &apos;Delete&apos; button is clicked" time="0.5851833">
+            <system-err>
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Primitive.div.SlotClone`.
+    at AlertDialogOverlay (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:44:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-primitive/dist/index.mjs:28:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-portal/dist/index.mjs:11:22
+    at Presence (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-presence/dist/index.mjs:19:11)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at DialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:85:11)
+    at AlertDialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs:34:11)
+    at AlertDialogPortal (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:35:6)
+    at AlertDialogContent (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:68:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at Dialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:25:5)
+    at AlertDialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs:18:11)
+    at AlertDialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:17:6)
+    at div
+    at FieldRow (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/FieldRow.tsx:586:3)
+    at div
+    at Field (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/Field.tsx:587:3)
+    at div
+    at div
+    at Field (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/Field.tsx:587:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at TooltipProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-tooltip/dist/index.mjs:29:5)
+    at TooltipProvider (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/tooltip.tsx:9:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at FieldForm (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/form/Field.test.tsx:16:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; renders a nested field for an array&apos;s items" time="0.1585632">
+        </testcase>
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; disables &apos;Add Field&apos; button when readOnly is true" time="0.2045013">
+        </testcase>
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; changes the field schema when a new type is selected" time="0.4086479">
+        </testcase>
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; handles changing the type to an array" time="0.5602254">
+        </testcase>
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; handles changing the type to a number" time="0.2883551">
+        </testcase>
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; does not render a remove button for an array&apos;s item field" time="0.1815936">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/form/FieldList.test.tsx" timestamp="2025-11-17T11:28:22.974Z" hostname="wmau3401" tests="3" failures="0" errors="0" skipped="0" time="1.2512559">
+        <testcase classname="src/test/components/form/FieldList.test.tsx" name="FieldList &gt; renders a Field for each item in the fields array" time="0.5846187">
+        </testcase>
+        <testcase classname="src/test/components/form/FieldList.test.tsx" name="FieldList &gt; calls onRemove with the correct index when a field is removed" time="0.5114924">
+            <system-err>
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Primitive.div.SlotClone`.
+    at AlertDialogOverlay (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:44:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-primitive/dist/index.mjs:28:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-portal/dist/index.mjs:11:22
+    at Presence (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-presence/dist/index.mjs:19:11)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at DialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:85:11)
+    at AlertDialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs:34:11)
+    at AlertDialogPortal (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:35:6)
+    at AlertDialogContent (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:68:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at Dialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:25:5)
+    at AlertDialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs:18:11)
+    at AlertDialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:17:6)
+    at div
+    at FieldRow (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/FieldRow.tsx:586:3)
+    at div
+    at Field (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/Field.tsx:587:3)
+    at div
+    at FieldList (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/FieldList.tsx:154:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at TooltipProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-tooltip/dist/index.mjs:29:5)
+    at TooltipProvider (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/tooltip.tsx:9:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at FieldListForm (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/form/FieldList.test.tsx:16:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/form/FieldList.test.tsx" name="FieldList &gt; passes readOnly prop to child Field components" time="0.1489028">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/form/FieldRow.test.tsx" timestamp="2025-11-17T11:28:22.979Z" hostname="wmau3401" tests="7" failures="0" errors="0" skipped="0" time="1.5267178">
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; renders all inputs and buttons correctly" time="0.5667028">
+        </testcase>
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; displays default values from the form context" time="0.1261512">
+        </testcase>
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; calls onTypeChange when the type is changed" time="0.3286985">
+        </testcase>
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; calls onOpenSettings when settings button is clicked" time="0.1001764">
+        </testcase>
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; shows/hides elements based on isSimpleType and isRootLevel props" time="0.0773174">
+        </testcase>
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; disables all inputs and buttons when readOnly is true" time="0.0757372">
+        </testcase>
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; calls onRemove when delete is confirmed in the dialog" time="0.2247159">
+            <system-err>
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Primitive.div.SlotClone`.
+    at AlertDialogOverlay (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:44:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-primitive/dist/index.mjs:28:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-portal/dist/index.mjs:11:22
+    at Presence (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-presence/dist/index.mjs:19:11)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at DialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:85:11)
+    at AlertDialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs:34:11)
+    at AlertDialogPortal (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:35:6)
+    at AlertDialogContent (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:68:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at Dialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:25:5)
+    at AlertDialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs:18:11)
+    at AlertDialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/alert-dialog.tsx:17:6)
+    at div
+    at FieldRow (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/form/FieldRow.tsx:586:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at TooltipProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-tooltip/dist/index.mjs:29:5)
+    at TooltipProvider (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/tooltip.tsx:9:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at FieldRowForm (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/form/FieldRow.test.tsx:16:3)
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/ArraySettings.test.tsx" timestamp="2025-11-17T11:28:22.986Z" hostname="wmau3401" tests="9" failures="0" errors="0" skipped="0" time="1.0338143">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; renders all fields with their labels" time="0.3095707">
+        </testcase>
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; loads and displays default values correctly" time="0.1613694">
+        </testcase>
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value when user types in input" time="0.0703647">
+        </testcase>
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value to null when input is cleared" time="0.0603712">
+        </testcase>
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; toggles the checkbox value when user clicks it" time="0.1397046">
+            <system-err>
+Checkbox is changing from uncontrolled to controlled. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value to null when maxItems is cleared" time="0.0603383">
+        </testcase>
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value when user types in minContains input" time="0.080191">
+        </testcase>
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value when user types in maxContains input" time="0.0460512">
+        </testcase>
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; disables all fields when readOnly prop is true" time="0.098494">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/BooleanSettings.test.tsx" timestamp="2025-11-17T11:28:22.994Z" hostname="wmau3401" tests="5" failures="0" errors="0" skipped="0" time="1.1442954">
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; renders the default value select field" time="0.5630966">
+        </testcase>
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; shows &apos;False&apos; as the placeholder when no value is provided" time="0.0934592">
+        </testcase>
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; loads and displays default value correctly" time="0.0869139">
+        </testcase>
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; updates the value when user selects a new value" time="0.2970321">
+        </testcase>
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; disables the select field when readOnly prop is true" time="0.081591">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/IntegerSettings.test.tsx" timestamp="2025-11-17T11:28:22.998Z" hostname="wmau3401" tests="12" failures="0" errors="0" skipped="0" time="3.1668465">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; renders all standard fields correctly" time="0.5439007">
+            <system-err>
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Slot.SlotClone`.
+    at Checkbox (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/checkbox.tsx:7:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at form
+    at IntegerSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/IntegerSettings.tsx:972:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/IntegerSettings.test.tsx:52:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; loads and displays default values correctly" time="0.2744438">
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; shows and hides the enum input field when the checkbox is toggled" time="0.3700508">
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; disables all fields when readOnly prop is true" time="0.2121024">
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the form when enum values are changed" time="0.1464858">
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the format when a new one is selected" time="0.563793">
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the minimum value" time="0.1870627">
+            <system-err>
+Warning: `value` prop on `input` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at div
+    at form
+    at IntegerSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/IntegerSettings.tsx:972:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/IntegerSettings.test.tsx:52:3)
+Warning: A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at div
+    at form
+    at IntegerSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/IntegerSettings.tsx:972:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/IntegerSettings.test.tsx:52:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the maximum value " time="0.1668564">
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates exclusiveMin value" time="0.1650652">
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates exclusiveMax value" time="0.1162355">
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates multipleOf value" time="0.1864183">
+        </testcase>
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates defaultValue value" time="0.1725952">
+            <system-err>
+Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at form
+    at IntegerSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/IntegerSettings.tsx:972:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/IntegerSettings.test.tsx:52:3)
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/NumberSettings.test.tsx" timestamp="2025-11-17T11:28:23.008Z" hostname="wmau3401" tests="12" failures="0" errors="0" skipped="0" time="3.2044958">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; renders all standard fields correctly" time="0.5822467">
+            <system-err>
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Slot.SlotClone`.
+    at Checkbox (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/checkbox.tsx:7:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at form
+    at NumberSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/NumberSettings.tsx:972:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/NumberSettings.test.tsx:50:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; loads and displays default values correctly" time="0.2515228">
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; shows and hides the enum input field when the checkbox is toggled" time="0.3152587">
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; disables all fields when readOnly prop is true" time="0.2465546">
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the form when enum values are changed" time="0.1634292">
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the format when a new one is selected" time="0.6185835">
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the minimum value" time="0.2754563">
+            <system-err>
+Warning: `value` prop on `input` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at div
+    at form
+    at NumberSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/NumberSettings.tsx:972:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/NumberSettings.test.tsx:50:3)
+Warning: A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at div
+    at form
+    at NumberSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/NumberSettings.tsx:972:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/NumberSettings.test.tsx:50:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the maximum value " time="0.1966671">
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates exclusiveMin value" time="0.1402398">
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates exclusiveMax value" time="0.1177608">
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates multipleOf value" time="0.0913581">
+        </testcase>
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates defaultValue value" time="0.1723141">
+            <system-err>
+Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at form
+    at NumberSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/NumberSettings.tsx:972:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/NumberSettings.test.tsx:50:3)
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/ObjectSettings.test.tsx" timestamp="2025-11-17T11:28:23.018Z" hostname="wmau3401" tests="7" failures="0" errors="0" skipped="0" time="2.2276534">
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; renders all fields correctly" time="0.5055603">
+        </testcase>
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; loads and displays default values correctly" time="0.2031019">
+        </testcase>
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; updates value when user types in an input" time="0.2090364">
+        </testcase>
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; shows schema textarea when &apos;Specify Schema&apos; is selected" time="0.3701346">
+        </testcase>
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; disables all fields when readOnly prop is true" time="0.1330365">
+        </testcase>
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; switches additionalProperties mode when radio buttons are clicked" time="0.2756214">
+        </testcase>
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; validates JSON input in the schema textarea" time="0.5236146">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/RootSettings.test.tsx" timestamp="2025-11-17T11:28:23.023Z" hostname="wmau3401" tests="4" failures="0" errors="0" skipped="0" time="0.3610304">
+        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; renders all fields correctly" time="0.2383342">
+        </testcase>
+        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; loads and displays default values" time="0.0376183">
+        </testcase>
+        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; updates value when user types in an input" time="0.0509318">
+        </testcase>
+        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; disables fields when readOnly is true" time="0.0275968">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/Settings.test.tsx" timestamp="2025-11-17T11:28:23.026Z" hostname="wmau3401" tests="7" failures="0" errors="0" skipped="0" time="0.2305367">
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders number settings when type is number-settings" time="0.1334896">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders integer settings when type is integer-settings" time="0.0147842">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders string settings when type is string-settings" time="0.0145324">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders boolean settings when type is boolean-settings" time="0.0184007">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders array settings when type is array-settings" time="0.0152764">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders object settings when type is object-settings" time="0.0072619">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders a fallback message for an unimplemented type" time="0.0194581">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/SettingsDialog.test.tsx" timestamp="2025-11-17T11:28:23.032Z" hostname="wmau3401" tests="5" failures="0" errors="0" skipped="0" time="2.2733842">
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; does not render when isOpen is false" time="0.1677749">
+        </testcase>
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; renders the dialog with the correct title when isOpen is true" time="0.8749674">
+            <system-err>
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Primitive.div.SlotClone`.
+    at DialogOverlay (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:52:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-primitive/dist/index.mjs:28:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-portal/dist/index.mjs:11:22
+    at Presence (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-presence/dist/index.mjs:19:11)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at DialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:85:11)
+    at DialogPortal (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:34:6)
+    at DialogContent (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:76:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at Dialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:25:5)
+    at Dialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:16:6)
+    at SettingsDialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/SettingsDialog.tsx:260:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at SettingsDialogTest (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/SettingsDialog.test.tsx:27:3)
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Slot.SlotClone`.
+    at Checkbox (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/checkbox.tsx:7:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at form
+    at StringSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/StringSettings.tsx:620:3)
+    at div
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/Settings.tsx:363:3)
+    at div
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-primitive/dist/index.mjs:28:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dismissable-layer/dist/index.mjs:24:7
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-primitive/dist/index.mjs:28:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-focus-scope/dist/index.mjs:15:5
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:206:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:132:58
+    at Presence (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-presence/dist/index.mjs:19:11)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:123:64
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-primitive/dist/index.mjs:28:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-portal/dist/index.mjs:11:22
+    at Presence (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-presence/dist/index.mjs:19:11)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at DialogPortal (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:85:11)
+    at DialogPortal (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:34:6)
+    at DialogContent (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:76:3)
+    at Provider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-context/dist/index.mjs:27:15)
+    at Dialog (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-dialog/dist/index.mjs:25:5)
+    at Dialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/dialog.tsx:16:6)
+    at SettingsDialog (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/SettingsDialog.tsx:260:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at SettingsDialogTest (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/SettingsDialog.test.tsx:27:3)
+Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; calls the onClose function when the close button is clicked" time="0.5566236">
+            <system-err>
+Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; does not render settings if fieldPath is not provided" time="0.3693331">
+            <system-err>
+Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; calls onClose when the dialog&apos;s onOpenChange is triggered with false" time="0.2980027">
+            <system-err>
+Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/StringSettings.test.tsx" timestamp="2025-11-17T11:28:23.038Z" hostname="wmau3401" tests="12" failures="0" errors="0" skipped="0" time="4.5969741">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; renders all standard fields correctly" time="0.6435354">
+            <system-err>
+Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
+
+Check the render method of `Slot.SlotClone`.
+    at Checkbox (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/checkbox.tsx:7:3)
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at form
+    at StringSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/StringSettings.tsx:620:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/StringSettings.test.tsx:50:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; loads and displays default values correctly" time="0.3525496">
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value when user types in an input" time="0.3431737">
+            <system-err>
+Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at form
+    at StringSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/StringSettings.tsx:620:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/StringSettings.test.tsx:50:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; shows and hides the enum input field when the checkbox is toggled" time="0.3516948">
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates the form when enum values are changed" time="0.2531329">
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; disables all fields when readOnly prop is true" time="0.2063734">
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value to null when maxLength input is cleared" time="0.2865849">
+            <system-err>
+Warning: `value` prop on `input` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at div
+    at form
+    at StringSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/StringSettings.tsx:620:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/StringSettings.test.tsx:50:3)
+Warning: A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
+    at input
+    at C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/input.tsx:6:6
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:33:13
+    at file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/@radix-ui/react-slot/dist/index.mjs:9:13
+    at FormControl (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:106:27)
+    at div
+    at FormItem (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:59:21)
+    at Controller (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:581:37)
+    at FormField (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/ui/form.tsx:25:6)
+    at div
+    at form
+    at StringSettings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/lib/components/features/settings/StringSettings.tsx:620:3)
+    at FormProvider (file:///C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/node_modules/react-hook-form/dist/index.esm.mjs:194:13)
+    at Settings (C:/Users/goroz2/Desktop/RnD/Repositories/json-schema-editor/src/test/components/settings/StringSettings.test.tsx:50:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value to null when minLength input is cleared" time="0.1553618">
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates minLength value" time="0.2166377">
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates minLength value" time="0.1930032">
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value when user types in pattern input" time="0.3314685">
+        </testcase>
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates the format when a new one is selected" time="1.2399421">
+        </testcase>
+    </testsuite>
+</testsuites>

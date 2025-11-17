@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import dts from "vite-plugin-dts";
 import react from "@vitejs/plugin-react";
 
@@ -14,6 +14,18 @@ export default defineConfig({
       exclude: ["src/App.tsx", "src/main.tsx"],
     }),
   ],
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.ts",
+    css: true,
+    reporters: ["verbose", "junit"],
+    coverage: {
+      provider: "istanbul",
+      reporter: ["text", "json", "html", "cobertura"],
+      include: ["src/lib/components/features", "src/lib/utils"],
+    },
+  },
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),

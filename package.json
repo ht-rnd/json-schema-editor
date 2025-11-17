@@ -1,6 +1,6 @@
 {
   "name": "@ht-rnd/json-schema-editor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "Apache-2.0",
   "keywords": [
     "json-schema",
@@ -28,7 +28,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest --outputFile=./support/junit.xml run --coverage"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -59,20 +60,25 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^22.14.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.7.0",
+    "@vitest/coverage-istanbul": "^4.0.5",
     "autoprefixer": "^10.4.0",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "jsdom": "^20.0.3",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.18",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+    "vitest": "^4.0.5"
   }
 }
