@@ -8,6 +8,7 @@ import { IntegerSettings } from "../../features/settings/IntegerSettings";
 import { ObjectSettings } from "../../features/settings/ObjectSettings";
 import { RootSettings } from "./RootSettings";
 import { Separator } from "../../ui/separator";
+import { BoolCombSettings } from "./BoolCombSettings";
 
 export const Settings = ({ theme, basePath, readOnly }: SettingsProps) => {
   const { watch } = useFormContext();
@@ -78,6 +79,8 @@ export const Settings = ({ theme, basePath, readOnly }: SettingsProps) => {
       )}
 
       {typeSettings()}
+
+      <BoolCombSettings theme={theme} basePath={basePath} readOnly={readOnly} />
     </div>
   );
 };
