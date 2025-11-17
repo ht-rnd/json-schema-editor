@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="105" failures="0" errors="0" time="24.9809097">
-    <testsuite name="src/test/components/JsonSchemaEditor.test.tsx" timestamp="2025-11-07T13:16:30.824Z" hostname="wmau3401" tests="9" failures="0" errors="0" skipped="0" time="3.8717411">
-        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; renders the editor with a default schema" time="1.2055144">
+<testsuites name="vitest tests" tests="105" failures="0" errors="0" time="28.8250689">
+    <testsuite name="src/test/components/JsonSchemaEditor.test.tsx" timestamp="2025-11-17T11:28:22.943Z" hostname="wmau3401" tests="9" failures="0" errors="0" skipped="0" time="4.0525228">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; renders the editor with a default schema" time="1.3023743">
         </testcase>
-        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; calls onChange when the schema changes" time="0.435248">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; calls onChange when the schema changes" time="0.6168499">
             <system-err>
 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
     at input
@@ -19,15 +19,15 @@ Warning: A component is changing an uncontrolled input to be controlled. This is
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; displays AJV errors when the schema is invalid" time="0.2891498">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; displays AJV errors when the schema is invalid" time="0.2508443">
         </testcase>
-        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; displays AJV errors for the root schema" time="0.1049914">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; displays AJV errors for the root schema" time="0.120191">
         </testcase>
-        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; initializes with a default schema when no defaultValue is provided" time="0.2829842">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; initializes with a default schema when no defaultValue is provided" time="0.3532512">
         </testcase>
-        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; adds a new field when the add button is clicked" time="0.4596167">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; adds a new field when the add button is clicked" time="0.3452857">
         </testcase>
-        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; removes a field when the remove button is clicked" time="0.4569907">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; removes a field when the remove button is clicked" time="0.4127657">
             <system-err>
 Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
 
@@ -61,7 +61,7 @@ Check the render method of `Primitive.div.SlotClone`.
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; opens the settings dialog when the settings button is clicked" time="0.463035">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; opens the settings dialog when the settings button is clicked" time="0.4920703">
             <system-err>
 Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
 
@@ -86,25 +86,25 @@ Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogCont
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; renders correctly with rootType=&apos;array&apos;" time="0.1672128">
+        <testcase classname="src/test/components/JsonSchemaEditor.test.tsx" name="JsonSchemaEditor &gt; renders correctly with rootType=&apos;array&apos;" time="0.1506131">
         </testcase>
     </testsuite>
-    <testsuite name="src/test/utils/validator.test.ts" timestamp="2025-11-07T13:16:30.832Z" hostname="wmau3401" tests="3" failures="0" errors="0" skipped="0" time="0.013765">
-        <testcase classname="src/test/utils/validator.test.ts" name="validator &gt; should return null for a valid schema" time="0.0070911">
+    <testsuite name="src/test/utils/validator.test.ts" timestamp="2025-11-17T11:28:22.959Z" hostname="wmau3401" tests="3" failures="0" errors="0" skipped="0" time="0.0208341">
+        <testcase classname="src/test/utils/validator.test.ts" name="validator &gt; should return null for a valid schema" time="0.0106446">
         </testcase>
-        <testcase classname="src/test/utils/validator.test.ts" name="validator &gt; should return an array of errors for an invalid schema" time="0.0014649">
+        <testcase classname="src/test/utils/validator.test.ts" name="validator &gt; should return an array of errors for an invalid schema" time="0.0020008">
         </testcase>
-        <testcase classname="src/test/utils/validator.test.ts" name="validator &gt; should return an empty array if validation fails but ajv.errors is null" time="0.001247">
+        <testcase classname="src/test/utils/validator.test.ts" name="validator &gt; should return an empty array if validation fails but ajv.errors is null" time="0.0018171">
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/form/Field.test.tsx" timestamp="2025-11-07T13:16:30.834Z" hostname="wmau3401" tests="10" failures="0" errors="0" skipped="0" time="1.9396034">
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; renders Field for a string type" time="0.3489041">
+    <testsuite name="src/test/components/form/Field.test.tsx" timestamp="2025-11-17T11:28:22.964Z" hostname="wmau3401" tests="10" failures="0" errors="0" skipped="0" time="3.7347075">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; renders Field for a string type" time="0.4165729">
         </testcase>
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; recursively renders fields for an object type" time="0.2218607">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; recursively renders fields for an object type" time="0.2570181">
         </testcase>
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; adds a new field when &apos;Add Field&apos; button is clicked for an object" time="0.3373356">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; adds a new field when &apos;Add Field&apos; button is clicked for an object" time="0.5438002">
         </testcase>
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; removes a field when &apos;Delete&apos; button is clicked" time="0.3643171">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; removes a field when &apos;Delete&apos; button is clicked" time="0.5851833">
             <system-err>
 Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
 
@@ -139,23 +139,23 @@ Check the render method of `Primitive.div.SlotClone`.
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; renders a nested field for an array&apos;s items" time="0.0903274">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; renders a nested field for an array&apos;s items" time="0.1585632">
         </testcase>
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; disables &apos;Add Field&apos; button when readOnly is true" time="0.0727222">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; disables &apos;Add Field&apos; button when readOnly is true" time="0.2045013">
         </testcase>
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; changes the field schema when a new type is selected" time="0.1405207">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; changes the field schema when a new type is selected" time="0.4086479">
         </testcase>
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; handles changing the type to an array" time="0.1608508">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; handles changing the type to an array" time="0.5602254">
         </testcase>
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; handles changing the type to a number" time="0.1113636">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; handles changing the type to a number" time="0.2883551">
         </testcase>
-        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; does not render a remove button for an array&apos;s item field" time="0.0539152">
+        <testcase classname="src/test/components/form/Field.test.tsx" name="Field &gt; does not render a remove button for an array&apos;s item field" time="0.1815936">
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/form/FieldList.test.tsx" timestamp="2025-11-07T13:16:30.840Z" hostname="wmau3401" tests="3" failures="0" errors="0" skipped="0" time="1.0686254">
-        <testcase classname="src/test/components/form/FieldList.test.tsx" name="FieldList &gt; renders a Field for each item in the fields array" time="0.4986932">
+    <testsuite name="src/test/components/form/FieldList.test.tsx" timestamp="2025-11-17T11:28:22.974Z" hostname="wmau3401" tests="3" failures="0" errors="0" skipped="0" time="1.2512559">
+        <testcase classname="src/test/components/form/FieldList.test.tsx" name="FieldList &gt; renders a Field for each item in the fields array" time="0.5846187">
         </testcase>
-        <testcase classname="src/test/components/form/FieldList.test.tsx" name="FieldList &gt; calls onRemove with the correct index when a field is removed" time="0.4710353">
+        <testcase classname="src/test/components/form/FieldList.test.tsx" name="FieldList &gt; calls onRemove with the correct index when a field is removed" time="0.5114924">
             <system-err>
 Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
 
@@ -189,23 +189,23 @@ Check the render method of `Primitive.div.SlotClone`.
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/form/FieldList.test.tsx" name="FieldList &gt; passes readOnly prop to child Field components" time="0.0934098">
+        <testcase classname="src/test/components/form/FieldList.test.tsx" name="FieldList &gt; passes readOnly prop to child Field components" time="0.1489028">
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/form/FieldRow.test.tsx" timestamp="2025-11-07T13:16:30.841Z" hostname="wmau3401" tests="7" failures="0" errors="0" skipped="0" time="1.3959811">
-        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; renders all inputs and buttons correctly" time="0.4590967">
+    <testsuite name="src/test/components/form/FieldRow.test.tsx" timestamp="2025-11-17T11:28:22.979Z" hostname="wmau3401" tests="7" failures="0" errors="0" skipped="0" time="1.5267178">
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; renders all inputs and buttons correctly" time="0.5667028">
         </testcase>
-        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; displays default values from the form context" time="0.1375174">
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; displays default values from the form context" time="0.1261512">
         </testcase>
-        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; calls onTypeChange when the type is changed" time="0.280347">
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; calls onTypeChange when the type is changed" time="0.3286985">
         </testcase>
-        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; calls onOpenSettings when settings button is clicked" time="0.1241776">
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; calls onOpenSettings when settings button is clicked" time="0.1001764">
         </testcase>
-        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; shows/hides elements based on isSimpleType and isRootLevel props" time="0.0955019">
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; shows/hides elements based on isSimpleType and isRootLevel props" time="0.0773174">
         </testcase>
-        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; disables all inputs and buttons when readOnly is true" time="0.0987206">
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; disables all inputs and buttons when readOnly is true" time="0.0757372">
         </testcase>
-        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; calls onRemove when delete is confirmed in the dialog" time="0.1740992">
+        <testcase classname="src/test/components/form/FieldRow.test.tsx" name="FieldRow &gt; calls onRemove when delete is confirmed in the dialog" time="0.2247159">
             <system-err>
 Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
 
@@ -236,44 +236,44 @@ Check the render method of `Primitive.div.SlotClone`.
             </system-err>
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/settings/ArraySettings.test.tsx" timestamp="2025-11-07T13:16:30.844Z" hostname="wmau3401" tests="9" failures="0" errors="0" skipped="0" time="1.1700655">
-        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; renders all fields with their labels" time="0.3533805">
+    <testsuite name="src/test/components/settings/ArraySettings.test.tsx" timestamp="2025-11-17T11:28:22.986Z" hostname="wmau3401" tests="9" failures="0" errors="0" skipped="0" time="1.0338143">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; renders all fields with their labels" time="0.3095707">
         </testcase>
-        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; loads and displays default values correctly" time="0.2975293">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; loads and displays default values correctly" time="0.1613694">
         </testcase>
-        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value when user types in input" time="0.0883567">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value when user types in input" time="0.0703647">
         </testcase>
-        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value to null when input is cleared" time="0.0935295">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value to null when input is cleared" time="0.0603712">
         </testcase>
-        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; toggles the checkbox value when user clicks it" time="0.102764">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; toggles the checkbox value when user clicks it" time="0.1397046">
             <system-err>
 Checkbox is changing from uncontrolled to controlled. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value to null when maxItems is cleared" time="0.0470548">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value to null when maxItems is cleared" time="0.0603383">
         </testcase>
-        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value when user types in minContains input" time="0.0520488">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value when user types in minContains input" time="0.080191">
         </testcase>
-        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value when user types in maxContains input" time="0.0437811">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; updates the value when user types in maxContains input" time="0.0460512">
         </testcase>
-        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; disables all fields when readOnly prop is true" time="0.0817638">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/test/components/settings/BooleanSettings.test.tsx" timestamp="2025-11-07T13:16:30.849Z" hostname="wmau3401" tests="5" failures="0" errors="0" skipped="0" time="1.2014785">
-        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; renders the default value select field" time="0.5028345">
-        </testcase>
-        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; shows &apos;False&apos; as the placeholder when no value is provided" time="0.1675891">
-        </testcase>
-        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; loads and displays default value correctly" time="0.113088">
-        </testcase>
-        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; updates the value when user selects a new value" time="0.2983107">
-        </testcase>
-        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; disables the select field when readOnly prop is true" time="0.0892888">
+        <testcase classname="src/test/components/settings/ArraySettings.test.tsx" name="ArraySettings &gt; disables all fields when readOnly prop is true" time="0.098494">
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/settings/IntegerSettings.test.tsx" timestamp="2025-11-07T13:16:30.851Z" hostname="wmau3401" tests="12" failures="0" errors="0" skipped="0" time="2.7542802">
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; renders all standard fields correctly" time="0.509078">
+    <testsuite name="src/test/components/settings/BooleanSettings.test.tsx" timestamp="2025-11-17T11:28:22.994Z" hostname="wmau3401" tests="5" failures="0" errors="0" skipped="0" time="1.1442954">
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; renders the default value select field" time="0.5630966">
+        </testcase>
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; shows &apos;False&apos; as the placeholder when no value is provided" time="0.0934592">
+        </testcase>
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; loads and displays default value correctly" time="0.0869139">
+        </testcase>
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; updates the value when user selects a new value" time="0.2970321">
+        </testcase>
+        <testcase classname="src/test/components/settings/BooleanSettings.test.tsx" name="BooleanSettings &gt; disables the select field when readOnly prop is true" time="0.081591">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/IntegerSettings.test.tsx" timestamp="2025-11-17T11:28:22.998Z" hostname="wmau3401" tests="12" failures="0" errors="0" skipped="0" time="3.1668465">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; renders all standard fields correctly" time="0.5439007">
             <system-err>
 Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
 
@@ -293,17 +293,17 @@ Check the render method of `Slot.SlotClone`.
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; loads and displays default values correctly" time="0.3038202">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; loads and displays default values correctly" time="0.2744438">
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; shows and hides the enum input field when the checkbox is toggled" time="0.2530864">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; shows and hides the enum input field when the checkbox is toggled" time="0.3700508">
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; disables all fields when readOnly prop is true" time="0.1689525">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; disables all fields when readOnly prop is true" time="0.2121024">
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the form when enum values are changed" time="0.1609219">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the form when enum values are changed" time="0.1464858">
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the format when a new one is selected" time="0.5422117">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the format when a new one is selected" time="0.563793">
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the minimum value" time="0.1820015">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the minimum value" time="0.1870627">
             <system-err>
 Warning: `value` prop on `input` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.
     at input
@@ -338,15 +338,15 @@ Warning: A component is changing a controlled input to be uncontrolled. This is 
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the maximum value " time="0.1238044">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates the maximum value " time="0.1668564">
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates exclusiveMin value" time="0.1614289">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates exclusiveMin value" time="0.1650652">
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates exclusiveMax value" time="0.0928573">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates exclusiveMax value" time="0.1162355">
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates multipleOf value" time="0.0980314">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates multipleOf value" time="0.1864183">
         </testcase>
-        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates defaultValue value" time="0.1207316">
+        <testcase classname="src/test/components/settings/IntegerSettings.test.tsx" name="IntegerSettings &gt; updates defaultValue value" time="0.1725952">
             <system-err>
 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
     at input
@@ -366,8 +366,8 @@ Warning: A component is changing an uncontrolled input to be controlled. This is
             </system-err>
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/settings/NumberSettings.test.tsx" timestamp="2025-11-07T13:16:30.856Z" hostname="wmau3401" tests="12" failures="0" errors="0" skipped="0" time="2.8868415">
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; renders all standard fields correctly" time="0.5810047">
+    <testsuite name="src/test/components/settings/NumberSettings.test.tsx" timestamp="2025-11-17T11:28:23.008Z" hostname="wmau3401" tests="12" failures="0" errors="0" skipped="0" time="3.2044958">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; renders all standard fields correctly" time="0.5822467">
             <system-err>
 Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
 
@@ -387,17 +387,17 @@ Check the render method of `Slot.SlotClone`.
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; loads and displays default values correctly" time="0.3293238">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; loads and displays default values correctly" time="0.2515228">
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; shows and hides the enum input field when the checkbox is toggled" time="0.2417244">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; shows and hides the enum input field when the checkbox is toggled" time="0.3152587">
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; disables all fields when readOnly prop is true" time="0.1767039">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; disables all fields when readOnly prop is true" time="0.2465546">
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the form when enum values are changed" time="0.1424209">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the form when enum values are changed" time="0.1634292">
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the format when a new one is selected" time="0.6394861">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the format when a new one is selected" time="0.6185835">
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the minimum value" time="0.1468025">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the minimum value" time="0.2754563">
             <system-err>
 Warning: `value` prop on `input` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.
     at input
@@ -432,15 +432,15 @@ Warning: A component is changing a controlled input to be uncontrolled. This is 
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the maximum value " time="0.1376435">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates the maximum value " time="0.1966671">
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates exclusiveMin value" time="0.1247185">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates exclusiveMin value" time="0.1402398">
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates exclusiveMax value" time="0.1000696">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates exclusiveMax value" time="0.1177608">
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates multipleOf value" time="0.1077787">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates multipleOf value" time="0.0913581">
         </testcase>
-        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates defaultValue value" time="0.1232316">
+        <testcase classname="src/test/components/settings/NumberSettings.test.tsx" name="NumberSettings &gt; updates defaultValue value" time="0.1723141">
             <system-err>
 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
     at input
@@ -460,52 +460,52 @@ Warning: A component is changing an uncontrolled input to be controlled. This is
             </system-err>
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/settings/ObjectSettings.test.tsx" timestamp="2025-11-07T13:16:30.862Z" hostname="wmau3401" tests="7" failures="0" errors="0" skipped="0" time="1.9995819">
-        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; renders all fields correctly" time="0.5476881">
+    <testsuite name="src/test/components/settings/ObjectSettings.test.tsx" timestamp="2025-11-17T11:28:23.018Z" hostname="wmau3401" tests="7" failures="0" errors="0" skipped="0" time="2.2276534">
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; renders all fields correctly" time="0.5055603">
         </testcase>
-        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; loads and displays default values correctly" time="0.1571762">
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; loads and displays default values correctly" time="0.2031019">
         </testcase>
-        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; updates value when user types in an input" time="0.191583">
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; updates value when user types in an input" time="0.2090364">
         </testcase>
-        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; shows schema textarea when &apos;Specify Schema&apos; is selected" time="0.2870251">
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; shows schema textarea when &apos;Specify Schema&apos; is selected" time="0.3701346">
         </testcase>
-        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; disables all fields when readOnly prop is true" time="0.116481">
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; disables all fields when readOnly prop is true" time="0.1330365">
         </testcase>
-        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; switches additionalProperties mode when radio buttons are clicked" time="0.2343552">
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; switches additionalProperties mode when radio buttons are clicked" time="0.2756214">
         </testcase>
-        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; validates JSON input in the schema textarea" time="0.4584748">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/test/components/settings/RootSettings.test.tsx" timestamp="2025-11-07T13:16:30.865Z" hostname="wmau3401" tests="4" failures="0" errors="0" skipped="0" time="0.3210041">
-        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; renders all fields correctly" time="0.2165084">
-        </testcase>
-        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; loads and displays default values" time="0.0319285">
-        </testcase>
-        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; updates value when user types in an input" time="0.042917">
-        </testcase>
-        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; disables fields when readOnly is true" time="0.0240139">
+        <testcase classname="src/test/components/settings/ObjectSettings.test.tsx" name="ObjectSettings &gt; validates JSON input in the schema textarea" time="0.5236146">
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/settings/Settings.test.tsx" timestamp="2025-11-07T13:16:30.867Z" hostname="wmau3401" tests="7" failures="0" errors="0" skipped="0" time="0.1902454">
-        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders number settings when type is number-settings" time="0.1118218">
+    <testsuite name="src/test/components/settings/RootSettings.test.tsx" timestamp="2025-11-17T11:28:23.023Z" hostname="wmau3401" tests="4" failures="0" errors="0" skipped="0" time="0.3610304">
+        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; renders all fields correctly" time="0.2383342">
         </testcase>
-        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders integer settings when type is integer-settings" time="0.0129821">
+        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; loads and displays default values" time="0.0376183">
         </testcase>
-        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders string settings when type is string-settings" time="0.0139412">
+        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; updates value when user types in an input" time="0.0509318">
         </testcase>
-        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders boolean settings when type is boolean-settings" time="0.0100293">
-        </testcase>
-        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders array settings when type is array-settings" time="0.0112255">
-        </testcase>
-        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders object settings when type is object-settings" time="0.0059932">
-        </testcase>
-        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders a fallback message for an unimplemented type" time="0.017979">
+        <testcase classname="src/test/components/settings/RootSettings.test.tsx" name="RootSettings &gt; disables fields when readOnly is true" time="0.0275968">
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/settings/SettingsDialog.test.tsx" timestamp="2025-11-07T13:16:30.870Z" hostname="wmau3401" tests="5" failures="0" errors="0" skipped="0" time="2.1079215">
-        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; does not render when isOpen is false" time="0.1905503">
+    <testsuite name="src/test/components/settings/Settings.test.tsx" timestamp="2025-11-17T11:28:23.026Z" hostname="wmau3401" tests="7" failures="0" errors="0" skipped="0" time="0.2305367">
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders number settings when type is number-settings" time="0.1334896">
         </testcase>
-        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; renders the dialog with the correct title when isOpen is true" time="0.7972889">
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders integer settings when type is integer-settings" time="0.0147842">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders string settings when type is string-settings" time="0.0145324">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders boolean settings when type is boolean-settings" time="0.0184007">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders array settings when type is array-settings" time="0.0152764">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders object settings when type is object-settings" time="0.0072619">
+        </testcase>
+        <testcase classname="src/test/components/settings/Settings.test.tsx" name="Settings &gt; renders a fallback message for an unimplemented type" time="0.0194581">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/test/components/settings/SettingsDialog.test.tsx" timestamp="2025-11-17T11:28:23.032Z" hostname="wmau3401" tests="5" failures="0" errors="0" skipped="0" time="2.2733842">
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; does not render when isOpen is false" time="0.1677749">
+        </testcase>
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; renders the dialog with the correct title when isOpen is true" time="0.8749674">
             <system-err>
 Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
 
@@ -571,27 +571,27 @@ Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogCont
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; calls the onClose function when the close button is clicked" time="0.4753232">
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; calls the onClose function when the close button is clicked" time="0.5566236">
             <system-err>
 Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; does not render settings if fieldPath is not provided" time="0.3463951">
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; does not render settings if fieldPath is not provided" time="0.3693331">
             <system-err>
 Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; calls onClose when the dialog&apos;s onOpenChange is triggered with false" time="0.2912234">
+        <testcase classname="src/test/components/settings/SettingsDialog.test.tsx" name="SettingsDialog &gt; calls onClose when the dialog&apos;s onOpenChange is triggered with false" time="0.2980027">
             <system-err>
 Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
 
             </system-err>
         </testcase>
     </testsuite>
-    <testsuite name="src/test/components/settings/StringSettings.test.tsx" timestamp="2025-11-07T13:16:30.873Z" hostname="wmau3401" tests="12" failures="0" errors="0" skipped="0" time="4.0597751">
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; renders all standard fields correctly" time="0.7196228">
+    <testsuite name="src/test/components/settings/StringSettings.test.tsx" timestamp="2025-11-17T11:28:23.038Z" hostname="wmau3401" tests="12" failures="0" errors="0" skipped="0" time="4.5969741">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; renders all standard fields correctly" time="0.6435354">
             <system-err>
 Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
 
@@ -611,9 +611,9 @@ Check the render method of `Slot.SlotClone`.
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; loads and displays default values correctly" time="0.3811766">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; loads and displays default values correctly" time="0.3525496">
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value when user types in an input" time="0.2350101">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value when user types in an input" time="0.3431737">
             <system-err>
 Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
     at input
@@ -632,13 +632,13 @@ Warning: A component is changing an uncontrolled input to be controlled. This is
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; shows and hides the enum input field when the checkbox is toggled" time="0.4139615">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; shows and hides the enum input field when the checkbox is toggled" time="0.3516948">
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates the form when enum values are changed" time="0.2160136">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates the form when enum values are changed" time="0.2531329">
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; disables all fields when readOnly prop is true" time="0.2438566">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; disables all fields when readOnly prop is true" time="0.2063734">
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value to null when maxLength input is cleared" time="0.1817314">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value to null when maxLength input is cleared" time="0.2865849">
             <system-err>
 Warning: `value` prop on `input` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.
     at input
@@ -673,15 +673,15 @@ Warning: A component is changing a controlled input to be uncontrolled. This is 
 
             </system-err>
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value to null when minLength input is cleared" time="0.1987631">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value to null when minLength input is cleared" time="0.1553618">
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates minLength value" time="0.1669146">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates minLength value" time="0.2166377">
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates minLength value" time="0.1054589">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates minLength value" time="0.1930032">
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value when user types in pattern input" time="0.1698569">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates value when user types in pattern input" time="0.3314685">
         </testcase>
-        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates the format when a new one is selected" time="1.0072832">
+        <testcase classname="src/test/components/settings/StringSettings.test.tsx" name="StringSettings &gt; updates the format when a new one is selected" time="1.2399421">
         </testcase>
     </testsuite>
 </testsuites>
