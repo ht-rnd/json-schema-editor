@@ -39,6 +39,10 @@ export type JSONSchema = z.infer<typeof baseSchema> & {
   items?: JSONSchema | JSONSchema[];
   required?: string[];
   additionalProperties?: boolean | JSONSchema;
+  allOf?: JSONSchema[];
+  anyOf?: JSONSchema[];
+  oneOf?: JSONSchema[];
+  not?: JSONSchema;
 };
 
 const jsonSchema: z.ZodType<JSONSchema> = baseSchema.extend({
@@ -48,6 +52,10 @@ const jsonSchema: z.ZodType<JSONSchema> = baseSchema.extend({
   additionalProperties: z
     .lazy(() => z.union([z.boolean(), jsonSchema]))
     .optional(),
+  allOf: z.lazy(() => z.array(jsonSchema)).optional(),
+  anyOf: z.lazy(() => z.array(jsonSchema)).optional(),
+  oneOf: z.lazy(() => z.array(jsonSchema)).optional(),
+  not: z.lazy(() => jsonSchema).optional(),
 });
 
 const formSchema = z.object({
