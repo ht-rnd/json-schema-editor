@@ -8,8 +8,13 @@ import {
   FormMessage,
 } from "../../ui/form";
 import { Input } from "../../ui/input";
+import { DefinitionsSettings } from "./DefinitionsSettings";
 
-export const RootSettings = ({ basePath, readOnly }: SchemaSettingsProps) => {
+export const RootSettings = ({
+  theme,
+  basePath,
+  readOnly,
+}: SchemaSettingsProps) => {
   const { control } = useFormContext();
 
   return (
@@ -47,6 +52,12 @@ export const RootSettings = ({ basePath, readOnly }: SchemaSettingsProps) => {
             <FormMessage />
           </FormItem>
         )}
+      />
+
+      <DefinitionsSettings
+        theme={theme}
+        basePath={basePath}
+        readOnly={readOnly}
       />
     </div>
   );

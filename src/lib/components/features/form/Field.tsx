@@ -11,7 +11,7 @@ export const Field = ({
   fieldPath,
   onRemove,
   onOpenSettings,
-  isSimpleType = true,
+  defs = false,
   isRootLevel = false,
 }: FieldProps) => {
   const { control, setValue } = useFormContext();
@@ -48,7 +48,7 @@ export const Field = ({
         readOnly={readOnly}
         control={control}
         fieldPath={fieldPath}
-        isSimpleType={isSimpleType}
+        defs={defs}
         isRootLevel={isRootLevel}
         onRemove={onRemove}
         onOpenSettings={onOpenSettings}
@@ -62,6 +62,7 @@ export const Field = ({
               key={field.id}
               readOnly={readOnly}
               theme={theme}
+              defs={defs}
               fieldPath={`${fieldPath}.schema.properties.${index}`}
               onRemove={() => remove(index)}
               onOpenSettings={onOpenSettings}
@@ -91,7 +92,6 @@ export const Field = ({
             fieldPath={`${fieldPath}.schema.items`}
             onRemove={() => {}}
             onOpenSettings={onOpenSettings}
-            isSimpleType={false}
           />
         </div>
       )}

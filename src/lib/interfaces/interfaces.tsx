@@ -41,40 +41,40 @@ export interface SchemaSettingsProps {
 
 export interface FieldRowProps {
   theme: "dark" | "light";
-  readOnly: boolean;
+  readOnly?: boolean;
+  defs?: boolean;
   control: any;
   fieldPath: string;
-  isSimpleType: boolean;
   isRootLevel: boolean;
   onRemove: () => void;
-  onOpenSettings: (path: string) => void;
+  onOpenSettings?: (path: string) => void;
   onTypeChange: (newType: string) => void;
 }
 
 export interface FieldProps {
   theme: "dark" | "light";
-  readOnly: boolean;
+  readOnly?: boolean;
   fieldPath: string;
+  defs?: boolean;
   onRemove: () => void;
-  onOpenSettings: (path: string) => void;
-  isSimpleType?: boolean;
+  onOpenSettings?: (path: string) => void;
   isRootLevel?: boolean;
 }
 
 export interface FieldListProps {
   theme: "dark" | "light";
-  readOnly: boolean;
+  readOnly?: boolean;
   fields: FieldArrayWithId<any, "properties", "fieldId">[];
   onRemove: (index: number) => void;
-  onOpenSettings: (path: string) => void;
+  onOpenSettings?: (path: string) => void;
 }
 
 export interface RootProps {
   theme: "dark" | "light";
-  readOnly: boolean;
+  readOnly?: boolean;
   rootType: "object" | "array";
   onAddField: () => void;
-  onOpenSettings: (path: string) => void;
+  onOpenSettings?: (path: string) => void;
 }
 
 export interface JsonSchemaEditorProps {

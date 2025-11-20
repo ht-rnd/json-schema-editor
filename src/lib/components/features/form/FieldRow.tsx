@@ -23,15 +23,15 @@ import {
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/tooltip";
-import { Hammer, Settings, Trash2, TriangleAlert } from "lucide-react";
+import { Link2, Settings, Trash2, TriangleAlert } from "lucide-react";
 
 export const FieldRow = ({
   theme,
   readOnly,
   control,
   fieldPath,
-  isSimpleType,
   isRootLevel,
+  defs,
   onRemove,
   onOpenSettings,
   onTypeChange,
@@ -41,9 +41,19 @@ export const FieldRow = ({
     name: `${fieldPath}.key`,
   });
 
+  const definitions = useWatch({
+    control,
+    name: "definitions",
+  });
+
+  const fieldType = useWatch({
+    control,
+    name: `${fieldPath}.schema.type`,
+  });
+
   return (
     <div className="p-2 flex gap-2" data-testid="field">
-      {isSimpleType && (
+      {fieldType !== "array" && (
         <Controller
           control={control}
           name={`${fieldPath}.key`}
@@ -74,45 +84,84 @@ export const FieldRow = ({
               <SelectValue />
             </SelectTrigger>
             <SelectContent
-              className={`${theme} max-h-52 bg-background text-foreground border-input`}
+              className={`${theme} max-h-64 bg-background text-foreground border-input`}
             >
               {types.map((type) => (
                 <SelectItem key={type} value={type}>
                   {type}
                 </SelectItem>
               ))}
+              <SelectItem value="ref">reference</SelectItem>
             </SelectContent>
           </Select>
         )}
       />
 
-      <Controller
-        control={control}
-        name={`${fieldPath}.schema.title`}
-        render={({ field }) => (
-          <Input
-            placeholder="Title"
-            disabled={readOnly}
-            className="flex-1"
-            {...field}
+      {fieldType !== "ref" ? (
+        <>
+          <Controller
+            control={control}
+            name={`${fieldPath}.schema.title`}
+            render={({ field }) => (
+              <Input
+                placeholder="Title"
+                disabled={readOnly}
+                className="flex-1"
+                {...field}
+              />
+            )}
           />
-        )}
-      />
 
-      <Controller
-        control={control}
-        name={`${fieldPath}.schema.description`}
-        render={({ field }) => (
-          <Input
-            placeholder="Description"
-            disabled={readOnly}
-            className="flex-1"
-            {...field}
+          <Controller
+            control={control}
+            name={`${fieldPath}.schema.description`}
+            render={({ field }) => (
+              <Input
+                placeholder="Description"
+                disabled={readOnly}
+                className="flex-1"
+                {...field}
+              />
+            )}
           />
-        )}
-      />
+        </>
+      ) : (
+        <div className="flex-1 flex gap-2 items-center">
+          <Link2 size={16} className="text-muted-foreground" />
+          <Controller
+            control={control}
+            name={`${fieldPath}.schema.$ref`}
+            render={({ field }) => (
+              <Select
+                disabled={readOnly}
+                onValueChange={field.onChange}
+                value={field.value}
+              >
+                <SelectTrigger className="flex-1">
+                  <SelectValue placeholder="Select a definition..." />
+                </SelectTrigger>
+                <SelectContent
+                  className={`${theme} max-h-64 bg-background text-foreground border-input`}
+                >
+                  {definitions && definitions.length > 0 ? (
+                    definitions.map((def: any) => (
+                      <SelectItem key={def.id} value={`#/$defs/${def.key}`}>
+                        {def.key}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <div className="p-2 text-sm text-muted-foreground">
+                      No definitions found. Create one in Root Settings.
+                    </div>
+                  )}
+                </SelectContent>
+              </Select>
+            )}
+          />
+        </div>
+      )}
 
-      {isSimpleType && (
+      {fieldType !== "array" && !defs && fieldType !== "ref" && (
         <div className="flex gap-2">
           <Controller
             control={control}
@@ -167,13 +216,15 @@ export const FieldRow = ({
         </div>
       )}
 
-      <Button
-        size="icon"
-        variant="ghost"
-        onClick={() => onOpenSettings(`${fieldPath}.schema`)}
-      >
-        <Settings className="text-blue-500" />
-      </Button>
+      {!defs && fieldType !== "ref" && (
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={() => onOpenSettings?.(`${fieldPath}.schema`)}
+        >
+          <Settings className="text-blue-500" />
+        </Button>
+      )}
 
       {isRootLevel && (
         <AlertDialog>

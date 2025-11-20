@@ -10,7 +10,7 @@ import {
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/tooltip";
-import { Hammer, PlusCircle, Settings, TriangleAlert } from "lucide-react";
+import { PlusCircle, Settings, TriangleAlert } from "lucide-react";
 
 export const Root = ({
   theme,
@@ -105,7 +105,7 @@ export const Root = ({
         size="icon"
         variant="ghost"
         data-testid="root-settings-button"
-        onClick={() => onOpenSettings("root")}
+        onClick={() => onOpenSettings?.("root")}
       >
         <Settings className="text-blue-500" />
       </Button>

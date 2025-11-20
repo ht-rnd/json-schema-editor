@@ -32,6 +32,7 @@ const baseSchema = z.object({
   enum: z.array(z.any()).optional(),
   $id: z.string().optional(),
   $schema: z.string().optional(),
+  $ref: z.string().optional(),
 });
 
 export type JSONSchema = z.infer<typeof baseSchema> & {
@@ -43,6 +44,7 @@ export type JSONSchema = z.infer<typeof baseSchema> & {
   anyOf?: JSONSchema[];
   oneOf?: JSONSchema[];
   not?: JSONSchema;
+  $defs?: { [key: string]: JSONSchema };
 };
 
 const jsonSchema: z.ZodType<JSONSchema> = baseSchema.extend({
@@ -56,6 +58,7 @@ const jsonSchema: z.ZodType<JSONSchema> = baseSchema.extend({
   anyOf: z.lazy(() => z.array(jsonSchema)).optional(),
   oneOf: z.lazy(() => z.array(jsonSchema)).optional(),
   not: z.lazy(() => jsonSchema).optional(),
+  $defs: z.lazy(() => z.record(z.string(), jsonSchema)).optional(),
 });
 
 const formSchema = z.object({
@@ -68,11 +71,27 @@ const formSchema = z.object({
       schema: jsonSchema,
     })
   ),
+  definitions: z.array(
+    z.object({
+      id: z.string(),
+      key: z.string().min(1),
+      schema: jsonSchema,
+    })
+  ),
 });
 
 const formToSchema = (formData: z.infer<typeof formSchema>): JSONSchema => {
   const transformToSchema = (schema: any): JSONSchema => {
+    if (schema.type === "ref" && schema.$ref) {
+      return {
+        $ref: schema.$ref,
+        ...(schema.title && { title: schema.title }),
+        ...(schema.description && { description: schema.description }),
+      };
+    }
+
     const newSchema = { ...schema };
+    if (newSchema.type === "ref") delete newSchema.type;
 
     if (Array.isArray(newSchema.properties)) {
       const propertiesObject: { [key: string]: JSONSchema } = {};
@@ -128,12 +147,25 @@ const formToSchema = (formData: z.infer<typeof formSchema>): JSONSchema => {
     finalSchema.required = required;
   }
 
+  if (formData.definitions && formData.definitions.length > 0) {
+    const defs: { [key: string]: JSONSchema } = {};
+    formData.definitions.forEach((def) => {
+      if (def.key) {
+        defs[def.key] = transformToSchema(def.schema);
+      }
+    });
+    finalSchema.$defs = defs;
+  }
+
   return finalSchema;
 };
 
 const schemaToForm = (schema: JSONSchema): z.infer<typeof formSchema> => {
   const transformToForm = (currentSchema: JSONSchema): any => {
     const newSchema: any = { ...currentSchema };
+    if (newSchema.$ref) {
+      newSchema.type = "ref";
+    }
 
     if (
       typeof newSchema.properties === "object" &&
@@ -167,13 +199,25 @@ const schemaToForm = (schema: JSONSchema): z.infer<typeof formSchema> => {
     return newSchema;
   };
 
-  const { properties, required, ...rootData } = schema;
+  const { properties, required, $defs, ...rootData } = schema;
   const rootProperties = { properties, required };
   const transformedRoot = transformToForm(rootProperties);
+
+  const definitionsArray: any[] = [];
+  if ($defs) {
+    Object.keys($defs).forEach((key) => {
+      definitionsArray.push({
+        id: nanoid(6),
+        key: key,
+        schema: transformToForm($defs[key]),
+      });
+    });
+  }
 
   return {
     root: { ...rootData, ...transformedRoot.root },
     properties: transformedRoot.properties || [],
+    definitions: definitionsArray,
   };
 };
 
@@ -207,6 +251,7 @@ export const useSchemaForm = ({
                   },
                 ]
               : [],
+          definitions: [],
         },
   });
 
