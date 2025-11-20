@@ -178,7 +178,7 @@ export const useSchemaForm = ({
 }) => {
   const id = nanoid(6);
   const methods = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as any,
     defaultValues: defaultValue
       ? schemaToForm(defaultValue)
       : {
