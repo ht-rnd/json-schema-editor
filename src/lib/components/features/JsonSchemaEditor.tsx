@@ -31,8 +31,7 @@ export const JsonSchemaEditor = ({
 }: JsonSchemaEditorProps) => {
   const { methods, jsonSchema } = useSchemaForm({ rootType, defaultValue });
 
-  const { setError, clearErrors, watch } = methods;
-  const properties = watch("properties");
+  const { setError, clearErrors, getValues } = methods;
   const [ajvErrors, setAjvErrors] = useState<any[] | null>(null);
 
   useEffect(() => {
@@ -51,6 +50,8 @@ export const JsonSchemaEditor = ({
   useEffect(() => {
     clearErrors();
     if (ajvErrors) {
+      const properties = getValues("properties");
+
       ajvErrors.forEach((error) => {
         const pathParts = error.instancePath.split("/").filter(Boolean);
         if (pathParts[0] === "properties" && pathParts.length >= 3) {
@@ -74,7 +75,7 @@ export const JsonSchemaEditor = ({
         }
       });
     }
-  }, [ajvErrors, properties, setError, clearErrors]);
+  }, [ajvErrors, getValues, setError, clearErrors]);
 
   useEffect(() => {
     if (!defaultValue) {
