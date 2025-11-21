@@ -12,13 +12,65 @@ export const DefinitionsSettings = ({
   theme,
   readOnly,
 }: SchemaSettingsProps) => {
-  const { control } = useFormContext();
+  const { control, getValues, setValue } = useFormContext();
   const [isOpen, setIsOpen] = useState(false);
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "definitions",
   });
+
+  const updateReferences = (oldKey: string, newKey: string | null) => {
+    const oldRef = `#/$defs/${oldKey}`;
+    const newRef = newKey ? `#/$defs/${newKey}` : "";
+
+    const formData = getValues();
+
+    const traverse = (path: string, item: any) => {
+      if (!item) return;
+
+      if (item.schema && item.schema.$ref === oldRef) {
+        setValue(`${path}.schema.$ref`, newRef);
+      }
+      if (item.$ref === oldRef) {
+        setValue(`${path}.$ref`, newRef);
+      }
+
+      if (item.schema?.properties && Array.isArray(item.schema.properties)) {
+        item.schema.properties.forEach((subField: any, idx: number) => {
+          traverse(`${path}.schema.properties.${idx}`, subField);
+        });
+      }
+      if (item.properties && Array.isArray(item.properties)) {
+        item.properties.forEach((subField: any, idx: number) => {
+          traverse(`${path}.properties.${idx}`, subField);
+        });
+      }
+      if (item.schema?.items) {
+        if (!Array.isArray(item.schema.items)) {
+          traverse(`${path}.schema.items`, { schema: item.schema.items });
+        }
+      }
+    };
+
+    if (formData.properties) {
+      formData.properties.forEach((field: any, index: number) => {
+        traverse(`properties.${index}`, field);
+      });
+    }
+    if (formData.definitions) {
+      formData.definitions.forEach((def: any, index: number) => {
+        if (def.key !== oldKey) {
+          traverse(`definitions.${index}`, def);
+        }
+      });
+    }
+    if (formData.root) {
+      if (formData.root.$ref === oldRef) {
+        setValue(`root.$ref`, newRef);
+      }
+    }
+  };
 
   const handleAddDefinition = () => {
     const id = nanoid(6);
@@ -62,7 +114,14 @@ export const DefinitionsSettings = ({
                   fieldPath={`definitions.${index}`}
                   defs={true}
                   isRootLevel={true}
-                  onRemove={() => remove(index)}
+                  onRemove={() => {
+                    const currentKey = getValues(`definitions.${index}.key`);
+                    updateReferences(currentKey, null);
+                    remove(index);
+                  }}
+                  onKeyChange={(oldKey, newKey) =>
+                    updateReferences(oldKey, newKey)
+                  }
                 />
               </div>
             ))}

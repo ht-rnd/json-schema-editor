@@ -1,4 +1,4 @@
-import { Controller, useWatch } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { FieldRowProps } from "../../../interfaces/interfaces";
 import { types } from "../../../consts/consts";
 import { cn } from "../../../utils/utils";
@@ -35,7 +35,10 @@ export const FieldRow = ({
   onRemove,
   onOpenSettings,
   onTypeChange,
+  onKeyChange,
 }: FieldRowProps) => {
+  const { setValue } = useFormContext();
+
   const fieldName = useWatch({
     control,
     name: `${fieldPath}.key`,
@@ -63,6 +66,14 @@ export const FieldRow = ({
               disabled={readOnly}
               className="w-40"
               {...field}
+              onChange={(e) => {
+                const oldKey = field.value;
+                const newKey = e.target.value;
+                field.onChange(e);
+                if (onKeyChange && oldKey !== newKey) {
+                  onKeyChange(oldKey, newKey);
+                }
+              }}
             />
           )}
         />
@@ -132,32 +143,40 @@ export const FieldRow = ({
             control={control}
             name={`${fieldPath}.schema.$ref`}
             render={({ field }) => (
-              <Select
+              <Input
+                {...field}
                 disabled={readOnly}
-                onValueChange={field.onChange}
-                value={field.value}
-              >
-                <SelectTrigger className="flex-1">
-                  <SelectValue placeholder="Select a definition..." />
-                </SelectTrigger>
-                <SelectContent
-                  className={`${theme} max-h-64 bg-background text-foreground border-input`}
-                >
-                  {definitions && definitions.length > 0 ? (
-                    definitions.map((def: any) => (
-                      <SelectItem key={def.id} value={`#/$defs/${def.key}`}>
-                        {def.key}
-                      </SelectItem>
-                    ))
-                  ) : (
-                    <div className="p-2 text-sm text-muted-foreground">
-                      No definitions found. Create one in Root Settings.
-                    </div>
-                  )}
-                </SelectContent>
-              </Select>
+                placeholder="#/defs/definition or https://example.com/schema"
+                className="flex-1 font-mono text-xs"
+              />
             )}
           />
+          <Select
+            disabled={readOnly}
+            onValueChange={(value) => {
+              setValue(`${fieldPath}.schema.$ref`, value, {
+                shouldDirty: true,
+              });
+            }}
+            value=""
+          >
+            <SelectTrigger />
+            <SelectContent
+              className={`${theme} min-w-52 max-h-64 bg-background text-foreground border-input`}
+            >
+              {definitions && definitions.length > 0 ? (
+                definitions.map((def: any) => (
+                  <SelectItem key={def.id} value={`#/$defs/${def.key}`}>
+                    {def.key}
+                  </SelectItem>
+                ))
+              ) : (
+                <div className="p-2 text-sm text-muted-foreground">
+                  No definitions found. Create one in Root Settings.
+                </div>
+              )}
+            </SelectContent>
+          </Select>
         </div>
       )}
 

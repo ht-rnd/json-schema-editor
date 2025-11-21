@@ -49,6 +49,7 @@ export interface FieldRowProps {
   onRemove: () => void;
   onOpenSettings?: (path: string) => void;
   onTypeChange: (newType: string) => void;
+  onKeyChange?: (oldKey: string, newKey: string) => void;
 }
 
 export interface FieldProps {
@@ -58,6 +59,7 @@ export interface FieldProps {
   defs?: boolean;
   onRemove: () => void;
   onOpenSettings?: (path: string) => void;
+  onKeyChange?: (oldKey: string, newKey: string) => void;
   isRootLevel?: boolean;
 }
 

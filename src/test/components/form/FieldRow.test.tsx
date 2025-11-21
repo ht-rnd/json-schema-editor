@@ -18,7 +18,6 @@ const FieldRowForm = ({
     field: { key: "name", isRequired: false, schema: { type: "string" } },
   },
   readOnly = false,
-  isSimpleType = true,
   isRootLevel = true,
   onRemove = vi.fn(),
   onOpenSettings = vi.fn(),
@@ -33,7 +32,6 @@ const FieldRowForm = ({
           readOnly={readOnly}
           control={methods.control}
           fieldPath="field"
-          isSimpleType={isSimpleType}
           isRootLevel={isRootLevel}
           onRemove={onRemove}
           onOpenSettings={onOpenSettings}
@@ -88,21 +86,6 @@ describe("FieldRow", () => {
 
     fireEvent.click(screen.getAllByRole("button")[1]);
     expect(onOpenSettings).toHaveBeenCalledWith("field.schema");
-  });
-
-  it("shows/hides elements based on isSimpleType and isRootLevel props", () => {
-    const { rerender } = render(
-      <FieldRowForm isSimpleType={false} isRootLevel={false} />
-    );
-
-    expect(screen.queryByPlaceholderText("field_name")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("required")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("delete-button")).not.toBeInTheDocument();
-
-    rerender(<FieldRowForm isSimpleType={true} isRootLevel={true} />);
-    expect(screen.getByPlaceholderText("field_name")).toBeInTheDocument();
-    expect(screen.getByTestId("required")).toBeInTheDocument();
-    expect(screen.getByTestId("delete-button")).toBeInTheDocument();
   });
 
   it("disables all inputs and buttons when readOnly is true", () => {

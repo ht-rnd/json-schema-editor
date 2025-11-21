@@ -23,7 +23,7 @@ export const App: React.FC = () => {
             <JsonSchemaEditor
               rootType="object"
               readOnly={false}
-              theme="light"
+              theme="dark"
               onChange={(jsonSchema) => {
                 //console.log(jsonSchema);
               }}

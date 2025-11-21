@@ -11,6 +11,7 @@ export const Field = ({
   fieldPath,
   onRemove,
   onOpenSettings,
+  onKeyChange,
   defs = false,
   isRootLevel = false,
 }: FieldProps) => {
@@ -53,6 +54,7 @@ export const Field = ({
         onRemove={onRemove}
         onOpenSettings={onOpenSettings}
         onTypeChange={handleTypeChange}
+        onKeyChange={onKeyChange}
       />
 
       {fieldType === "object" && (

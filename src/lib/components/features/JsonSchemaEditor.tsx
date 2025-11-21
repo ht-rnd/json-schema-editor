@@ -195,7 +195,7 @@ export const JsonSchemaEditor = ({
                   fieldPath="root.items"
                   onRemove={() => {}}
                   onOpenSettings={openSettings}
-                  isSimpleType={false}
+                  defs={false}
                   isRootLevel={false}
                 />
               </div>
