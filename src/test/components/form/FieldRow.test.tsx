@@ -13,8 +13,11 @@ beforeAll(() => {
   };
 });
 
+type Definition = { id: string; key: string; schema: any };
+
 const FieldRowForm = ({
   defaultValues = {
+    definitions: [] as Definition[],
     field: { key: "name", isRequired: false, schema: { type: "string" } },
   },
   readOnly = false,
@@ -22,6 +25,8 @@ const FieldRowForm = ({
   onRemove = vi.fn(),
   onOpenSettings = vi.fn(),
   onTypeChange = vi.fn(),
+  onKeyChange = vi.fn(),
+  defs = false,
 }) => {
   const methods = useForm({ defaultValues });
   return (
@@ -36,6 +41,8 @@ const FieldRowForm = ({
           onRemove={onRemove}
           onOpenSettings={onOpenSettings}
           onTypeChange={onTypeChange}
+          onKeyChange={onKeyChange}
+          defs={defs}
         />
       </TooltipProvider>
     </FormProvider>
@@ -56,6 +63,7 @@ describe("FieldRow", () => {
 
   it("displays default values from the form context", () => {
     const defaultValues = {
+      definitions: [],
       field: {
         key: "user_age",
         isRequired: true,
@@ -108,5 +116,101 @@ describe("FieldRow", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Delete" }));
     expect(onRemove).toHaveBeenCalledTimes(1);
+  });
+
+  it("triggers onKeyChange when the field key input is modified", () => {
+    const onKeyChange = vi.fn();
+    render(<FieldRowForm onKeyChange={onKeyChange} />);
+
+    const input = screen.getByPlaceholderText("field_name");
+
+    fireEvent.change(input, { target: { value: "new_name" } });
+    expect(onKeyChange).toHaveBeenCalledWith("name", "new_name");
+  });
+
+  it("renders the reference input and select when type is 'ref'", () => {
+    const defaultValues = {
+      definitions: [{ id: "1", key: "def", schema: {} }],
+      field: {
+        key: "key",
+        schema: { type: "ref", $ref: "" },
+        isRequired: true,
+      },
+    };
+
+    render(<FieldRowForm defaultValues={defaultValues} />);
+
+    expect(screen.queryByPlaceholderText("Title")).not.toBeInTheDocument();
+    expect(
+      screen.queryByPlaceholderText("Description")
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.getByPlaceholderText(
+        "#/defs/definition or https://example.com/schema"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole("combobox", { hidden: true })[0]
+    ).toBeInTheDocument();
+  });
+
+  it("allows selecting a definition from the dropdown", () => {
+    const defaultValues = {
+      definitions: [
+        { id: "def1", key: "Address", schema: {} },
+        { id: "def2", key: "Product", schema: {} },
+      ],
+      field: {
+        key: "user",
+        schema: { type: "ref", $ref: "" },
+        isRequired: true,
+      },
+    };
+    render(<FieldRowForm defaultValues={defaultValues} />);
+
+    const triggers = screen.getAllByRole("combobox");
+    const select = triggers[1];
+    fireEvent.click(select);
+
+    expect(screen.getByText("Address")).toBeInTheDocument();
+    expect(screen.getByText("Product")).toBeInTheDocument();
+
+    const input = screen.getByPlaceholderText(
+      "#/defs/definition or https://example.com/schema"
+    );
+
+    fireEvent.click(screen.getByText("Address"));
+    expect(input).toHaveValue("#/$defs/Address");
+  });
+
+  it("displays a fallback message if no definitions exist", () => {
+    const defaultValues = {
+      definitions: [],
+      field: {
+        key: "user",
+        schema: { type: "ref", $ref: "" },
+        isRequired: true,
+      },
+    };
+
+    render(<FieldRowForm defaultValues={defaultValues} />);
+
+    const triggers = screen.getAllByRole("combobox");
+    fireEvent.click(triggers[1]);
+
+    expect(
+      screen.getByText("No definitions found. Create one in Root Settings.")
+    ).toBeInTheDocument();
+  });
+
+  it("hides Required and Settings buttons when 'defs' prop is true", () => {
+    const defaultValues = {
+      definitions: [],
+      field: { key: "name", schema: { type: "string" }, isRequired: true },
+    };
+    render(<FieldRowForm defaultValues={defaultValues} defs={true} />);
+
+    expect(screen.queryByTestId("required")).not.toBeInTheDocument();
   });
 });
