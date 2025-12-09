@@ -1,20 +1,13 @@
 # @ht-rnd/json-schema-editor
 
-A modern, highly customizable, and themeable JSON Schema editor built with React, TypeScript, and shadcn/ui.
+A headless JSON Schema editor library for React. This package provides the core logic, hooks, and utilities for building JSON Schema editors, while allowing complete control over the UI.
 
-This component provides a clean, intuitive interface for visually building and editing JSON Schemas. It features real-time JSON output and live validation against the official JSON Schema specification, powered by AJV.
+## Architecture
 
-## Features
+This library follows the **headless UI pattern** (similar to [TanStack Table](https://github.com/TanStack/table) or [cmdk](https://github.com/pacocoursey/cmdk)):
 
-- **Modern Stack:** Built with React, TypeScript, Tailwind CSS, and `shadcn/ui`.
-- **Visual Editing:** Add, remove, and configure schema properties in a clear, row-based UI.
-- **Deeply Nested Schemas:** Full support for nested `object` and `array` types with recursion.
-- **Advanced Settings:** A detailed settings dialog for each property type (string, number, boolean, object, array).
-- **Real-time Output:** Instantly see the generated JSON Schema as you build.
-- **Live Schema Validation:** Integrated `ajv` validator provides real-time feedback and inline errors if your schema violates the JSON Schema specification.
-- **Highly Configurable:** Control the root type (`object` or `array`) and layout via props.
-- **Themeable:** Supports dark/light themes and custom styling.
-- **Read-Only Mode:** A prop to disable all interactions for display purposes.
+- **NPM Package**: Contains only the headless core - hooks, types, validation, and utilities
+- **Components Folder**: Contains copy-paste shadcn-style React components for the UI
 
 ## Installation
 
@@ -22,283 +15,242 @@ This component provides a clean, intuitive interface for visually building and e
 npm install @ht-rnd/json-schema-editor
 ```
 
-## Usage and Setup
+### For UI Components
 
-Integration requires two simple steps: configuring Tailwind and then using the component.
+Copy the `components/json-schema-editor/` folder from this repository into your project. These components are designed to be customized and follow [shadcn/ui](https://ui.shadcn.com/) principles.
 
-### Step 1: Configure Tailwind CSS
+**Required peer dependencies for UI components:**
 
-Because this library is built with Tailwind, your project's Tailwind process needs to know to scan this library's files for class names.
-
-In your project's tailwind.config.js (or .cjs), add the path to the library within your content array:
-
-```ts
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx}", // Your app's files
-
-    // Add this line
-    "./node_modules/@ht-rnd/json-schema-editor/dist/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    // ...
-  },
-  plugins: [],
-};
+```bash
+npm install @radix-ui/react-alert-dialog @radix-ui/react-checkbox @radix-ui/react-dialog \
+  @radix-ui/react-label @radix-ui/react-radio-group @radix-ui/react-select \
+  @radix-ui/react-separator @radix-ui/react-slot @radix-ui/react-tooltip \
+  class-variance-authority clsx lucide-react tailwind-merge tailwindcss-animate
 ```
 
-### Step 2: Use the Component
+## Usage
+
+### Option 1: Using the Headless Hook (Full Control)
+
+Use the `useJsonSchemaEditor` hook directly for complete control over the UI:
 
 ```tsx
-import { JsonSchemaEditor } from "@ht-rnd/json-schema-editor";
-function MySchema() {
-  const existingSchema: any = {
-    type: "object",
-    title: "Existing User Schema",
-    properties: {
-      name: { type: "string" },
-      age: { type: "number", minimum: 0 },
-    },
-    required: ["name"],
-  };
+import { useJsonSchemaEditor, FormProvider } from "@ht-rnd/json-schema-editor";
+
+function MyCustomEditor() {
+  const editor = useJsonSchemaEditor({
+    rootType: "object",
+    onChange: (schema) => console.log("Schema changed:", schema),
+  });
 
   return (
-    <div className="p-8">
-      <JsonSchemaEditor
-        rootType="object"
-        theme="light"
-        readOnly={false}
-        defaultValue={existingSchema}
-        onChange={(jsonSchema) => {
-          console.log(jsonSchema);
-        }}
-      />
-    </div>
+    <FormProvider {...editor.form}>
+      <div>
+        {/* Your custom UI here */}
+        <pre>{JSON.stringify(editor.schema, null, 2)}</pre>
+        
+        <button onClick={editor.addField}>Add Field</button>
+        
+        {editor.fields.map((field, index) => (
+          <div key={field.id}>
+            {/* Render your custom field UI */}
+            <button onClick={() => editor.removeField(index)}>Remove</button>
+          </div>
+        ))}
+
+        {editor.errors && (
+          <div>
+            {editor.errors.map((error, i) => (
+              <p key={i}>{error.message}</p>
+            ))}
+          </div>
+        )}
+      </div>
+    </FormProvider>
   );
 }
-export default MySchema;
 ```
 
-## Theming and Customization
+### Option 2: Using the Pre-built Components
 
-This library is built on the `shadcn/ui` theming architecture, which relies on CSS variables for colors, borders, spacing, and radius. You can easily override these variables in your own project to match your application's design system.
+Copy the components from `components/json-schema-editor/` and use them directly:
 
-1. In your project's global CSS file (e.g., `src/index.css`), define your custom theme variables inside a `@layer base` block.
-2. Your definitions will automatically override the library's default theme.
+```tsx
+import { JsonSchemaEditor } from "@/components/json-schema-editor";
 
-When you pass the `theme="dark"` prop to the JsonSchemaEditor, it will apply a `.dark` class to its root element, causing the browser to use the variables defined in your `.dark { ... }` block.
-
-### Example `index.css`:
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --primary: 329 100% 44%;
-    --primary-hover: 329 100% 38%;
-    --primary-pressed: 329 100% 31%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 3.8% 80%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --radius: 0.75rem;
-  }
-
-  .dark {
-    --background: 240 5.9% 10%;
-    --foreground: 0 0% 92%;
-    --primary: 330 96% 35%;
-    --primary-hover: 330 96% 41%;
-    --primary-pressed: 330 96% 48%;
-    --primary-foreground: 240 17.1% 92%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 92%;
-    --muted: 240 3.8% 40%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 92%;
-    --destructive: 0 100% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 30%;
-    --input: 240 3.7% 30%;
-  }
-}
-
-/* You can also add global styles like scrollbar theming */
-* {
-  scrollbar-color: hsl(var(--muted)) hsl(var(--background));
+function App() {
+  return (
+    <JsonSchemaEditor
+      rootType="object"
+      theme="light"
+      readOnly={false}
+      onChange={(schema) => console.log(schema)}
+      styles={{
+        form: { width: "full", height: "md" },
+        output: { position: "bottom", showJson: true, width: "full", height: "md" },
+      }}
+    />
+  );
 }
 ```
 
-### Tailwind Configuration
+### Option 3: Mix and Match
 
-For theming to work correctly you should ensure your project's `tailwind.config.js` (or `tailwind.config.ts`) includes the color tokens and `borderRadius` settings used by this library. Below is an example you can merge into your `theme.extend` section.
+Use the headless hook with some pre-built components:
 
-```ts
-colors: {
-  magenta: {
-    50: "#ffe5ed",
-    100: "#ffcddb",
-    200: "#ffa3be",
-    300: "#ff79a2",
-    400: "#ff4f85",
-    500: "#e6004e",
-    600: "#b8003f",
-    700: "#8f0033",
-    800: "#660026",
-    900: "#3d0019",
-    950: "#260010",
-  },
-  magentaHover: "hsl(var(--magentaHover))",
-  border: "hsl(var(--border))",
-  input: "hsl(var(--input))",
-  ring: "hsl(var(--ring))",
-  background: "hsl(var(--background))",
-  foreground: "hsl(var(--foreground))",
-  primary: {
-    DEFAULT: "hsl(var(--primary))",
-    foreground: "hsl(var(--primary-foreground))",
-    hover: "hsl(var(--primary-hover))",
-    pressed: "hsl(var(--primary-pressed))",
-  },
-  secondary: {
-    DEFAULT: "hsl(var(--secondary))",
-    foreground: "hsl(var(--secondary-foreground))",
-  },
-  destructive: {
-    DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
-    foreground: "hsl(var(--destructive-foreground) / <alpha-value>)",
-  },
-  muted: {
-    DEFAULT: "hsl(var(--muted))",
-    foreground: "hsl(var(--muted-foreground))",
-  },
-  accent: {
-    DEFAULT: "hsl(var(--accent))",
-    foreground: "hsl(var(--accent-foreground))",
-  },
-  popover: {
-    DEFAULT: "hsl(var(--popover))",
-    foreground: "hsl(var(--popover-foreground))",
-  },
-  card: {
-    DEFAULT: "hsl(var(--card))",
-    foreground: "hsl(var(--card-foreground))",
-  },
-  sidebar: {
-    DEFAULT: "hsl(var(--sidebar-background))",
-    foreground: "hsl(var(--sidebar-foreground))",
-    primary: "hsl(var(--sidebar-primary))",
-    "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-    accent: "hsl(var(--sidebar-accent))",
-    "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-    border: "hsl(var(--sidebar-border))",
-    ring: "hsl(var(--sidebar-ring))",
-  },
-},
-borderRadius: {
-  "2xl": "calc(var(--radius) + 6px)",
-  xl: "calc(var(--radius) + 4px)",
-  lg: "var(--radius)",
-  md: "calc(var(--radius) - 2px)",
-  sm: "calc(var(--radius) - 4px)",
-  xs: "calc(var(--radius) - 5px)",
-  "2xs": "calc(var(--radius) - 7px)",
-},
+```tsx
+import { useJsonSchemaEditor } from "@ht-rnd/json-schema-editor";
+import { Root, FieldList, SettingsDialog } from "@/components/json-schema-editor";
+import { FormProvider } from "react-hook-form";
+
+function HybridEditor() {
+  const editor = useJsonSchemaEditor({ rootType: "object" });
+
+  return (
+    <FormProvider {...editor.form}>
+      <Root
+        rootType="object"
+        onAddField={editor.addField}
+        onOpenSettings={editor.openSettings}
+      />
+      
+      <FieldList
+        fields={editor.fields}
+        onRemove={editor.removeField}
+        onOpenSettings={editor.openSettings}
+      />
+
+      {/* Your custom JSON output */}
+      <textarea value={JSON.stringify(editor.schema, null, 2)} readOnly />
+
+      <SettingsDialog
+        isOpen={editor.settingsState.isOpen}
+        fieldPath={editor.settingsState.fieldPath}
+        onClose={editor.closeSettings}
+      />
+    </FormProvider>
+  );
+}
 ```
 
 ## API Reference
 
-### `<JsonSchemaEditor />` Props
+### `useJsonSchemaEditor(options)`
 
-| Prop           | Type                            | Default    | Description                                                                                                  |
-| :------------- | :------------------------------ | :--------- | :----------------------------------------------------------------------------------------------------------- |
-| `rootType`     | `'object'` \| `'array'`         | `'object'` | Sets the root type of the schema.                                                                            |
-| `readOnly`     | `boolean`                       | `false`    | Disables all user interactions, making the editor a display-only component.                                  |
-| `theme`        | `string` (e.g., `'dark'`)       | `''`       | A class name to apply for theming (e.g., pass `"dark"` for dark mode).                                       |
-| `styles`       | `Styles`                        | `{...}`    | An object to control the layout, width, and spacing of the editor panels.                                    |
-| `onChange`     | `(schema: JSONSchema) => void` | `none`     | A callback function that is invoked with the final schema object on any change.                              |
-| `defaultValue` | `JSONSchema`                   | `none`     | An existing JSON Schema object to load into the editor. When provided, this will override the rootType prop. |
+The main headless hook for managing JSON Schema editor state.
 
-### The `styles` Prop
+#### Options
 
-You can customize the layout and dimensions of the editor using the `styles` prop. You only need to provide the properties you wish to override.
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `rootType` | `"object" \| "array"` | `"object"` | Root schema type |
+| `defaultValue` | `JSONSchema` | - | Initial schema value |
+| `onChange` | `(schema: JSONSchema) => void` | - | Callback when schema changes |
 
-**Type Definition:**
+#### Returns
 
-```ts
-interface Styles {
-  form: {
-    width: "sm" | "md" | "lg" | "full";
-    height: "sm" | "md" | "lg" | "full";
-  };
-  output: {
-    position: "top" | "bottom" | "left" | "right";
-    showJson: boolean;
-    width: "sm" | "md" | "lg" | "full";
-    height: "sm" | "md" | "lg" | "full";
-  };
-  settings: {
-    width: "sm" | "md" | "lg" | "full";
-  };
-  spacing: "sm" | "md" | "lg";
+| Property | Type | Description |
+|----------|------|-------------|
+| `schema` | `JSONSchema` | Current JSON Schema output |
+| `errors` | `ErrorObject[] \| null` | AJV validation errors |
+| `fields` | `FieldItem[]` | Field array for iteration |
+| `form` | `UseFormReturn` | React Hook Form methods |
+| `settingsState` | `{ isOpen, fieldPath }` | Settings dialog state |
+| `addField()` | `() => void` | Add a new field |
+| `removeField(index)` | `(index: number) => void` | Remove field by index |
+| `openSettings(path)` | `(path: string) => void` | Open settings for a field |
+| `closeSettings()` | `() => void` | Close settings dialog |
+| `handleTypeChange(path, type)` | `(path: string, type: string) => void` | Change field type |
+| `reset()` | `() => void` | Reset to default state |
+
+### Exports
+
+```typescript
+// Core hook
+export { useJsonSchemaEditor } from "@ht-rnd/json-schema-editor";
+
+// Types
+export type {
+  JSONSchema,
+  FormSchema,
+  JsonSchemaEditorOptions,
+  SettingsState,
+  FieldItem,
+  SchemaType,
+} from "@ht-rnd/json-schema-editor";
+
+// Validation
+export { validateSchema } from "@ht-rnd/json-schema-editor";
+
+// Constants
+export {
+  SCHEMA_TYPES,
+  INTEGER_FORMATS,
+  NUMBER_FORMATS,
+  STRING_FORMATS,
+  DEFAULT_SCHEMA_URI,
+} from "@ht-rnd/json-schema-editor";
+
+// Transforms (for advanced usage)
+export { formToSchema, schemaToForm } from "@ht-rnd/json-schema-editor";
+```
+
+## Customizing Components
+
+The components in `components/json-schema-editor/` follow shadcn/ui patterns:
+
+1. **`cn()` utility**: All components use the `cn()` function to merge Tailwind classes
+2. **`className` prop**: Every component accepts a `className` prop for customization
+3. **`forwardRef`**: Components forward refs for DOM access
+4. **Composable**: Use individual components or compose your own
+
+### Example: Customizing the FieldRow
+
+```tsx
+import { FieldRow } from "@/components/json-schema-editor";
+
+<FieldRow
+  className="bg-slate-50 dark:bg-slate-900 rounded-lg"
+  fieldPath="properties.0"
+  theme="dark"
+  // ... other props
+/>
+```
+
+### Example: Creating a Custom Field Component
+
+```tsx
+import * as React from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import { cn } from "./lib/utils";
+import { Input } from "./ui/input";
+
+interface MyCustomFieldProps extends React.HTMLAttributes<HTMLDivElement> {
+  fieldPath: string;
 }
+
+const MyCustomField = React.forwardRef<HTMLDivElement, MyCustomFieldProps>(
+  ({ className, fieldPath, ...props }, ref) => {
+    const { control } = useFormContext();
+
+    return (
+      <div ref={ref} className={cn("flex gap-2", className)} {...props}>
+        <Controller
+          control={control}
+          name={`${fieldPath}.key`}
+          render={({ field }) => (
+            <Input {...field} placeholder="Field name" />
+          )}
+        />
+      </div>
+    );
+  }
+);
+MyCustomField.displayName = "MyCustomField";
+
+export { MyCustomField };
 ```
-
-**Example Usage:**
-
-```tsx
-// Example 1: Move the JSON output to the right side
-<JsonSchemaEditor
-  styles={{
-    output: { position: "right" },
-  }}
-/>
-```
-
-```tsx
-// Example 2: Make the form wider and use less spacing
-<JsonSchemaEditor
-  styles={{
-    form: { width: "lg" },
-    spacing: "sm",
-  }}
-/>
-```
-
-```tsx
-// Example 3: Hide the JSON output entirely
-<JsonSchemaEditor
-  styles={{
-    output: { showJson: false },
-  }}
-/>
-```
-
-## Technology Stack
-
-- React
-- TypeScript
-- React Hook Form for powerful and performant form state management.
-- Zod for schema validation and type inference.
-- AJV for real-time validation against the JSON Schema specification.
-- Tailwind CSS for utility-first styling.
-- shadcn/ui for the base component primitives.
-- Vite for the build tooling.
 
 ## License
 
-Licensed under the Apache License 2.0
+Apache-2.0

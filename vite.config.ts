@@ -11,7 +11,7 @@ export default defineConfig({
       rollupTypes: true,
       outDir: "dist/types",
       include: ["src/lib"],
-      exclude: ["src/App.tsx", "src/main.tsx"],
+      exclude: ["src/App.tsx", "src/main.tsx", "components/**/*"],
     }),
   ],
   test: {
@@ -19,16 +19,17 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/test/setup.ts",
     css: true,
-    reporters: ["verbose", "junit"],
+    reporters: ["verbose"],
     coverage: {
       provider: "istanbul",
-      reporter: ["text", "json", "html", "cobertura"],
-      include: ["src/lib/components/features", "src/lib/utils"],
+      reporter: ["text", "json", "html"],
+      include: ["src/lib/core/**/*.ts"],
     },
   },
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),
+      "@ht-rnd/json-schema-editor": resolve(__dirname, "src/lib"),
     },
   },
   build: {
