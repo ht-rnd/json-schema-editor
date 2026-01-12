@@ -24,6 +24,7 @@ describe("transforms", () => {
             schema: { type: "integer" },
           },
         ],
+        definitions: [],
       };
 
       const result = formToSchema(formData);
@@ -60,6 +61,7 @@ describe("transforms", () => {
             },
           },
         ],
+        definitions: [],
       };
 
       const result = formToSchema(formData);
@@ -80,6 +82,7 @@ describe("transforms", () => {
           items: { type: "string" },
         },
         properties: [],
+        definitions: [],
       };
 
       const result = formToSchema(formData);

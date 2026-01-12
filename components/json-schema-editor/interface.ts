@@ -9,3 +9,9 @@ export interface DivSettingsProps extends React.HTMLAttributes<HTMLDivElement> {
   basePath: string;
   readOnly?: boolean;
 }
+
+export interface DefinitionItem {
+  id: string;
+  key: string;
+  schema: any;
+}

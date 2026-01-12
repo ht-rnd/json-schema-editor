@@ -1,7 +1,8 @@
 import { SCHEMA_TYPES } from "@ht-rnd/json-schema-editor";
-import { Settings, Trash2, TriangleAlert } from "lucide-react";
+import { Link2, Settings, Trash2, TriangleAlert } from "lucide-react";
 import * as React from "react";
-import { Controller, useWatch } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
+import type { DefinitionItem } from "../interface";
 import { cn } from "../lib/utils";
 import {
   AlertDialog,
@@ -24,11 +25,12 @@ export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
   control: any;
   fieldPath: string;
   schemaPath: string;
-  isSimpleType?: boolean;
+  defs?: boolean;
   isRootLevel?: boolean;
   onRemove?: () => void;
   onOpenSettings?: (path: string) => void;
   onTypeChange?: (newType: string) => void;
+  onKeyChange?: (oldKey: string, newKey: string) => void;
 }
 
 const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
@@ -39,19 +41,34 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
       control,
       fieldPath,
       schemaPath,
-      isSimpleType = true,
+      defs = false,
       isRootLevel = false,
       onRemove,
       onOpenSettings,
       onTypeChange,
+      onKeyChange,
       ...props
     },
     ref,
   ) => {
+    const { setValue } = useFormContext();
+
     const fieldName = useWatch({
       control,
       name: `${fieldPath}.key`,
     });
+
+    const definitions = useWatch({
+      control,
+      name: "definitions",
+    }) as DefinitionItem[] | undefined;
+
+    const fieldType = useWatch({
+      control,
+      name: `${schemaPath}.type`,
+    });
+
+    const isSimpleType = fieldType !== "array";
 
     return (
       <div ref={ref} className={cn("p-2 flex gap-2", className)} data-testid="field" {...props}>
@@ -60,7 +77,20 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
             control={control}
             name={`${fieldPath}.key`}
             render={({ field }) => (
-              <Input placeholder="field_name" disabled={readOnly} className="w-40" {...field} />
+              <Input
+                placeholder="field_name"
+                disabled={readOnly}
+                className="w-40"
+                {...field}
+                onChange={(e) => {
+                  const oldKey = field.value;
+                  const newKey = e.target.value;
+                  field.onChange(e);
+                  if (onKeyChange && oldKey !== newKey) {
+                    onKeyChange(oldKey, newKey);
+                  }
+                }}
+              />
             )}
           />
         )}
@@ -80,39 +110,87 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
               <SelectTrigger className="w-40">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="max-h-52">
+              <SelectContent className="max-h-64">
                 {SCHEMA_TYPES.map((type: string) => (
                   <SelectItem key={type} value={type}>
                     {type}
                   </SelectItem>
                 ))}
+                <SelectItem value="ref">reference</SelectItem>
               </SelectContent>
             </Select>
           )}
         />
 
-        <Controller
-          control={control}
-          name={`${schemaPath}.title`}
-          render={({ field }) => (
-            <Input placeholder="Title" disabled={readOnly} className="flex-1 min-w-24" {...field} />
-          )}
-        />
-
-        <Controller
-          control={control}
-          name={`${schemaPath}.description`}
-          render={({ field }) => (
-            <Input
-              placeholder="Description"
-              disabled={readOnly}
-              className="flex-1 min-w-32"
-              {...field}
+        {fieldType !== "ref" ? (
+          <>
+            <Controller
+              control={control}
+              name={`${schemaPath}.title`}
+              render={({ field }) => (
+                <Input
+                  placeholder="Title"
+                  disabled={readOnly}
+                  className="flex-1 min-w-24"
+                  {...field}
+                />
+              )}
             />
-          )}
-        />
 
-        {isSimpleType && (
+            <Controller
+              control={control}
+              name={`${schemaPath}.description`}
+              render={({ field }) => (
+                <Input
+                  placeholder="Description"
+                  disabled={readOnly}
+                  className="flex-1 min-w-32"
+                  {...field}
+                />
+              )}
+            />
+          </>
+        ) : (
+          <div className="flex-1 flex gap-2 items-center">
+            <Link2 size={16} className="text-muted-foreground shrink-0" />
+            <Controller
+              control={control}
+              name={`${schemaPath}.$ref`}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  disabled={readOnly}
+                  placeholder="#/$defs/definition or https://example.com/schema"
+                  className="flex-1 font-mono text-xs"
+                />
+              )}
+            />
+            <Select
+              disabled={readOnly}
+              onValueChange={(value) => {
+                setValue(`${schemaPath}.$ref`, value, { shouldDirty: true });
+              }}
+              value=""
+            >
+              <SelectTrigger className="w-10 shrink-0" />
+              <SelectContent className="min-w-52 max-h-64">
+                {definitions && definitions.length > 0 ? (
+                  definitions.map((def) => (
+                    <SelectItem key={def.id} value={`#/$defs/${def.key}`}>
+                      {def.key}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <div className="p-2 text-sm text-muted-foreground">
+                    No definitions found. Create one in Root Settings.
+                  </div>
+                )}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {isSimpleType && !defs && fieldType !== "ref" && (
           <div className="flex gap-2">
             <Controller
               control={control}
@@ -143,14 +221,11 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
           </div>
         )}
 
-        <Button
-          type="button"
-          size="icon"
-          variant="ghost"
-          onClick={() => onOpenSettings?.(schemaPath)}
-        >
-          <Settings className="text-blue-500" />
-        </Button>
+        {!defs && fieldType !== "ref" && (
+          <Button type="button" size="icon" variant="ghost" onClick={() => onOpenSettings?.(schemaPath)}>
+            <Settings className="text-blue-500" />
+          </Button>
+        )}
 
         {isRootLevel && (
           <AlertDialog>

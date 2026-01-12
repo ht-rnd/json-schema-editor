@@ -9,9 +9,10 @@ import { FieldRow } from "./field-row";
 export interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   readOnly?: boolean;
   fieldPath: string;
+  defs?: boolean;
   onRemove?: () => void;
   onOpenSettings?: (path: string) => void;
-  isSimpleType?: boolean;
+  onKeyChange?: (oldKey: string, newKey: string) => void;
   isRootLevel?: boolean;
   isSchemaDirect?: boolean;
 }
@@ -22,9 +23,10 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
       className,
       readOnly = false,
       fieldPath,
+      defs = false,
       onRemove,
       onOpenSettings,
-      isSimpleType = true,
+      onKeyChange,
       isRootLevel = false,
       isSchemaDirect = false,
       ...props
@@ -60,6 +62,8 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
         };
       } else if (newType === "array") {
         newValue = { type: "array" };
+      } else if (newType === "ref") {
+        newValue = { type: "ref", $ref: "" };
       } else {
         newValue = { type: newType };
       }
@@ -73,11 +77,12 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           control={control}
           fieldPath={fieldPath}
           schemaPath={schemaPath}
-          isSimpleType={isSimpleType}
+          defs={defs}
           isRootLevel={isRootLevel}
           onRemove={onRemove}
           onOpenSettings={onOpenSettings}
           onTypeChange={handleTypeChange}
+          onKeyChange={onKeyChange}
         />
 
         {fieldType === "object" && (
@@ -113,7 +118,6 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
               fieldPath={`${schemaPath}.items`}
               onRemove={() => {}}
               onOpenSettings={onOpenSettings}
-              isSimpleType={false}
               isSchemaDirect={true}
             />
           </div>

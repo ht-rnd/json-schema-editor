@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { formToSchema, schemaToForm } from "./transforms";
 import type {
+  DefinitionItem,
   FieldItem,
   FormSchema,
   JSONSchema,
@@ -18,10 +19,14 @@ export interface UseJsonSchemaEditorReturn {
   schema: JSONSchema;
   errors: ErrorObject[] | null;
   fields: FieldItem[];
+  definitions: DefinitionItem[];
   form: ReturnType<typeof useForm<FormSchema>>;
   settingsState: SettingsState;
   addField: () => void;
   removeField: (index: number) => void;
+  addDefinition: () => void;
+  removeDefinition: (index: number) => void;
+  updateReferences: (oldKey: string, newKey: string | null) => void;
   openSettings: (path: string) => void;
   closeSettings: () => void;
   handleTypeChange: (fieldPath: string, newType: string) => void;
@@ -76,6 +81,7 @@ export function useJsonSchemaEditor(
               },
             ]
           : [],
+      definitions: [],
     }),
     [rootType],
   );
@@ -91,6 +97,16 @@ export function useJsonSchemaEditor(
     control: form.control,
     name: "properties",
     keyName: "fieldId",
+  });
+
+  const {
+    fields: definitionFields,
+    append: appendDefinition,
+    remove: removeDefinition,
+  } = useFieldArray({
+    control: form.control,
+    name: "definitions",
+    keyName: "defId",
   });
 
   const [jsonSchema, setJsonSchema] = useState<JSONSchema>(() => formToSchema(getValues()));
@@ -175,6 +191,87 @@ export function useJsonSchemaEditor(
     [remove],
   );
 
+  const addDefinition = useCallback(() => {
+    const id = nanoid(6);
+    appendDefinition({
+      id,
+      key: `def_${id}`,
+      schema: { type: "object", additionalProperties: true },
+    });
+  }, [appendDefinition]);
+
+  const handleRemoveDefinition = useCallback(
+    (index: number) => {
+      const currentKey = getValues(`definitions.${index}.key`);
+      // Clear all references to this definition before removing
+      updateReferencesInternal(currentKey, null);
+      removeDefinition(index);
+    },
+    [getValues, removeDefinition],
+  );
+
+  // Function to update all references when a definition key changes
+  const updateReferencesInternal = useCallback(
+    (oldKey: string, newKey: string | null) => {
+      const oldRef = `#/$defs/${oldKey}`;
+      const newRef = newKey ? `#/$defs/${newKey}` : "";
+      const formData = getValues();
+
+      const traverse = (path: string, item: any) => {
+        if (!item) return;
+
+        // Check schema.$ref
+        if (item.schema && item.schema.$ref === oldRef) {
+          setValue(`${path}.schema.$ref` as any, newRef);
+        }
+        // Check direct $ref
+        if (item.$ref === oldRef) {
+          setValue(`${path}.$ref` as any, newRef);
+        }
+
+        // Traverse nested properties
+        if (item.schema?.properties && Array.isArray(item.schema.properties)) {
+          item.schema.properties.forEach((subField: any, idx: number) => {
+            traverse(`${path}.schema.properties.${idx}`, subField);
+          });
+        }
+        if (item.properties && Array.isArray(item.properties)) {
+          item.properties.forEach((subField: any, idx: number) => {
+            traverse(`${path}.properties.${idx}`, subField);
+          });
+        }
+        // Traverse array items
+        if (item.schema?.items) {
+          if (!Array.isArray(item.schema.items)) {
+            traverse(`${path}.schema.items`, { schema: item.schema.items });
+          }
+        }
+      };
+
+      // Traverse all properties
+      if (formData.properties) {
+        formData.properties.forEach((field: any, index: number) => {
+          traverse(`properties.${index}`, field);
+        });
+      }
+      // Traverse all definitions (except the one being renamed)
+      if (formData.definitions) {
+        formData.definitions.forEach((def: any, index: number) => {
+          if (def.key !== oldKey) {
+            traverse(`definitions.${index}`, def);
+          }
+        });
+      }
+      // Check root
+      if (formData.root) {
+        if ((formData.root as any).$ref === oldRef) {
+          setValue("root.$ref" as any, newRef);
+        }
+      }
+    },
+    [getValues, setValue],
+  );
+
   const openSettings = useCallback((path: string) => {
     setSettingsState({ isOpen: true, fieldPath: path });
   }, []);
@@ -194,6 +291,8 @@ export function useJsonSchemaEditor(
         };
       } else if (newType === "array") {
         newValue = { type: "array" };
+      } else if (newType === "ref") {
+        newValue = { type: "ref", $ref: "" };
       } else {
         newValue = { type: newType };
       }
@@ -229,10 +328,14 @@ export function useJsonSchemaEditor(
     schema: jsonSchema,
     errors: ajvErrors,
     fields: fields as FieldItem[],
+    definitions: definitionFields as unknown as DefinitionItem[],
     form,
     settingsState,
     addField,
     removeField,
+    addDefinition,
+    removeDefinition: handleRemoveDefinition,
+    updateReferences: updateReferencesInternal,
     openSettings,
     closeSettings,
     handleTypeChange,
