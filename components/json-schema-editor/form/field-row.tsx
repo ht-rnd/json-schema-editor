@@ -222,7 +222,12 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
         )}
 
         {!defs && fieldType !== "ref" && (
-          <Button type="button" size="icon" variant="ghost" onClick={() => onOpenSettings?.(schemaPath)}>
+          <Button
+            type="button"
+            size="icon"
+            variant="ghost"
+            onClick={() => onOpenSettings?.(schemaPath)}
+          >
             <Settings className="text-blue-500" />
           </Button>
         )}

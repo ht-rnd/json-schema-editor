@@ -39,11 +39,7 @@ const BoolCombField = ({ basePath, readOnly = false, keyword, isSchema }: BoolCo
   const handleTextChange = (newText: string) => {
     setTextValue(newText);
 
-    if (
-      newText.trim() === "" ||
-      newText.trim() === "null" ||
-      newText.trim() === "undefined"
-    ) {
+    if (newText.trim() === "" || newText.trim() === "null" || newText.trim() === "undefined") {
       setValue(fieldName, undefined);
       setJsonError(null);
       clearErrors(fieldName);
@@ -58,9 +54,7 @@ const BoolCombField = ({ basePath, readOnly = false, keyword, isSchema }: BoolCo
 
       if (validationErrors) {
         const errorMessage = Array.isArray(validationErrors)
-          ? validationErrors
-              .map((error) => `${error.instancePath} - ${error.message}`)
-              .join(", ")
+          ? validationErrors.map((error) => `${error.instancePath} - ${error.message}`).join(", ")
           : "Invalid schema structure.";
         setJsonError(errorMessage);
       } else {
@@ -85,11 +79,7 @@ const BoolCombField = ({ basePath, readOnly = false, keyword, isSchema }: BoolCo
               rows={5}
               disabled={readOnly}
               className="font-mono text-xs"
-              placeholder={
-                isSchema
-                  ? 'e.g., { "type": "string" }'
-                  : 'e.g., [{ "minLength": 2 }]'
-              }
+              placeholder={isSchema ? 'e.g., { "type": "string" }' : 'e.g., [{ "minLength": 2 }]'}
               value={textValue || ""}
               onChange={(e) => handleTextChange(e.target.value)}
             />
