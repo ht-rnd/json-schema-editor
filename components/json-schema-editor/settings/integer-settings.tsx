@@ -1,6 +1,7 @@
 import { INTEGER_FORMATS } from "@ht-rnd/json-schema-editor";
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
+import type { SettingsProps } from "../interface";
 import { cn } from "../lib/utils";
 import { Checkbox } from "../ui/checkbox";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
@@ -8,14 +9,7 @@ import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { TagsInput } from "../ui/tags-input";
 
-export interface IntegerSettingsProps extends React.HTMLAttributes<HTMLFormElement> {
-  /** Base path in the form for this schema */
-  basePath: string;
-  /** Whether the form is read-only */
-  readOnly?: boolean;
-}
-
-const IntegerSettings = React.forwardRef<HTMLFormElement, IntegerSettingsProps>(
+const IntegerSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
   ({ className, basePath, readOnly = false, ...props }, ref) => {
     const { control, watch } = useFormContext();
     const isEnumEnabled = watch(`${basePath}.enumEnabled`);
@@ -169,7 +163,7 @@ const IntegerSettings = React.forwardRef<HTMLFormElement, IntegerSettingsProps>(
                   </SelectTrigger>
                   <SelectContent className="max-h-48">
                     <SelectItem value="none">none</SelectItem>
-                    {INTEGER_FORMATS.map((format) => (
+                    {INTEGER_FORMATS.map((format: string) => (
                       <SelectItem key={format} value={format}>
                         {format}
                       </SelectItem>

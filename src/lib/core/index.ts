@@ -1,7 +1,4 @@
-// Core hook
-
 export type { SchemaTypeValue } from "./constants";
-// Constants
 export {
   createDefaultArraySchema,
   createDefaultField,
@@ -12,9 +9,7 @@ export {
   SCHEMA_TYPES,
   STRING_FORMATS,
 } from "./constants";
-// Transforms (advanced usage)
 export { formToSchema, schemaToForm } from "./transforms";
-// Types
 export type {
   FieldItem,
   FormSchema,
@@ -26,5 +21,4 @@ export type {
 export { formSchema, jsonSchemaZod } from "./types";
 export type { UseJsonSchemaEditorReturn } from "./useJsonSchemaEditor";
 export { useJsonSchemaEditor } from "./useJsonSchemaEditor";
-// Validation
 export { validateSchema } from "./validator";

@@ -1,18 +1,14 @@
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import { cn } from "./lib/utils";
-import { Settings } from "./settings/settings";
-import { Button } from "./ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog";
+import { cn } from "../lib/utils";
+import { Button } from "../ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Settings } from "./settings";
 
 export interface SettingsDialogProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether the form is read-only */
   readOnly?: boolean;
-  /** Whether the dialog is open */
   isOpen?: boolean;
-  /** Path to the field being edited */
   fieldPath?: string | null;
-  /** Callback when dialog closes */
   onClose?: () => void;
 }
 

@@ -2,23 +2,18 @@ import { PlusCircle } from "lucide-react";
 import { nanoid } from "nanoid";
 import * as React from "react";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { cn } from "../lib/utils";
+import { Button } from "../ui/button";
 import { FieldRow } from "./field-row";
-import { cn } from "./lib/utils";
-import { Button } from "./ui/button";
 
 export interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether the form is read-only */
   readOnly?: boolean;
-  /** Path to this field in the form */
   fieldPath: string;
-  /** Callback when field is removed */
   onRemove?: () => void;
-  /** Callback when settings button is clicked */
   onOpenSettings?: (path: string) => void;
-  /** Whether to show the key input */
   isSimpleType?: boolean;
-  /** Whether this is a root-level field (can be deleted) */
   isRootLevel?: boolean;
+  isSchemaDirect?: boolean;
 }
 
 const Field = React.forwardRef<HTMLDivElement, FieldProps>(
@@ -31,16 +26,18 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
       onOpenSettings,
       isSimpleType = true,
       isRootLevel = false,
+      isSchemaDirect = false,
       ...props
     },
     ref,
   ) => {
     const { control, setValue } = useFormContext();
-    const fieldType = useWatch({ control, name: `${fieldPath}.schema.type` });
+    const schemaPath = isSchemaDirect ? fieldPath : `${fieldPath}.schema`;
+    const fieldType = useWatch({ control, name: `${schemaPath}.type` });
 
     const { fields, append, remove } = useFieldArray({
       control,
-      name: `${fieldPath}.schema.properties`,
+      name: `${schemaPath}.properties`,
     });
 
     const handleAddField = () => {
@@ -66,7 +63,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
       } else {
         newValue = { type: newType };
       }
-      setValue(`${fieldPath}.schema`, newValue);
+      setValue(schemaPath, newValue);
     };
 
     return (
@@ -75,6 +72,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           readOnly={readOnly}
           control={control}
           fieldPath={fieldPath}
+          schemaPath={schemaPath}
           isSimpleType={isSimpleType}
           isRootLevel={isRootLevel}
           onRemove={onRemove}
@@ -88,10 +86,11 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
               <Field
                 key={field.id}
                 readOnly={readOnly}
-                fieldPath={`${fieldPath}.schema.properties.${index}`}
+                fieldPath={`${schemaPath}.properties.${index}`}
                 onRemove={() => remove(index)}
                 onOpenSettings={onOpenSettings}
                 isRootLevel={true}
+                isSchemaDirect={false}
               />
             ))}
             <Button
@@ -110,10 +109,11 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           <div className="ml-2 pl-2 border-l-2 border-input mr-11" data-testid="field-array">
             <Field
               readOnly={readOnly}
-              fieldPath={`${fieldPath}.schema.items`}
+              fieldPath={`${schemaPath}.items`}
               onRemove={() => {}}
               onOpenSettings={onOpenSettings}
               isSimpleType={false}
+              isSchemaDirect={true}
             />
           </div>
         )}

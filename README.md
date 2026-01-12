@@ -4,7 +4,7 @@ A headless JSON Schema editor library for React. This package provides the core 
 
 ## Architecture
 
-This library follows the **headless UI pattern** (similar to [TanStack Table](https://github.com/TanStack/table) or [cmdk](https://github.com/pacocoursey/cmdk)):
+This library follows the **headless UI pattern**:
 
 - **NPM Package**: Contains only the headless core - hooks, types, validation, and utilities
 - **Components Folder**: Contains copy-paste shadcn-style React components for the UI
@@ -166,10 +166,7 @@ The main headless hook for managing JSON Schema editor state.
 ### Exports
 
 ```typescript
-// Core hook
 export { useJsonSchemaEditor } from "@ht-rnd/json-schema-editor";
-
-// Types
 export type {
   JSONSchema,
   FormSchema,
@@ -178,11 +175,7 @@ export type {
   FieldItem,
   SchemaType,
 } from "@ht-rnd/json-schema-editor";
-
-// Validation
 export { validateSchema } from "@ht-rnd/json-schema-editor";
-
-// Constants
 export {
   SCHEMA_TYPES,
   INTEGER_FORMATS,
@@ -190,8 +183,6 @@ export {
   STRING_FORMATS,
   DEFAULT_SCHEMA_URI,
 } from "@ht-rnd/json-schema-editor";
-
-// Transforms (for advanced usage)
 export { formToSchema, schemaToForm } from "@ht-rnd/json-schema-editor";
 ```
 

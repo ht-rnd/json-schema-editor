@@ -2,7 +2,7 @@ import { SCHEMA_TYPES } from "@ht-rnd/json-schema-editor";
 import { Settings, Trash2, TriangleAlert } from "lucide-react";
 import * as React from "react";
 import { Controller, useWatch } from "react-hook-form";
-import { cn } from "./lib/utils";
+import { cn } from "../lib/utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,28 +13,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./ui/alert-dialog";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+} from "../ui/alert-dialog";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether the form is read-only */
   readOnly?: boolean;
-  /** React Hook Form control */
   control: any;
-  /** Path to this field in the form */
   fieldPath: string;
-  /** Whether to show the key input */
+  schemaPath: string;
   isSimpleType?: boolean;
-  /** Whether this is a root-level field (can be deleted) */
   isRootLevel?: boolean;
-  /** Callback when field is removed */
   onRemove?: () => void;
-  /** Callback when settings button is clicked */
   onOpenSettings?: (path: string) => void;
-  /** Callback when type changes */
   onTypeChange?: (newType: string) => void;
 }
 
@@ -45,6 +38,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
       readOnly = false,
       control,
       fieldPath,
+      schemaPath,
       isSimpleType = true,
       isRootLevel = false,
       onRemove,
@@ -73,7 +67,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
 
         <Controller
           control={control}
-          name={`${fieldPath}.schema.type`}
+          name={`${schemaPath}.type`}
           render={({ field }) => (
             <Select
               disabled={readOnly}
@@ -87,7 +81,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="max-h-52">
-                {SCHEMA_TYPES.map((type) => (
+                {SCHEMA_TYPES.map((type: string) => (
                   <SelectItem key={type} value={type}>
                     {type}
                   </SelectItem>
@@ -99,7 +93,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
 
         <Controller
           control={control}
-          name={`${fieldPath}.schema.title`}
+          name={`${schemaPath}.title`}
           render={({ field }) => (
             <Input placeholder="Title" disabled={readOnly} className="flex-1 min-w-24" {...field} />
           )}
@@ -107,9 +101,14 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
 
         <Controller
           control={control}
-          name={`${fieldPath}.schema.description`}
+          name={`${schemaPath}.description`}
           render={({ field }) => (
-            <Input placeholder="Description" disabled={readOnly} className="flex-1 min-w-32" {...field} />
+            <Input
+              placeholder="Description"
+              disabled={readOnly}
+              className="flex-1 min-w-32"
+              {...field}
+            />
           )}
         />
 
@@ -143,7 +142,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
           </div>
         )}
 
-        <Button size="icon" variant="ghost" onClick={() => onOpenSettings?.(`${fieldPath}.schema`)}>
+        <Button size="icon" variant="ghost" onClick={() => onOpenSettings?.(schemaPath)}>
           <Settings className="text-blue-500" />
         </Button>
 

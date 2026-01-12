@@ -1,20 +1,16 @@
 import { PlusCircle, Settings, TriangleAlert } from "lucide-react";
 import * as React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { cn } from "./lib/utils";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { cn } from "../lib/utils";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export interface RootProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether the form is read-only */
   readOnly?: boolean;
-  /** Root schema type */
   rootType?: "object" | "array";
-  /** Callback when add field button is clicked */
   onAddField?: () => void;
-  /** Callback when settings button is clicked */
   onOpenSettings?: (path: string) => void;
 }
 
@@ -50,7 +46,12 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
           control={control}
           name="root.description"
           render={({ field }) => (
-            <Input placeholder="Description" disabled={readOnly} className="flex-1 min-w-32" {...field} />
+            <Input
+              placeholder="Description"
+              disabled={readOnly}
+              className="flex-1 min-w-32"
+              {...field}
+            />
           )}
         />
 

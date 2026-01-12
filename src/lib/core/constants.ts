@@ -1,14 +1,6 @@
-// ============================================================================
-// Schema Type Constants
-// ============================================================================
-
 export const SCHEMA_TYPES = ["string", "integer", "number", "boolean", "object", "array"] as const;
 
 export type SchemaTypeValue = (typeof SCHEMA_TYPES)[number];
-
-// ============================================================================
-// Format Constants
-// ============================================================================
 
 export const INTEGER_FORMATS = ["int-32", "int-64"] as const;
 
@@ -36,10 +28,6 @@ export const STRING_FORMATS = [
   "regex",
   "uuid",
 ] as const;
-
-// ============================================================================
-// Default Schema Values
-// ============================================================================
 
 export const DEFAULT_SCHEMA_URI = "http://json-schema.org/draft/2020-12/schema";
 

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
+import type { DivSettingsProps } from "../interface";
 import { cn } from "../lib/utils";
 import { Separator } from "../ui/separator";
 import { ArraySettings } from "./array-settings";
@@ -10,14 +11,7 @@ import { ObjectSettings } from "./object-settings";
 import { RootSettings } from "./root-settings";
 import { StringSettings } from "./string-settings";
 
-export interface SettingsProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Base path in the form for this schema */
-  basePath: string;
-  /** Whether the form is read-only */
-  readOnly?: boolean;
-}
-
-const Settings = React.forwardRef<HTMLDivElement, SettingsProps>(
+const Settings = React.forwardRef<HTMLDivElement, DivSettingsProps>(
   ({ className, basePath, readOnly = false, ...props }, ref) => {
     const { watch } = useFormContext();
     const type = watch(`${basePath}.type`);

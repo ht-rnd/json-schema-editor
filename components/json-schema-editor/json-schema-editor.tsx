@@ -1,27 +1,35 @@
-import { type JsonSchemaEditorOptions, useJsonSchemaEditor } from "@ht-rnd/json-schema-editor";
+import { useJsonSchemaEditor } from "@ht-rnd/json-schema-editor";
 import { nanoid } from "nanoid";
 import * as React from "react";
 import { FormProvider, useFieldArray } from "react-hook-form";
-import { Field } from "./field";
-import { FieldList } from "./field-list";
+import { Field } from "./form/field";
+import { FieldList } from "./form/field-list";
+import { Root } from "./form/root";
 import { cn } from "./lib/utils";
-import { Root } from "./root";
-import { SettingsDialog } from "./settings-dialog";
+import { SettingsDialog } from "./settings/settings-dialog";
 import { AutosizeTextarea } from "./ui/autosize-textarea";
 import { Badge } from "./ui/badge";
 
 export interface JsonSchemaEditorProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">,
-    JsonSchemaEditorOptions {
-  /** Whether the form is read-only */
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+  rootType?: "object" | "array";
+  defaultValue?: any;
+  onChange?: (schema: any) => void;
   readOnly?: boolean;
-  /** Whether to show the JSON output panel */
   showOutput?: boolean;
 }
 
 const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>(
   (
-    { className, rootType = "object", readOnly = false, showOutput = true, onChange, defaultValue, ...props },
+    {
+      className,
+      rootType = "object",
+      readOnly = false,
+      showOutput = true,
+      onChange,
+      defaultValue,
+      ...props
+    },
     ref,
   ) => {
     const editor = useJsonSchemaEditor({ rootType, defaultValue, onChange });
@@ -49,7 +57,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
           className={cn("bg-background text-foreground flex flex-col gap-4", className)}
           {...props}
         >
-          {/* Form Panel - modify classes here to change layout */}
           <div className="p-4 pr-2 flex flex-col gap-2 border border-input rounded-lg overflow-y-auto max-h-[600px]">
             <Root
               readOnly={readOnly}
@@ -74,20 +81,22 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
                   onOpenSettings={editor.openSettings}
                   isSimpleType={false}
                   isRootLevel={false}
+                  isSchemaDirect={true}
                 />
               </div>
             )}
           </div>
 
-          {/* Error Panel */}
           {editor.errors && (
             <div className="p-6 bg-background text-foreground border border-input rounded-lg overflow-auto">
               <p className="text-lg">JSON Schema Errors</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                {`The generated JSON Schema has ${editor.errors.length} ${editor.errors.length > 1 ? "errors." : "error."}`}
+                {`The generated JSON Schema has ${editor.errors.length} ${
+                  editor.errors.length > 1 ? "errors." : "error."
+                }`}
               </p>
               <ul className="mt-4 flex flex-col gap-2">
-                {editor.errors.map((error, index) => (
+                {editor.errors.map((error: any, index: any) => (
                   <li key={index} className="flex items-center gap-2 text-sm">
                     <Badge variant="destructive" className="font-mono">
                       root{error.instancePath}
@@ -99,7 +108,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
             </div>
           )}
 
-          {/* Output Panel - modify or remove as needed */}
           {showOutput && !editor.errors && (
             <AutosizeTextarea
               readOnly

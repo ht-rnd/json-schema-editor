@@ -1,17 +1,11 @@
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
+import type { DivSettingsProps } from "../interface";
 import { cn } from "../lib/utils";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 
-export interface RootSettingsProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Base path in the form for this schema */
-  basePath: string;
-  /** Whether the form is read-only */
-  readOnly?: boolean;
-}
-
-const RootSettings = React.forwardRef<HTMLDivElement, RootSettingsProps>(
+const RootSettings = React.forwardRef<HTMLDivElement, DivSettingsProps>(
   ({ className, basePath, readOnly = false, ...props }, ref) => {
     const { control } = useFormContext();
 

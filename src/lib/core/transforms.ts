@@ -1,9 +1,6 @@
 import { nanoid } from "nanoid";
 import type { FormSchema, JSONSchema } from "./types";
 
-/**
- * Transforms internal form data structure to a valid JSON Schema.
- */
 export const formToSchema = (formData: FormSchema): JSONSchema => {
   const transformToSchema = (schema: any): JSONSchema => {
     const newSchema = { ...schema };
@@ -63,9 +60,6 @@ export const formToSchema = (formData: FormSchema): JSONSchema => {
   return finalSchema;
 };
 
-/**
- * Transforms a JSON Schema into the internal form data structure.
- */
 export const schemaToForm = (schema: JSONSchema): FormSchema => {
   const transformToForm = (currentSchema: JSONSchema): any => {
     const newSchema: any = { ...currentSchema };
@@ -98,11 +92,22 @@ export const schemaToForm = (schema: JSONSchema): FormSchema => {
   };
 
   const { properties, required, ...rootData } = schema;
-  const rootProperties = { properties, required };
-  const transformedRoot = transformToForm(rootProperties);
+  
+  const transformedRootData = transformToForm(rootData);
+  const propertiesArray: any[] = [];
+  if (properties) {
+    Object.keys(properties).forEach((key) => {
+      propertiesArray.push({
+        id: nanoid(6),
+        key: key,
+        isRequired: required?.includes(key) || false,
+        schema: transformToForm(properties[key]),
+      });
+    });
+  }
 
   return {
-    root: { ...rootData, ...transformedRoot.root },
-    properties: transformedRoot.properties || [],
+    root: transformedRootData,
+    properties: propertiesArray,
   };
 };

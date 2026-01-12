@@ -1,6 +1,7 @@
 import { validateSchema } from "@ht-rnd/json-schema-editor";
 import * as React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
+import type { SettingsProps } from "../interface";
 import { cn } from "../lib/utils";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
@@ -8,14 +9,7 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { TagsInput } from "../ui/tags-input";
 import { Textarea } from "../ui/textarea";
 
-export interface ObjectSettingsProps extends React.HTMLAttributes<HTMLFormElement> {
-  /** Base path in the form for this schema */
-  basePath: string;
-  /** Whether the form is read-only */
-  readOnly?: boolean;
-}
-
-const ObjectSettings = React.forwardRef<HTMLFormElement, ObjectSettingsProps>(
+const ObjectSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
   ({ className, basePath, readOnly = false, ...props }, ref) => {
     const { control, setValue, getValues } = useFormContext();
     const [additionalProperties, setAdditionalProperties] = React.useState(
@@ -151,7 +145,8 @@ const ObjectSettings = React.forwardRef<HTMLFormElement, ObjectSettingsProps>(
                     const validationErrors = validateSchema(jsonObject);
                     if (validationErrors) {
                       const errorMessages = validationErrors.map(
-                        (error) => `${error.instancePath} - ${error.message}`,
+                        (error: { instancePath: any; message: any }) =>
+                          `${error.instancePath} - ${error.message}`,
                       );
                       setJsonError(errorMessages);
                     } else {

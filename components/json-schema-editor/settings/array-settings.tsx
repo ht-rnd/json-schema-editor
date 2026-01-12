@@ -1,18 +1,12 @@
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
+import type { SettingsProps } from "../interface";
 import { cn } from "../lib/utils";
 import { Checkbox } from "../ui/checkbox";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 
-export interface ArraySettingsProps extends React.HTMLAttributes<HTMLFormElement> {
-  /** Base path in the form for this schema */
-  basePath: string;
-  /** Whether the form is read-only */
-  readOnly?: boolean;
-}
-
-const ArraySettings = React.forwardRef<HTMLFormElement, ArraySettingsProps>(
+const ArraySettings = React.forwardRef<HTMLFormElement, SettingsProps>(
   ({ className, basePath, readOnly = false, ...props }, ref) => {
     const { control } = useFormContext();
 

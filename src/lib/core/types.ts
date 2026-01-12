@@ -1,9 +1,5 @@
 import { z } from "zod";
 
-// ============================================================================
-// JSON Schema Types
-// ============================================================================
-
 const baseSchema = z.object({
   type: z.enum(["string", "number", "integer", "boolean", "object", "array"]).optional(),
   title: z.string().optional(),
@@ -62,16 +58,9 @@ export type FormSchema = z.infer<typeof formSchema>;
 
 export type SchemaType = "string" | "number" | "integer" | "boolean" | "object" | "array";
 
-// ============================================================================
-// Editor Types
-// ============================================================================
-
 export interface JsonSchemaEditorOptions {
-  /** Root type of the schema - either 'object' or 'array' */
   rootType?: "object" | "array";
-  /** Default JSON Schema value to initialize with */
   defaultValue?: JSONSchema;
-  /** Callback when the schema changes */
   onChange?: (schema: JSONSchema) => void;
 }
 

@@ -18,7 +18,7 @@ describe("validateSchema", () => {
   it("should return errors for an invalid schema", () => {
     const invalidSchema = {
       type: "invalid-type",
-    } as JSONSchema;
+    } as unknown as JSONSchema;
 
     const result = validateSchema(invalidSchema);
     expect(result).not.toBeNull();

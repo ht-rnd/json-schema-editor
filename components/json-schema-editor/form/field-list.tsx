@@ -1,16 +1,12 @@
 import * as React from "react";
 import type { FieldArrayWithId } from "react-hook-form";
+import { cn } from "../lib/utils";
 import { Field } from "./field";
-import { cn } from "./lib/utils";
 
 export interface FieldListProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether the form is read-only */
   readOnly?: boolean;
-  /** Field array from react-hook-form */
   fields: FieldArrayWithId<any, "properties", "fieldId">[];
-  /** Callback when a field is removed */
   onRemove?: (index: number) => void;
-  /** Callback when settings button is clicked */
   onOpenSettings?: (path: string) => void;
 }
 
