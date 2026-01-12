@@ -1,4 +1,4 @@
-export type { SchemaTypeValue } from "./constants";
+export type { SchemaTypeValue, SchemaTypeWithRefValue } from "./constants";
 export {
   createDefaultArraySchema,
   createDefaultField,
@@ -7,10 +7,12 @@ export {
   INTEGER_FORMATS,
   NUMBER_FORMATS,
   SCHEMA_TYPES,
+  SCHEMA_TYPES_WITH_REF,
   STRING_FORMATS,
 } from "./constants";
 export { formToSchema, schemaToForm } from "./transforms";
 export type {
+  DefinitionItem,
   FieldItem,
   FormSchema,
   JSONSchema,

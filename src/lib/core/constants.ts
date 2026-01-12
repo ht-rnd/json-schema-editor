@@ -1,6 +1,10 @@
 export const SCHEMA_TYPES = ["string", "integer", "number", "boolean", "object", "array"] as const;
 
+export const SCHEMA_TYPES_WITH_REF = [...SCHEMA_TYPES, "ref"] as const;
+
 export type SchemaTypeValue = (typeof SCHEMA_TYPES)[number];
+
+export type SchemaTypeWithRefValue = (typeof SCHEMA_TYPES_WITH_REF)[number];
 
 export const INTEGER_FORMATS = ["int-32", "int-64"] as const;
 

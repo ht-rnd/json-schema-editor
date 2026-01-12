@@ -3,7 +3,18 @@ import type { FormSchema, JSONSchema } from "./types";
 
 export const formToSchema = (formData: FormSchema): JSONSchema => {
   const transformToSchema = (schema: any): JSONSchema => {
+    // Handle reference type - convert internal "ref" type to $ref only output
+    if (schema.type === "ref" && schema.$ref) {
+      return {
+        $ref: schema.$ref,
+        ...(schema.title && { title: schema.title }),
+        ...(schema.description && { description: schema.description }),
+      };
+    }
+
     const newSchema = { ...schema };
+    // Remove internal "ref" type marker if present
+    if (newSchema.type === "ref") delete newSchema.type;
 
     if (Array.isArray(newSchema.properties)) {
       const propertiesObject: { [key: string]: JSONSchema } = {};
@@ -57,12 +68,28 @@ export const formToSchema = (formData: FormSchema): JSONSchema => {
     finalSchema.required = required;
   }
 
+  // Handle definitions array → $defs object
+  if (formData.definitions && formData.definitions.length > 0) {
+    const defs: { [key: string]: JSONSchema } = {};
+    formData.definitions.forEach((def) => {
+      if (def.key) {
+        defs[def.key] = transformToSchema(def.schema);
+      }
+    });
+    finalSchema.$defs = defs;
+  }
+
   return finalSchema;
 };
 
 export const schemaToForm = (schema: JSONSchema): FormSchema => {
   const transformToForm = (currentSchema: JSONSchema): any => {
     const newSchema: any = { ...currentSchema };
+
+    // Handle $ref - convert to internal "ref" type
+    if (newSchema.$ref) {
+      newSchema.type = "ref";
+    }
 
     if (typeof newSchema.properties === "object" && !Array.isArray(newSchema.properties)) {
       const propertiesArray: any[] = [];
@@ -91,8 +118,8 @@ export const schemaToForm = (schema: JSONSchema): FormSchema => {
     return newSchema;
   };
 
-  const { properties, required, ...rootData } = schema;
-  
+  const { properties, required, $defs, ...rootData } = schema;
+
   const transformedRootData = transformToForm(rootData);
   const propertiesArray: any[] = [];
   if (properties) {
@@ -106,8 +133,21 @@ export const schemaToForm = (schema: JSONSchema): FormSchema => {
     });
   }
 
+  // Handle $defs object → definitions array
+  const definitionsArray: any[] = [];
+  if ($defs) {
+    Object.keys($defs).forEach((key) => {
+      definitionsArray.push({
+        id: nanoid(6),
+        key: key,
+        schema: transformToForm($defs[key]),
+      });
+    });
+  }
+
   return {
     root: transformedRootData,
     properties: propertiesArray,
+    definitions: definitionsArray,
   };
 };

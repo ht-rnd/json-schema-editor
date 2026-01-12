@@ -4,6 +4,7 @@ import type { DivSettingsProps } from "../interface";
 import { cn } from "../lib/utils";
 import { Separator } from "../ui/separator";
 import { ArraySettings } from "./array-settings";
+import { BoolCombSettings } from "./bool-comb-settings";
 import { BooleanSettings } from "./boolean-settings";
 import { IntegerSettings } from "./integer-settings";
 import { NumberSettings } from "./number-settings";
@@ -45,6 +46,8 @@ const Settings = React.forwardRef<HTMLDivElement, DivSettingsProps>(
         )}
 
         {typeSettings()}
+
+        <BoolCombSettings basePath={basePath} readOnly={readOnly} />
       </div>
     );
   },
