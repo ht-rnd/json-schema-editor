@@ -27,7 +27,7 @@ const SettingsDialog = React.forwardRef<HTMLDivElement, SettingsDialogProps>(
 
           {fieldPath && <Settings basePath={fieldPath} readOnly={readOnly} />}
 
-          <Button onClick={onClose} variant="default">
+          <Button type="button" onClick={onClose} variant="default">
             Close
           </Button>
         </DialogContent>

@@ -17,9 +17,9 @@ const BooleanSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
           render={({ field }) => (
             <FormItem className="flex gap-2">
               <FormLabel>Default Value</FormLabel>
-              <Select 
-                onValueChange={(value) => field.onChange(value === "true")} 
-                value={field.value === undefined ? undefined : String(field.value)} 
+              <Select
+                onValueChange={(value) => field.onChange(value === "true")}
+                value={field.value === undefined ? undefined : String(field.value)}
                 disabled={readOnly}
               >
                 <FormControl>

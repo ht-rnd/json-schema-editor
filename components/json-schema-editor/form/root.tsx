@@ -57,7 +57,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button disabled size="icon">
+            <Button type="button" disabled size="icon">
               <TriangleAlert />
             </Button>
           </TooltipTrigger>
@@ -69,6 +69,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
         <div className="border-l-2 border-input"></div>
 
         <Button
+          type="button"
           size="icon"
           variant="ghost"
           data-testid="root-settings-button"
@@ -79,6 +80,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
 
         {rootType === "object" && (
           <Button
+            type="button"
             size="icon"
             variant="ghost"
             data-testid="root-add-button"

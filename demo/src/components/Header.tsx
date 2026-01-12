@@ -37,6 +37,7 @@ export function Header({ theme, onThemeChange }: IHeaderProps) {
         </a>
 
         <button
+          type="button"
           onClick={() => onThemeChange(theme === "light" ? "dark" : "light")}
           className="p-2 rounded-md hover:bg-accent transition-colors"
           aria-label="Toggle theme"

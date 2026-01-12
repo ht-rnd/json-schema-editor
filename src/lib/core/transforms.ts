@@ -92,7 +92,7 @@ export const schemaToForm = (schema: JSONSchema): FormSchema => {
   };
 
   const { properties, required, ...rootData } = schema;
-  
+
   const transformedRootData = transformToForm(rootData);
   const propertiesArray: any[] = [];
   if (properties) {

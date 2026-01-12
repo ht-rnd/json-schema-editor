@@ -121,6 +121,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
+                      type="button"
                       data-testid="required"
                       disabled={readOnly}
                       size="icon"
@@ -142,14 +143,25 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
           </div>
         )}
 
-        <Button size="icon" variant="ghost" onClick={() => onOpenSettings?.(schemaPath)}>
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          onClick={() => onOpenSettings?.(schemaPath)}
+        >
           <Settings className="text-blue-500" />
         </Button>
 
         {isRootLevel && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button size="icon" variant="ghost" data-testid="delete-button" disabled={readOnly}>
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                data-testid="delete-button"
+                disabled={readOnly}
+              >
                 <Trash2 className="text-red-500" />
               </Button>
             </AlertDialogTrigger>

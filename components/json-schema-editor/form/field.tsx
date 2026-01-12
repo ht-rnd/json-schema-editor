@@ -94,6 +94,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
               />
             ))}
             <Button
+              type="button"
               disabled={readOnly}
               size="sm"
               variant="outline"
