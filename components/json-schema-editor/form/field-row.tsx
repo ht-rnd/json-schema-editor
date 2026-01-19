@@ -2,8 +2,9 @@ import { SCHEMA_TYPES } from "@ht-rnd/json-schema-editor";
 import { Link2, Settings, Trash2, TriangleAlert } from "lucide-react";
 import * as React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import type { DefinitionItem } from "../interface";
 import { cn } from "../lib/utils";
+import type { DefinitionItem } from "../types";
+import type { FieldRowProps } from "../types/props";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,19 +21,6 @@ import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
-export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
-  readOnly?: boolean;
-  control: any;
-  fieldPath: string;
-  schemaPath: string;
-  defs?: boolean;
-  isRootLevel?: boolean;
-  onRemove?: () => void;
-  onOpenSettings?: (path: string) => void;
-  onTypeChange?: (newType: string) => void;
-  onKeyChange?: (oldKey: string, newKey: string) => void;
-}
-
 const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
   (
     {
@@ -47,6 +35,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
       onOpenSettings,
       onTypeChange,
       onKeyChange,
+      theme,
       ...props
     },
     ref,
@@ -68,11 +57,9 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
       name: `${schemaPath}.type`,
     });
 
-    const isSimpleType = fieldType !== "array";
-
     return (
       <div ref={ref} className={cn("p-2 flex gap-2", className)} data-testid="field" {...props}>
-        {isSimpleType && (
+        {fieldType !== "array" && (
           <Controller
             control={control}
             name={`${fieldPath}.key`}
@@ -80,7 +67,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
               <Input
                 placeholder="field_name"
                 disabled={readOnly}
-                className="w-40"
+                className="flex-1"
                 {...field}
                 onChange={(e) => {
                   const oldKey = field.value;
@@ -107,10 +94,12 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
               }}
               value={field.value}
             >
-              <SelectTrigger className="w-40">
-                <SelectValue />
+              <SelectTrigger className="flex-1 min-w-0">
+                <SelectValue className="truncate" />
               </SelectTrigger>
-              <SelectContent className="max-h-64">
+              <SelectContent
+                className={cn("max-h-64 bg-background text-foreground border-input", theme)}
+              >
                 {SCHEMA_TYPES.map((type: string) => (
                   <SelectItem key={type} value={type}>
                     {type}
@@ -128,12 +117,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
               control={control}
               name={`${schemaPath}.title`}
               render={({ field }) => (
-                <Input
-                  placeholder="Title"
-                  disabled={readOnly}
-                  className="flex-1 min-w-24"
-                  {...field}
-                />
+                <Input placeholder="Title" disabled={readOnly} className="flex-1" {...field} />
               )}
             />
 
@@ -144,7 +128,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
                 <Input
                   placeholder="Description"
                   disabled={readOnly}
-                  className="flex-1 min-w-32"
+                  className="flex-1"
                   {...field}
                 />
               )}
@@ -173,7 +157,12 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
               value=""
             >
               <SelectTrigger className="w-10 shrink-0" />
-              <SelectContent className="min-w-52 max-h-64">
+              <SelectContent
+                className={cn(
+                  "min-w-52 max-h-64 bg-background text-foreground border-input",
+                  theme,
+                )}
+              >
                 {definitions && definitions.length > 0 ? (
                   definitions.map((def) => (
                     <SelectItem key={def.id} value={`#/$defs/${def.key}`}>
@@ -190,7 +179,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
           </div>
         )}
 
-        {isSimpleType && !defs && fieldType !== "ref" && (
+        {fieldType !== "array" && !defs && fieldType !== "ref" && (
           <div className="flex gap-2">
             <Controller
               control={control}
@@ -245,7 +234,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
                 <Trash2 className="text-red-500" />
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className={cn("border-input", theme)}>
               <AlertDialogHeader>
                 <AlertDialogTitle className="text-foreground">
                   Are you absolutely sure?

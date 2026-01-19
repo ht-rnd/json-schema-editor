@@ -1,10 +1,10 @@
 import { Moon, Sun, Github, Package, Layers } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { IHeaderProps } from "src/interfaces/props";
+import { IHeaderProps } from "src/types/props";
 
 export function Header({ theme, onThemeChange }: IHeaderProps) {
   return (
-    <div className="border-b border-input sticky top-0 p-4 px-16 flex items-center justify-between bg-background z-[1000]">
+    <div className="border-b border-input sticky top-0 p-4 px-16 flex items-center justify-between bg-background z-[1]">
       <Link to="/" className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
           <Layers className="w-6 h-6 text-primary-foreground" />

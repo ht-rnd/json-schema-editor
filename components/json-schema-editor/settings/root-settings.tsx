@@ -1,12 +1,13 @@
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import type { DivSettingsProps } from "../interface";
 import { cn } from "../lib/utils";
+import type { DivSettingsProps } from "../types/props";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import { DefinitionsSettings } from "./definitions-settings";
 
 const RootSettings = React.forwardRef<HTMLDivElement, DivSettingsProps>(
-  ({ className, basePath, readOnly = false, ...props }, ref) => {
+  ({ className, basePath, readOnly = false, theme, ...props }, ref) => {
     const { control } = useFormContext();
 
     return (
@@ -43,6 +44,8 @@ const RootSettings = React.forwardRef<HTMLDivElement, DivSettingsProps>(
             </FormItem>
           )}
         />
+
+        <DefinitionsSettings readOnly={readOnly} theme={theme} />
       </div>
     );
   },

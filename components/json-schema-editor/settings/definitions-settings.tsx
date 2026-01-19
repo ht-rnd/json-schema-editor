@@ -5,17 +5,13 @@ import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { Field } from "../form/field";
 import { cn } from "../lib/utils";
+import type { DefinitionsSettingsProps } from "../types/props";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 
-export interface DefinitionsSettingsProps extends React.HTMLAttributes<HTMLDivElement> {
-  readOnly?: boolean;
-  onKeyChange?: (oldKey: string, newKey: string | null) => void;
-}
-
 const DefinitionsSettings = React.forwardRef<HTMLDivElement, DefinitionsSettingsProps>(
-  ({ className, readOnly = false, onKeyChange, ...props }, ref) => {
+  ({ className, readOnly = false, onKeyChange, theme, ...props }, ref) => {
     const { control, getValues, setValue } = useFormContext();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -75,7 +71,6 @@ const DefinitionsSettings = React.forwardRef<HTMLDivElement, DefinitionsSettings
         }
       }
 
-      // Also call the parent callback if provided
       onKeyChange?.(oldKey, newKey);
     };
 
@@ -98,6 +93,8 @@ const DefinitionsSettings = React.forwardRef<HTMLDivElement, DefinitionsSettings
     return (
       <div ref={ref} className={cn("max-h-[400px] overflow-y-auto", className)} {...props}>
         <Separator />
+        {/* biome-ignore lint/a11y/noStaticElementInteractions: toggle accordion on click */}
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: toggle accordion on click */}
         <div
           className="mt-4 flex items-center justify-between cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
@@ -110,7 +107,7 @@ const DefinitionsSettings = React.forwardRef<HTMLDivElement, DefinitionsSettings
         </div>
 
         {isOpen && (
-          <div className="mt-3 p-2 border border-dashed border-input rounded-md">
+          <div className="mt-3 p-2 border border-dashed border-input rounded-md overflow-x-auto">
             <div className="space-y-2">
               {fields.map((field, index) => (
                 <div key={field.id} className="border border-input rounded-md bg-accent/5">
@@ -123,6 +120,7 @@ const DefinitionsSettings = React.forwardRef<HTMLDivElement, DefinitionsSettings
                     isRootLevel={true}
                     onRemove={() => handleRemoveDefinition(index)}
                     onKeyChange={(oldKey, newKey) => updateReferences(oldKey, newKey)}
+                    theme={theme}
                   />
                 </div>
               ))}

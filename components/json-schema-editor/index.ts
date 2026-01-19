@@ -1,20 +1,12 @@
-export type { FieldProps } from "./form/field";
 export { Field } from "./form/field";
-
-export type { FieldListProps } from "./form/field-list";
 export { FieldList } from "./form/field-list";
-export type { FieldRowProps } from "./form/field-row";
 export { FieldRow } from "./form/field-row";
-export type { RootProps } from "./form/root";
 export { Root } from "./form/root";
-export type { DefinitionItem, DivSettingsProps, SettingsProps } from "./interface";
-export type { JsonSchemaEditorProps } from "./json-schema-editor";
 export { JsonSchemaEditor } from "./json-schema-editor";
 export { cn } from "./lib/utils";
 export { ArraySettings } from "./settings/array-settings";
 export { BoolCombSettings } from "./settings/bool-comb-settings";
 export { BooleanSettings } from "./settings/boolean-settings";
-export type { DefinitionsSettingsProps } from "./settings/definitions-settings";
 export { DefinitionsSettings } from "./settings/definitions-settings";
 export { IntegerSettings } from "./settings/integer-settings";
 export { NumberSettings } from "./settings/number-settings";
@@ -23,6 +15,17 @@ export { RootSettings } from "./settings/root-settings";
 export { Settings } from "./settings/settings";
 export { SettingsDialog } from "./settings/settings-dialog";
 export { StringSettings } from "./settings/string-settings";
+export type { DefinitionItem } from "./types";
+export type {
+  DefinitionsSettingsProps,
+  DivSettingsProps,
+  FieldListProps,
+  FieldProps,
+  FieldRowProps,
+  JsonSchemaEditorProps,
+  RootProps,
+  SettingsProps,
+} from "./types/props";
 export {
   AlertDialog,
   AlertDialogAction,

@@ -1,30 +1,21 @@
 import { JsonSchemaEditor } from "@json-schema-editor";
 import { useState, useMemo } from "react";
-import { RootType } from "src/interfaces";
+import { RootType } from "src/types";
 import { exampleSchema } from "../data/examples";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../../components/json-schema-editor/ui/select";
-import { Label } from "../../../components/json-schema-editor/ui/label";
-
-const schemaLabels: Record<string, string> = {
-  emptySchema: "Empty Schema",
-  emptyArray: "Empty Array",
-  user: "User Profile",
-  product: "Product",
-  config: "App Config",
-  todoList: "Todo List",
-  stringArray: "Tags Array",
-  numberArray: "Scores Array",
-};
+import { useTheme } from "../App";
+import type { Styles } from "../../../components/json-schema-editor/lib/constants";
+import { EditorConfig } from "../components/EditorConfig";
 
 export function Editor() {
+  const { theme } = useTheme();
   const [rootType, setRootType] = useState<RootType>("object");
   const [selectedSchema, setSelectedSchema] = useState<string>("emptySchema");
+  const [styles, setStyles] = useState<Partial<Styles>>({
+    form: { width: "full", height: "md" },
+    output: { position: "bottom", showJson: true, width: "full", height: "md" },
+    settings: { width: "md" },
+    spacing: "md",
+  });
 
   const schemas = useMemo(() => {
     return Object.entries(exampleSchema)
@@ -46,46 +37,27 @@ export function Editor() {
   };
 
   return (
-    <div className="my-8 mx-16 min-h-[calc(100vh-105px)] flex flex-col gap-6">
-      <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2">
-          <Label htmlFor="root-type">Root Type:</Label>
-          <Select
-            value={rootType}
-            onValueChange={(value) => handleRootTypeChange(value as RootType)}
-          >
-            <SelectTrigger id="root-type" size="sm">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="object">Object</SelectItem>
-              <SelectItem value="array">Array</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+    <div className="my-8 mx-16 min-h-[calc(100vh-113px)] flex flex-col gap-6">
+      <EditorConfig
+        theme={theme}
+        rootType={rootType}
+        selectedSchema={selectedSchema}
+        schemas={schemas}
+        styles={styles}
+        onRootTypeChange={handleRootTypeChange}
+        onSchemaChange={setSelectedSchema}
+        onStylesChange={setStyles}
+      />
 
-        <div className="flex items-center gap-2">
-          <Label htmlFor="schema-example">Load Example:</Label>
-          <Select value={selectedSchema} onValueChange={setSelectedSchema}>
-            <SelectTrigger id="schema-example" size="sm">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {schemas.map((schemaName) => (
-                <SelectItem key={schemaName} value={schemaName}>
-                  {schemaLabels[schemaName] || schemaName}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+      <p className="text-2xl font-medium">JSON Schema Editor</p>
 
       <JsonSchemaEditor
         key={`${rootType}-${selectedSchema}`}
         rootType={rootType}
         readOnly={false}
         defaultValue={exampleSchema[selectedSchema]}
+        theme={theme}
+        styles={styles}
       />
     </div>
   );

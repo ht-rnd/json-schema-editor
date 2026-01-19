@@ -1,8 +1,8 @@
 import { STRING_FORMATS } from "@ht-rnd/json-schema-editor";
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import type { SettingsProps } from "../interface";
 import { cn } from "../lib/utils";
+import type { SettingsProps } from "../types/props";
 import { Checkbox } from "../ui/checkbox";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { TagsInput } from "../ui/tags-input";
 
 const StringSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
-  ({ className, basePath, readOnly = false, ...props }, ref) => {
+  ({ className, basePath, readOnly = false, theme, ...props }, ref) => {
     const { control, watch } = useFormContext();
     const isEnumEnabled = watch(`${basePath}.enumEnabled`);
 
@@ -42,6 +42,7 @@ const StringSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
                     type="number"
                     disabled={readOnly}
                     {...field}
+                    value={field.value ?? ""}
                     onChange={(e) =>
                       field.onChange(e.target.value === "" ? null : Number(e.target.value))
                     }
@@ -63,6 +64,7 @@ const StringSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
                     type="number"
                     disabled={readOnly}
                     {...field}
+                    value={field.value ?? ""}
                     onChange={(e) =>
                       field.onChange(e.target.value === "" ? null : Number(e.target.value))
                     }
@@ -100,7 +102,9 @@ const StringSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
                     <SelectValue placeholder="Choose data type" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="max-h-48">
+                <SelectContent
+                  className={cn("max-h-48 bg-background text-foreground border-input", theme)}
+                >
                   <SelectItem value="none">none</SelectItem>
                   {STRING_FORMATS.map((format: string) => (
                     <SelectItem key={format} value={format}>

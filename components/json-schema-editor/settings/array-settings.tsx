@@ -1,13 +1,13 @@
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import type { SettingsProps } from "../interface";
 import { cn } from "../lib/utils";
+import type { SettingsProps } from "../types/props";
 import { Checkbox } from "../ui/checkbox";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 
 const ArraySettings = React.forwardRef<HTMLFormElement, SettingsProps>(
-  ({ className, basePath, readOnly = false, ...props }, ref) => {
+  ({ className, basePath, readOnly = false, theme, ...props }, ref) => {
     const { control } = useFormContext();
 
     return (

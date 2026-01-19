@@ -3,19 +3,9 @@ import { nanoid } from "nanoid";
 import * as React from "react";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { cn } from "../lib/utils";
+import type { FieldProps } from "../types/props";
 import { Button } from "../ui/button";
 import { FieldRow } from "./field-row";
-
-export interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
-  readOnly?: boolean;
-  fieldPath: string;
-  defs?: boolean;
-  onRemove?: () => void;
-  onOpenSettings?: (path: string) => void;
-  onKeyChange?: (oldKey: string, newKey: string) => void;
-  isRootLevel?: boolean;
-  isSchemaDirect?: boolean;
-}
 
 const Field = React.forwardRef<HTMLDivElement, FieldProps>(
   (
@@ -29,6 +19,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
       onKeyChange,
       isRootLevel = false,
       isSchemaDirect = false,
+      theme,
       ...props
     },
     ref,
@@ -83,6 +74,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           onOpenSettings={onOpenSettings}
           onTypeChange={handleTypeChange}
           onKeyChange={onKeyChange}
+          theme={theme}
         />
 
         {fieldType === "object" && (
@@ -96,6 +88,8 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
                 onOpenSettings={onOpenSettings}
                 isRootLevel={true}
                 isSchemaDirect={false}
+                defs={defs}
+                theme={theme}
               />
             ))}
             <Button
@@ -119,6 +113,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
               onRemove={() => {}}
               onOpenSettings={onOpenSettings}
               isSchemaDirect={true}
+              theme={theme}
             />
           </div>
         )}

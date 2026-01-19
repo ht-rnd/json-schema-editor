@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import type { SettingsProps } from "../interface";
 import { cn } from "../lib/utils";
+import type { SettingsProps } from "../types/props";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 const BooleanSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
-  ({ className, basePath, readOnly = false, ...props }, ref) => {
+  ({ className, basePath, readOnly = false, theme, ...props }, ref) => {
     const { control } = useFormContext();
 
     return (
@@ -27,7 +27,9 @@ const BooleanSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
                     <SelectValue placeholder="False" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="max-h-48">
+                <SelectContent
+                  className={cn("max-h-48 bg-background text-foreground border-input", theme)}
+                >
                   <SelectItem value="true" data-testid="true">
                     True
                   </SelectItem>

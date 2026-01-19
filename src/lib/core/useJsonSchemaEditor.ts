@@ -203,14 +203,12 @@ export function useJsonSchemaEditor(
   const handleRemoveDefinition = useCallback(
     (index: number) => {
       const currentKey = getValues(`definitions.${index}.key`);
-      // Clear all references to this definition before removing
       updateReferencesInternal(currentKey, null);
       removeDefinition(index);
     },
     [getValues, removeDefinition],
   );
 
-  // Function to update all references when a definition key changes
   const updateReferencesInternal = useCallback(
     (oldKey: string, newKey: string | null) => {
       const oldRef = `#/$defs/${oldKey}`;
@@ -220,16 +218,13 @@ export function useJsonSchemaEditor(
       const traverse = (path: string, item: any) => {
         if (!item) return;
 
-        // Check schema.$ref
         if (item.schema && item.schema.$ref === oldRef) {
           setValue(`${path}.schema.$ref` as any, newRef);
         }
-        // Check direct $ref
         if (item.$ref === oldRef) {
           setValue(`${path}.$ref` as any, newRef);
         }
 
-        // Traverse nested properties
         if (item.schema?.properties && Array.isArray(item.schema.properties)) {
           item.schema.properties.forEach((subField: any, idx: number) => {
             traverse(`${path}.schema.properties.${idx}`, subField);
@@ -240,7 +235,6 @@ export function useJsonSchemaEditor(
             traverse(`${path}.properties.${idx}`, subField);
           });
         }
-        // Traverse array items
         if (item.schema?.items) {
           if (!Array.isArray(item.schema.items)) {
             traverse(`${path}.schema.items`, { schema: item.schema.items });
@@ -248,13 +242,11 @@ export function useJsonSchemaEditor(
         }
       };
 
-      // Traverse all properties
       if (formData.properties) {
         formData.properties.forEach((field: any, index: number) => {
           traverse(`properties.${index}`, field);
         });
       }
-      // Traverse all definitions (except the one being renamed)
       if (formData.definitions) {
         formData.definitions.forEach((def: any, index: number) => {
           if (def.key !== oldKey) {
@@ -262,7 +254,6 @@ export function useJsonSchemaEditor(
           }
         });
       }
-      // Check root
       if (formData.root) {
         if ((formData.root as any).$ref === oldRef) {
           setValue("root.$ref" as any, newRef);

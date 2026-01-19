@@ -1,8 +1,8 @@
 import { validateSchema } from "@ht-rnd/json-schema-editor";
 import * as React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
-import type { SettingsProps } from "../interface";
 import { cn } from "../lib/utils";
+import type { SettingsProps } from "../types/props";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
@@ -10,7 +10,7 @@ import { TagsInput } from "../ui/tags-input";
 import { Textarea } from "../ui/textarea";
 
 const ObjectSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
-  ({ className, basePath, readOnly = false, ...props }, ref) => {
+  ({ className, basePath, readOnly = false, theme, ...props }, ref) => {
     const { control, setValue, getValues } = useFormContext();
     const [additionalProperties, setAdditionalProperties] = React.useState(
       JSON.stringify(getValues(`${basePath}.additionalProperties`), null, 2),
@@ -145,8 +145,7 @@ const ObjectSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
                     const validationErrors = validateSchema(jsonObject);
                     if (validationErrors) {
                       const errorMessages = validationErrors.map(
-                        (error: { instancePath: any; message: any }) =>
-                          `${error.instancePath} - ${error.message}`,
+                        (error) => `${error.instancePath} - ${error.message ?? "Unknown error"}`,
                       );
                       setJsonError(errorMessages);
                     } else {

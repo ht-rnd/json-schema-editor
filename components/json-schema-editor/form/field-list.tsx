@@ -1,17 +1,10 @@
 import * as React from "react";
-import type { FieldArrayWithId } from "react-hook-form";
 import { cn } from "../lib/utils";
+import type { FieldListProps } from "../types/props";
 import { Field } from "./field";
 
-export interface FieldListProps extends React.HTMLAttributes<HTMLDivElement> {
-  readOnly?: boolean;
-  fields: FieldArrayWithId<any, "properties", "fieldId">[];
-  onRemove?: (index: number) => void;
-  onOpenSettings?: (path: string) => void;
-}
-
 const FieldList = React.forwardRef<HTMLDivElement, FieldListProps>(
-  ({ className, readOnly = false, fields, onRemove, onOpenSettings, ...props }, ref) => {
+  ({ className, readOnly = false, fields, onRemove, onOpenSettings, theme, ...props }, ref) => {
     return (
       <div ref={ref} className={cn("pl-2 border-l-2 border-input", className)} {...props}>
         {fields.map((field, index) => (
@@ -22,6 +15,7 @@ const FieldList = React.forwardRef<HTMLDivElement, FieldListProps>(
             onRemove={() => onRemove?.(index)}
             onOpenSettings={onOpenSettings}
             isRootLevel={true}
+            theme={theme}
           />
         ))}
       </div>

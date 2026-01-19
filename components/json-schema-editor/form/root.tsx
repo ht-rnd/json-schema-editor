@@ -2,34 +2,38 @@ import { PlusCircle, Settings, TriangleAlert } from "lucide-react";
 import * as React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { cn } from "../lib/utils";
+import type { RootProps } from "../types/props";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
-export interface RootProps extends React.HTMLAttributes<HTMLDivElement> {
-  readOnly?: boolean;
-  rootType?: "object" | "array";
-  onAddField?: () => void;
-  onOpenSettings?: (path: string) => void;
-}
-
 const Root = React.forwardRef<HTMLDivElement, RootProps>(
   (
-    { className, readOnly = false, rootType = "object", onAddField, onOpenSettings, ...props },
+    {
+      className,
+      readOnly = false,
+      rootType = "object",
+      onAddField,
+      onOpenSettings,
+      theme,
+      ...props
+    },
     ref,
   ) => {
     const { control } = useFormContext();
 
     return (
       <div ref={ref} className={cn("flex gap-2", className)} {...props}>
-        <Input value="root" disabled className="w-40" />
+        <Input value="root" disabled className="flex-1" />
 
         <Select disabled value={rootType}>
-          <SelectTrigger className="w-40">
-            <SelectValue />
+          <SelectTrigger className="flex-1 min-w-0">
+            <SelectValue className="truncate" />
           </SelectTrigger>
-          <SelectContent className="max-h-52">
+          <SelectContent
+            className={cn("max-h-52 bg-background text-foreground border-input", theme)}
+          >
             <SelectItem value={rootType}>{rootType}</SelectItem>
           </SelectContent>
         </Select>
@@ -38,7 +42,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
           control={control}
           name="root.title"
           render={({ field }) => (
-            <Input placeholder="Title" disabled={readOnly} className="flex-1 min-w-24" {...field} />
+            <Input placeholder="Title" disabled={readOnly} className="flex-1" {...field} />
           )}
         />
 
@@ -46,12 +50,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
           control={control}
           name="root.description"
           render={({ field }) => (
-            <Input
-              placeholder="Description"
-              disabled={readOnly}
-              className="flex-1 min-w-32"
-              {...field}
-            />
+            <Input placeholder="Description" disabled={readOnly} className="flex-1" {...field} />
           )}
         />
 

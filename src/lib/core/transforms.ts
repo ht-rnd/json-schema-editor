@@ -2,18 +2,39 @@ import { nanoid } from "nanoid";
 import type { FormSchema, JSONSchema } from "./types";
 
 export const formToSchema = (formData: FormSchema): JSONSchema => {
+  const cleanSchema = (obj: any): any => {
+    if (obj === null || obj === undefined || obj === "") {
+      return undefined;
+    }
+
+    if (typeof obj !== "object" || obj instanceof Date) {
+      return obj;
+    }
+
+    if (Array.isArray(obj)) {
+      return obj.map(cleanSchema).filter((item) => item !== undefined);
+    }
+
+    const cleaned: any = {};
+    for (const key in obj) {
+      const value = cleanSchema(obj[key]);
+      if (value !== undefined) {
+        cleaned[key] = value;
+      }
+    }
+    return cleaned;
+  };
+
   const transformToSchema = (schema: any): JSONSchema => {
-    // Handle reference type - convert internal "ref" type to $ref only output
     if (schema.type === "ref" && schema.$ref) {
-      return {
+      return cleanSchema({
         $ref: schema.$ref,
         ...(schema.title && { title: schema.title }),
         ...(schema.description && { description: schema.description }),
-      };
+      });
     }
 
     const newSchema = { ...schema };
-    // Remove internal "ref" type marker if present
     if (newSchema.type === "ref") delete newSchema.type;
 
     if (Array.isArray(newSchema.properties)) {
@@ -44,7 +65,7 @@ export const formToSchema = (formData: FormSchema): JSONSchema => {
       newSchema.items = newSchema.items.map((itemSchema: any) => transformToSchema(itemSchema));
     }
 
-    return newSchema;
+    return cleanSchema(newSchema);
   };
 
   const finalSchema: JSONSchema = { ...transformToSchema(formData.root) };
@@ -68,7 +89,6 @@ export const formToSchema = (formData: FormSchema): JSONSchema => {
     finalSchema.required = required;
   }
 
-  // Handle definitions array → $defs object
   if (formData.definitions && formData.definitions.length > 0) {
     const defs: { [key: string]: JSONSchema } = {};
     formData.definitions.forEach((def) => {
@@ -86,7 +106,6 @@ export const schemaToForm = (schema: JSONSchema): FormSchema => {
   const transformToForm = (currentSchema: JSONSchema): any => {
     const newSchema: any = { ...currentSchema };
 
-    // Handle $ref - convert to internal "ref" type
     if (newSchema.$ref) {
       newSchema.type = "ref";
     }
@@ -133,7 +152,6 @@ export const schemaToForm = (schema: JSONSchema): FormSchema => {
     });
   }
 
-  // Handle $defs object → definitions array
   const definitionsArray: any[] = [];
   if ($defs) {
     Object.keys($defs).forEach((key) => {

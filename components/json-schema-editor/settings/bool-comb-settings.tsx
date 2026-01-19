@@ -3,20 +3,11 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
-import type { DivSettingsProps } from "../interface";
 import { cn } from "../lib/utils";
+import type { BoolCombFieldProps, DivSettingsProps } from "../types/props";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Separator } from "../ui/separator";
 import { Textarea } from "../ui/textarea";
-
-type BoolCombKeyword = "allOf" | "anyOf" | "oneOf" | "not";
-
-interface BoolCombFieldProps {
-  basePath: string;
-  readOnly?: boolean;
-  keyword: BoolCombKeyword;
-  isSchema: boolean;
-}
 
 const BoolCombField = ({ basePath, readOnly = false, keyword, isSchema }: BoolCombFieldProps) => {
   const fieldName = `${basePath}.${keyword}`;
@@ -92,12 +83,14 @@ const BoolCombField = ({ basePath, readOnly = false, keyword, isSchema }: BoolCo
 };
 
 const BoolCombSettings = React.forwardRef<HTMLDivElement, DivSettingsProps>(
-  ({ className, basePath, readOnly = false, ...props }, ref) => {
+  ({ className, basePath, readOnly = false, theme, ...props }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
       <div ref={ref} className={cn(className)} {...props}>
         <Separator className="my-4" />
+        {/* biome-ignore lint/a11y/noStaticElementInteractions: toggle accordion on click */}
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: toggle accordion on click */}
         <div
           className="flex items-center justify-between cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
