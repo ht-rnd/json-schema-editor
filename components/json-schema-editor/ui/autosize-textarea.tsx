@@ -48,9 +48,19 @@ export interface AutosizeTextAreaProps extends React.TextareaHTMLAttributes<HTML
   minHeight?: number;
 }
 
-const AutosizeTextarea = React.forwardRef<AutosizeTextAreaRef, AutosizeTextAreaProps>(
+const AutosizeTextarea = React.forwardRef<
+  AutosizeTextAreaRef,
+  AutosizeTextAreaProps
+>(
   (
-    { maxHeight = Number.MAX_SAFE_INTEGER, minHeight = 52, className, onChange, value, ...props },
+    {
+      maxHeight = Number.MAX_SAFE_INTEGER,
+      minHeight = 52,
+      className,
+      onChange,
+      value,
+      ...props
+    },
     ref,
   ) => {
     const textAreaRef = React.useRef<HTMLTextAreaElement | null>(null);

@@ -8,11 +8,11 @@ const ajv = new Ajv2020();
 addFormats(ajv);
 
 export function validateSchema(schema: JSONSchema): ErrorObject[] | null {
-  const isValid = ajv.validate(META_SCHEMA_URI, schema);
+	const isValid = ajv.validate(META_SCHEMA_URI, schema);
 
-  if (isValid) {
-    return null;
-  }
+	if (isValid) {
+		return null;
+	}
 
-  return ajv.errors || [];
+	return ajv.errors || [];
 }
