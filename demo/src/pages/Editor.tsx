@@ -2,12 +2,10 @@ import { JsonSchemaEditor } from "@json-schema-editor";
 import { useState, useMemo } from "react";
 import { RootType } from "src/types";
 import { exampleSchema } from "../data/examples";
-import { useTheme } from "../App";
 import type { Styles } from "../../../components/json-schema-editor/lib/constants";
 import { EditorConfig } from "../components/EditorConfig";
 
 export function Editor() {
-  const { theme } = useTheme();
   const [rootType, setRootType] = useState<RootType>("object");
   const [selectedSchema, setSelectedSchema] = useState<string>("emptySchema");
   const [styles, setStyles] = useState<Partial<Styles>>({
@@ -39,7 +37,6 @@ export function Editor() {
   return (
     <div className="my-8 mx-16 min-h-[calc(100vh-113px)] flex flex-col gap-6">
       <EditorConfig
-        theme={theme}
         rootType={rootType}
         selectedSchema={selectedSchema}
         schemas={schemas}
@@ -56,7 +53,6 @@ export function Editor() {
         rootType={rootType}
         readOnly={false}
         defaultValue={exampleSchema[selectedSchema]}
-        theme={theme}
         styles={styles}
       />
     </div>

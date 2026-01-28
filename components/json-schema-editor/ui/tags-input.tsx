@@ -57,8 +57,8 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
     const [isValueSelected, setIsValueSelected] = React.useState(false);
     const [selectedValue, setSelectedValue] = React.useState("");
 
-		const parseMinItems = minItems ?? 0;
-		const parseMaxItems = maxItems ?? Infinity;
+    const parseMinItems = minItems ?? 0;
+    const parseMaxItems = maxItems ?? Infinity;
 
     const onValueChangeHandler = React.useCallback(
       (val: string) => {
@@ -165,33 +165,33 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
             }
             break;
 
-					case "ArrowRight":
-						if (dir === "rtl") {
-							if (value.length > 0 && target.selectionStart === 0) {
-								movePrev();
-							}
-						} else {
-							if (value.length > 0 && activeIndex !== -1) {
-								moveNext();
-							}
-						}
-						break;
+          case "ArrowRight":
+            if (dir === "rtl") {
+              if (value.length > 0 && target.selectionStart === 0) {
+                movePrev();
+              }
+            } else {
+              if (value.length > 0 && activeIndex !== -1) {
+                moveNext();
+              }
+            }
+            break;
 
-					case "Backspace":
-					case "Delete":
-						if (value.length > 0) {
-							if (activeIndex !== -1 && activeIndex < value.length) {
-								RemoveValue(value[activeIndex]);
-								moveCurrent();
-							} else {
-								if (target.selectionStart === 0) {
-									if (selectedValue === inputValue || isValueSelected) {
-										RemoveValue(value[value.length - 1]);
-									}
-								}
-							}
-						}
-						break;
+          case "Backspace":
+          case "Delete":
+            if (value.length > 0) {
+              if (activeIndex !== -1 && activeIndex < value.length) {
+                RemoveValue(value[activeIndex]);
+                moveCurrent();
+              } else {
+                if (target.selectionStart === 0) {
+                  if (selectedValue === inputValue || isValueSelected) {
+                    RemoveValue(value[value.length - 1]);
+                  }
+                }
+              }
+            }
+            break;
 
           case "Escape": {
             const newIndex = activeIndex === -1 ? value.length - 1 : -1;
@@ -220,10 +220,10 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
       ],
     );
 
-		const mousePreventDefault = React.useCallback((e: React.MouseEvent) => {
-			e.preventDefault();
-			e.stopPropagation();
-		}, []);
+    const mousePreventDefault = React.useCallback((e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+    }, []);
 
     const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.currentTarget.value);

@@ -1,31 +1,33 @@
-export { Field } from "./form/field";
-export { FieldList } from "./form/field-list";
-export { FieldRow } from "./form/field-row";
-export { Root } from "./form/root";
+export type { JsonSchemaEditorProps } from "./json-schema-editor";
 export { JsonSchemaEditor } from "./json-schema-editor";
-export { cn } from "./lib/utils";
-export { ArraySettings } from "./settings/array-settings";
-export { BoolCombSettings } from "./settings/bool-comb-settings";
-export { BooleanSettings } from "./settings/boolean-settings";
-export { DefinitionsSettings } from "./settings/definitions-settings";
-export { IntegerSettings } from "./settings/integer-settings";
-export { NumberSettings } from "./settings/number-settings";
-export { ObjectSettings } from "./settings/object-settings";
-export { RootSettings } from "./settings/root-settings";
-export { Settings } from "./settings/settings";
-export { SettingsDialog } from "./settings/settings-dialog";
-export { StringSettings } from "./settings/string-settings";
-export type { DefinitionItem } from "./types";
 export type {
-  DefinitionsSettingsProps,
-  DivSettingsProps,
+  DefinitionItem,
   FieldListProps,
   FieldProps,
   FieldRowProps,
-  JsonSchemaEditorProps,
   RootProps,
+} from "./json-schema-form";
+export { Field, FieldList, FieldRow, Root } from "./json-schema-form";
+export type {
+  BoolCombKeyword,
+  DefinitionsSettingsProps,
+  DivSettingsProps,
   SettingsProps,
-} from "./types/props";
+} from "./json-schema-settings";
+export {
+  ArraySettings,
+  BoolCombSettings,
+  BooleanSettings,
+  DefinitionsSettings,
+  IntegerSettings,
+  NumberSettings,
+  ObjectSettings,
+  RootSettings,
+  Settings,
+  SettingsDialog,
+  StringSettings,
+} from "./json-schema-settings";
+export { cn } from "./lib/utils";
 export {
   AlertDialog,
   AlertDialogAction,

@@ -22,7 +22,6 @@ const schemaLabels: Record<string, string> = {
 };
 
 export function EditorConfig({
-  theme,
   rootType,
   selectedSchema,
   schemas,
@@ -53,7 +52,7 @@ export function EditorConfig({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent
-                className={`bg-background text-foreground border-input ${theme}`}
+                className="bg-background text-foreground border-input"
               >
                 <SelectItem value="object">Object</SelectItem>
                 <SelectItem value="array">Array</SelectItem>
@@ -73,7 +72,7 @@ export function EditorConfig({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent
-                className={`bg-background text-foreground border-input ${theme}`}
+                className="bg-background text-foreground border-input"
               >
                 {schemas.map((schemaName) => (
                   <SelectItem key={schemaName} value={schemaName}>
@@ -111,7 +110,7 @@ export function EditorConfig({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent
-                  className={`bg-background text-foreground border-input ${theme}`}
+                  className="bg-background text-foreground border-input"
                 >
                   <SelectItem value="sm">Small</SelectItem>
                   <SelectItem value="md">Medium</SelectItem>
@@ -141,7 +140,7 @@ export function EditorConfig({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent
-                  className={`bg-background text-foreground border-input ${theme}`}
+                  className="bg-background text-foreground border-input"
                 >
                   <SelectItem value="sm">Small</SelectItem>
                   <SelectItem value="md">Medium</SelectItem>
@@ -177,7 +176,7 @@ export function EditorConfig({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent
-                  className={`bg-background text-foreground border-input ${theme}`}
+                  className="bg-background text-foreground border-input"
                 >
                   <SelectItem value="sm">Small</SelectItem>
                   <SelectItem value="md">Medium</SelectItem>
@@ -207,7 +206,7 @@ export function EditorConfig({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent
-                  className={`bg-background text-foreground border-input ${theme}`}
+                  className="bg-background text-foreground border-input"
                 >
                   <SelectItem value="sm">Small</SelectItem>
                   <SelectItem value="md">Medium</SelectItem>
@@ -242,7 +241,7 @@ export function EditorConfig({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent
-                className={`bg-background text-foreground border-input ${theme}`}
+                className="bg-background text-foreground border-input"
               >
                 <SelectItem value="top">Top</SelectItem>
                 <SelectItem value="bottom">Bottom</SelectItem>
@@ -266,7 +265,7 @@ export function EditorConfig({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent
-                className={`bg-background text-foreground border-input ${theme}`}
+                className="bg-background text-foreground border-input"
               >
                 <SelectItem value="sm">Small</SelectItem>
                 <SelectItem value="md">Medium</SelectItem>
@@ -326,7 +325,7 @@ export function EditorConfig({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent
-                className={`bg-background text-foreground border-input ${theme}`}
+                className="bg-background text-foreground border-input"
               >
                 <SelectItem value="sm">Small</SelectItem>
                 <SelectItem value="md">Medium</SelectItem>

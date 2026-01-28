@@ -145,7 +145,8 @@ const ObjectSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
                     const validationErrors = validateSchema(jsonObject);
                     if (validationErrors) {
                       const errorMessages = validationErrors.map(
-                        (error) => `${error.instancePath} - ${error.message ?? "Unknown error"}`,
+                        (error: { instancePath: any; message: any }) =>
+                          `${error.instancePath} - ${error.message ?? "Unknown error"}`,
                       );
                       setJsonError(errorMessages);
                     } else {

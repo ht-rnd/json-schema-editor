@@ -7,7 +7,6 @@ export interface IHeaderProps {
 }
 
 export interface EditorConfigProps {
-  theme: string;
   rootType: RootType;
   selectedSchema: string;
   schemas: string[];

@@ -2,9 +2,8 @@ import { useJsonSchemaEditor } from "@ht-rnd/json-schema-editor";
 import { nanoid } from "nanoid";
 import * as React from "react";
 import { FormProvider, useFieldArray } from "react-hook-form";
-import { Field } from "./form/field";
-import { FieldList } from "./form/field-list";
-import { Root } from "./form/root";
+import { Field, FieldList, Root } from "./json-schema-form";
+import { SettingsDialog } from "./json-schema-settings";
 import {
   defaultStyles,
   heightMap,
@@ -16,10 +15,18 @@ import {
   widthMap,
 } from "./lib/constants";
 import { cn } from "./lib/utils";
-import { SettingsDialog } from "./settings/settings-dialog";
-import type { JsonSchemaEditorProps } from "./types/props";
 import { type AutosizeTextAreaRef, AutosizeTextarea } from "./ui/autosize-textarea";
 import { Badge } from "./ui/badge";
+
+export interface JsonSchemaEditorProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+  rootType?: "object" | "array";
+  defaultValue?: any;
+  onChange?: (schema: any) => void;
+  readOnly?: boolean;
+  showOutput?: boolean;
+  styles?: Partial<Styles>;
+}
 
 const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>(
   (
@@ -30,7 +37,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
       showOutput = true,
       onChange,
       defaultValue,
-      theme = "light",
       styles,
       ...props
     },
@@ -82,7 +88,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
           ref={ref}
           className={cn(
             "bg-background text-foreground flex flex-col",
-            theme,
             spacingMap[finalStyles.spacing],
             className,
           )}
@@ -91,7 +96,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
           <div
             className={cn(
               "bg-background text-foreground flex",
-              theme,
               layoutMap[finalStyles.output.position],
               spacingMap[finalStyles.spacing],
             )}
@@ -108,7 +112,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
                 rootType={rootType}
                 onAddField={handleAddField}
                 onOpenSettings={editor.openSettings}
-                theme={theme}
               />
               {rootType === "object" && (
                 <FieldList
@@ -116,7 +119,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
                   fields={fields as any}
                   onRemove={remove}
                   onOpenSettings={editor.openSettings}
-                  theme={theme}
                 />
               )}
               {rootType === "array" && (
@@ -129,7 +131,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
                     defs={false}
                     isRootLevel={false}
                     isSchemaDirect={true}
-                    theme={theme}
                   />
                 </div>
               )}
@@ -179,7 +180,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
           isOpen={editor.settingsState.isOpen}
           fieldPath={editor.settingsState.fieldPath}
           onClose={editor.closeSettings}
-          theme={theme}
           className={settingsWidthMap[finalStyles.settings.width]}
         />
       </FormProvider>
