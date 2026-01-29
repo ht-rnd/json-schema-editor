@@ -2,21 +2,11 @@ import { useJsonSchemaEditor } from "@ht-rnd/json-schema-editor";
 import { nanoid } from "nanoid";
 import * as React from "react";
 import { FormProvider, useFieldArray } from "react-hook-form";
+import { cn } from "@/lib/utils";
+import { type AutosizeTextAreaRef, AutosizeTextarea } from "./autosize-textarea";
+import { Badge } from "./badge";
 import { Field, FieldList, Root } from "./json-schema-form";
 import { SettingsDialog } from "./json-schema-settings";
-import {
-  defaultStyles,
-  heightMap,
-  layoutMap,
-  outputHeightMap,
-  type Styles,
-  settingsWidthMap,
-  spacingMap,
-  widthMap,
-} from "./lib/constants";
-import { cn } from "./lib/utils";
-import { type AutosizeTextAreaRef, AutosizeTextarea } from "./ui/autosize-textarea";
-import { Badge } from "./ui/badge";
 
 export interface JsonSchemaEditorProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
@@ -25,7 +15,6 @@ export interface JsonSchemaEditorProps
   onChange?: (schema: any) => void;
   readOnly?: boolean;
   showOutput?: boolean;
-  styles?: Partial<Styles>;
 }
 
 const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>(
@@ -37,7 +26,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
       showOutput = true,
       onChange,
       defaultValue,
-      styles,
       ...props
     },
     ref,
@@ -50,27 +38,7 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
       keyName: "fieldId",
     });
 
-    const finalStyles: Styles = {
-      ...defaultStyles,
-      ...styles,
-      output: { ...defaultStyles.output, ...styles?.output },
-      form: { ...defaultStyles.form, ...styles?.form },
-      settings: { ...defaultStyles.settings, ...styles?.settings },
-    };
-
     const textareaRef = React.useRef<AutosizeTextAreaRef>(null);
-    const [overflowClass, setOverflowClass] = React.useState("overflow-hidden");
-
-    React.useEffect(() => {
-      const textAreaElement = textareaRef.current?.textArea;
-      if (textAreaElement) {
-        if (textAreaElement.scrollHeight > textAreaElement.clientHeight) {
-          setOverflowClass("overflow-y-auto");
-        } else {
-          setOverflowClass("overflow-hidden");
-        }
-      }
-    }, [editor.schema]);
 
     const handleAddField = () => {
       const id = nanoid(6);
@@ -84,29 +52,9 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
 
     return (
       <FormProvider {...editor.form}>
-        <div
-          ref={ref}
-          className={cn(
-            "bg-background text-foreground flex flex-col",
-            spacingMap[finalStyles.spacing],
-            className,
-          )}
-          {...props}
-        >
-          <div
-            className={cn(
-              "bg-background text-foreground flex",
-              layoutMap[finalStyles.output.position],
-              spacingMap[finalStyles.spacing],
-            )}
-          >
-            <div
-              className={cn(
-                "p-4 pr-2 flex flex-col gap-2 border border-input rounded-lg overflow-y-auto",
-                widthMap[finalStyles.form.width],
-                heightMap[finalStyles.form.height],
-              )}
-            >
+        <div ref={ref} className={cn("w-full", className)} {...props}>
+          <div className="flex flex-col gap-4 w-full">
+            <div className="p-4 flex flex-col gap-3 border border-input rounded-lg overflow-auto bg-background w-full max-h-[600px]">
               <Root
                 readOnly={readOnly}
                 rootType={rootType}
@@ -122,7 +70,7 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
                 />
               )}
               {rootType === "array" && (
-                <div className="ml-2 pl-2 border-l-2 border-input">
+                <div className="ml-2 pl-3 border-l-2 border-input">
                   <Field
                     readOnly={readOnly}
                     fieldPath="root.items"
@@ -137,14 +85,8 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
             </div>
 
             {editor.errors ? (
-              <div
-                className={cn(
-                  "p-6 bg-background text-foreground border border-input rounded-lg overflow-y-auto overflow-x-auto",
-                  widthMap[finalStyles.output.width],
-                  heightMap[finalStyles.output.height],
-                )}
-              >
-                <p className="text-lg">JSON Schema Errors</p>
+              <div className="p-6 bg-background text-foreground border border-input rounded-lg overflow-auto w-full min-h-[200px] max-h-[400px]">
+                <p className="text-lg font-semibold">JSON Schema Errors</p>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {`The generated JSON Schema has ${editor.errors.length} ${
                     editor.errors.length > 1 ? "errors." : "error."
@@ -152,8 +94,8 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
                 </p>
                 <ul className="mt-4 flex flex-col gap-2">
                   {editor.errors.map((error: any, index: any) => (
-                    <li key={index} className="flex items-center gap-2 text-sm">
-                      <Badge variant="destructive" className="font-mono">
+                    <li key={index} className="flex items-start gap-2 text-sm">
+                      <Badge variant="destructive" className="font-mono text-xs shrink-0">
                         root{error.instancePath}
                       </Badge>
                       <span>{error.message}</span>
@@ -162,14 +104,16 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
                 </ul>
               </div>
             ) : (
-              finalStyles.output.showJson && (
-                <AutosizeTextarea
-                  ref={textareaRef}
-                  readOnly
-                  maxHeight={outputHeightMap[finalStyles.output.height]}
-                  value={JSON.stringify(editor.schema, null, 2)}
-                  className={cn("font-mono", widthMap[finalStyles.output.width], overflowClass)}
-                />
+              showOutput && (
+                <div className="border border-input rounded-lg bg-background overflow-auto w-full min-h-[200px] max-h-[400px]">
+                  <AutosizeTextarea
+                    ref={textareaRef}
+                    readOnly
+                    value={JSON.stringify(editor.schema, null, 2)}
+                    minHeight={200}
+                    className="font-mono text-sm border-0 resize-none h-full min-h-[200px]"
+                  />
+                </div>
               )
             )}
           </div>
@@ -180,7 +124,6 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
           isOpen={editor.settingsState.isOpen}
           fieldPath={editor.settingsState.fieldPath}
           onClose={editor.closeSettings}
-          className={settingsWidthMap[finalStyles.settings.width]}
         />
       </FormProvider>
     );

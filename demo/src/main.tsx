@@ -1,17 +1,17 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-  Outlet,
-  RouterProvider,
   createRootRoute,
   createRoute,
   createRouter,
+  Outlet,
+  RouterProvider,
 } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { App } from "./App";
-import { Home } from "./pages/Home";
 import { Editor } from "./pages/Editor";
+import { Home } from "./pages/Home";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,10 +42,7 @@ const editorRoute = createRoute({
   component: Editor,
 });
 
-const routeTree = rootRoute.addChildren([
-  indexRoute,
-  editorRoute,
-]);
+const routeTree = rootRoute.addChildren([indexRoute, editorRoute]);
 
 const router = createRouter({
   routeTree,

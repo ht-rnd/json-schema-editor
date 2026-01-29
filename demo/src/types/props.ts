@@ -1,5 +1,4 @@
-import { Styles } from "@json-schema-editor/lib/constants";
-import { RootType, Theme } from ".";
+import type { RootType, Theme } from ".";
 
 export interface IHeaderProps {
   theme: Theme;
@@ -10,8 +9,8 @@ export interface EditorConfigProps {
   rootType: RootType;
   selectedSchema: string;
   schemas: string[];
-  styles: Partial<Styles>;
+  showOutput: boolean;
   onRootTypeChange: (rootType: RootType) => void;
   onSchemaChange: (schema: string) => void;
-  onStylesChange: (styles: Partial<Styles>) => void;
+  onShowOutputChange: (showOutput: boolean) => void;
 }

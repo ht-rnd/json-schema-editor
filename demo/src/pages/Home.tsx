@@ -1,5 +1,5 @@
-import { Features } from "../components/Features";
 import { Link } from "@tanstack/react-router";
+import { Features } from "../components/Features";
 
 export function Home() {
   return (
@@ -9,9 +9,8 @@ export function Home() {
       </h2>
 
       <p className="m-6 max-w-[48rem] text-lg text-muted-foreground text-center">
-        A headless, fully customizable JSON Schema editor for React. Use the
-        hook for complete control, or copy the pre-built shadcn-style
-        components.
+        A headless, fully customizable JSON Schema editor for React. Use the hook for complete
+        control, or copy the pre-built shadcn-style components.
       </p>
 
       <div className="flex flex-wrap gap-3 justify-center mb-6">
@@ -31,7 +30,10 @@ export function Home() {
 
       <Features />
 
-      <button type="button" className="mt-6 px-3 py-2 border rounded-md bg-primary text-primary-foreground hover:bg-primary/80 transition-colors text-sm">
+      <button
+        type="button"
+        className="mt-6 px-3 py-2 border rounded-md bg-primary text-primary-foreground hover:bg-primary/80 transition-colors text-sm"
+      >
         <Link to="/editor">Get Started</Link>
       </button>
     </div>

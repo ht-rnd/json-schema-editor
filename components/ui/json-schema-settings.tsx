@@ -9,19 +9,19 @@ import { nanoid } from "nanoid";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { cn } from "@/lib/utils";
+import { Badge } from "./badge";
+import { Button } from "./button";
+import { Checkbox } from "./checkbox";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./dialog";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./form";
+import { Input } from "./input";
 import { Field } from "./json-schema-form";
-import { cn } from "./lib/utils";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { Checkbox } from "./ui/checkbox";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
-import { Input } from "./ui/input";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Separator } from "./ui/separator";
-import { TagsInput } from "./ui/tags-input";
-import { Textarea } from "./ui/textarea";
+import { RadioGroup, RadioGroupItem } from "./radio-group";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
+import { Separator } from "./separator";
+import { TagsInput } from "./tags-input";
+import { Textarea } from "./textarea";
 
 export type BoolCombKeyword = "allOf" | "anyOf" | "oneOf" | "not";
 
@@ -180,7 +180,7 @@ const BooleanSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
     const { control } = useFormContext();
 
     return (
-      <form ref={ref} className={cn(className)} {...props}>
+      <form ref={ref} className={className} {...props}>
         <FormField
           control={control}
           name={`${basePath}.default`}
@@ -935,8 +935,7 @@ const ObjectSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
                     const validationErrors = validateSchema(jsonObject);
                     if (validationErrors) {
                       const errorMessages = validationErrors.map(
-                        (error: { instancePath: any; message: any }) =>
-                          `${error.instancePath} - ${error.message ?? "Unknown error"}`,
+                        (error) => `${error.instancePath} - ${error.message ?? "Unknown error"}`,
                       );
                       setJsonError(errorMessages);
                     } else {
@@ -1239,7 +1238,7 @@ const BoolCombSettings = React.forwardRef<HTMLDivElement, DivSettingsProps>(
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-      <div ref={ref} className={cn(className)} {...props}>
+      <div ref={ref} className={className} {...props}>
         <Separator className="my-4" />
         {/* biome-ignore lint/a11y/noStaticElementInteractions: toggle accordion on click */}
         {/* biome-ignore lint/a11y/useKeyWithClickEvents: toggle accordion on click */}
@@ -1345,7 +1344,10 @@ const SettingsDialog = React.forwardRef<HTMLDivElement, SettingsDialogProps>(
       <Dialog open={isOpen} onOpenChange={(open) => !open && onClose?.()}>
         <DialogContent
           ref={ref}
-          className={cn("w-screen bg-background text-foreground border-input", className)}
+          className={cn(
+            "w-full max-w-2xl lg:max-w-4xl bg-background text-foreground border-input max-h-[90vh] overflow-y-auto",
+            className,
+          )}
           {...props}
         >
           <DialogHeader>

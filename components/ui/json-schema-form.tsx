@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import * as React from "react";
 import type { FieldArrayWithId } from "react-hook-form";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
-import { cn } from "./lib/utils";
+import { cn } from "@/lib/utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,11 +15,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./ui/alert-dialog";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+} from "./alert-dialog";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
 
 export interface DefinitionItem {
   id: string;
@@ -249,7 +249,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
         {!defs && fieldType !== "ref" && (
           <Button
             type="button"
-            size="icon"
+            size="icon-sm"
             variant="ghost"
             onClick={() => onOpenSettings?.(schemaPath)}
           >
@@ -262,12 +262,12 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
             <AlertDialogTrigger asChild>
               <Button
                 type="button"
-                size="icon"
+                size="icon-sm"
                 variant="ghost"
                 data-testid="delete-button"
                 disabled={readOnly}
               >
-                <Trash2 className="text-red-500" />
+                <Trash2 className="w-4 h-4 text-red-600 dark:text-red-400" />
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="border-input">
@@ -346,7 +346,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
     };
 
     return (
-      <div ref={ref} className={cn(className)} key={`${fieldPath}-${fieldType}`} {...props}>
+      <div ref={ref} className={className} key={`${fieldPath}-${fieldType}`} {...props}>
         <FieldRow
           readOnly={readOnly}
           control={control}
@@ -475,18 +475,18 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
 
         <Button
           type="button"
-          size="icon"
+          size="icon-sm"
           variant="ghost"
           data-testid="root-settings-button"
           onClick={() => onOpenSettings?.("root")}
         >
-          <Settings className="text-blue-500" />
+          <Settings className="w-4 h-4 text-blue-600 dark:text-blue-400" />
         </Button>
 
         {rootType === "object" && (
           <Button
             type="button"
-            size="icon"
+            size="icon-sm"
             variant="ghost"
             data-testid="root-add-button"
             disabled={readOnly}

@@ -1,17 +1,13 @@
+"use client";
+
 import { X as RemoveIcon } from "lucide-react";
 import * as React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import { Badge } from "./badge";
 import { Input } from "./input";
 
-/**
- * used for identifying the split char and use will pasting
- */
 const SPLITTER_REGEX = /[\n#?=&\t,./-]+/;
 
-/**
- * used for formatting the pasted element for the correct value format to be added
- */
 const FORMATTING_REGEX = /^[^a-zA-Z0-9]*|[^a-zA-Z0-9]*$/g;
 
 export interface TagsInputProps extends React.HTMLAttributes<HTMLDivElement> {

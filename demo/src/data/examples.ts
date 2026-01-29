@@ -1,4 +1,4 @@
-import { JSONSchema } from "@ht-rnd/json-schema-editor";
+import type { JSONSchema } from "../../../src/lib/core/types";
 
 export const exampleSchema: Record<string, JSONSchema> = {
   emptySchema: undefined as unknown as JSONSchema,
@@ -64,11 +64,11 @@ export const exampleSchema: Record<string, JSONSchema> = {
         id: { type: "integer", title: "ID" },
         task: { type: "string", title: "Task", minLength: 1 },
         completed: { type: "boolean", title: "Completed", default: false },
-        priority: { 
-          type: "string", 
+        priority: {
+          type: "string",
           title: "Priority",
           enum: ["low", "medium", "high"],
-          default: "medium"
+          default: "medium",
         },
       },
       required: ["id", "task"],

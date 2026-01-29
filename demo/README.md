@@ -5,22 +5,9 @@ Interactive demo for the `@ht-rnd/json-schema-editor` library.
 ## Development
 
 ```bash
-# From root directory
-npm run demo
-
-# Or from demo directory
 cd demo
 npm install
 npm run dev
-```
-
-## Building for GitHub Pages
-
-```bash
-# From root directory
-npm run demo:build
-
-# Output will be in demo/dist/
 ```
 
 ## Features Demonstrated
@@ -30,7 +17,6 @@ npm run demo:build
 - **Example Schemas**: Load pre-built example schemas
 - **Root Type Selection**: Switch between object and array root types
 - **Real-time Output**: See the generated JSON schema as you edit
-- **Copy to Clipboard**: Quick copy the generated schema
 
 ## Deployment
 
