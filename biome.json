@@ -8,12 +8,13 @@
   "files": {
     "ignoreUnknown": false,
     "includes": [
-      "src/**/*.ts", 
-      "src/**/*.tsx", 
-      "components/**/*.ts", 
-      "components/**/*.tsx", 
-      "demo/**/*.ts", 
-      "demo/**/*.tsx"]
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "components/**/*.ts",
+      "components/**/*.tsx",
+      "demo/**/*.ts",
+      "demo/**/*.tsx"
+    ]
   },
   "formatter": {
     "enabled": true,

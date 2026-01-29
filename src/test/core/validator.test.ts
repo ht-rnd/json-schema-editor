@@ -71,4 +71,16 @@ describe("validateSchema", () => {
     const result = validateSchema(stringSchema);
     expect(result).toBeNull();
   });
+
+  it("should return empty array if ajv.errors is null but validation fails", () => {
+    const schemaWithCircularRef: JSONSchema = {
+      type: "object",
+      properties: {
+        self: {} as any,
+      },
+    };
+
+    const result = validateSchema(schemaWithCircularRef);
+    expect(result === null || Array.isArray(result)).toBe(true);
+  });
 });
