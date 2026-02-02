@@ -1,6 +1,6 @@
-import { useState, ReactNode, createContext, useContext } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import { Header } from "./components/Header";
-import { Theme, ThemeContextType } from "./types";
+import type { Theme, ThemeContextType } from "./types";
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
@@ -21,9 +21,15 @@ export const App: React.FC<{
     setTheme(newTheme);
   };
 
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove("light", "dark");
+    root.classList.add(theme);
+  }, [theme]);
+
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className={`${theme} bg-background text-foreground h-screen`}>
+      <div className="bg-background text-foreground h-screen">
         <Header theme={theme} onThemeChange={handleThemeChange} />
         {children}
       </div>

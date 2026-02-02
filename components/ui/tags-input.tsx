@@ -1,17 +1,13 @@
+"use client";
+
 import { X as RemoveIcon } from "lucide-react";
 import * as React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import { Badge } from "./badge";
 import { Input } from "./input";
 
-/**
- * used for identifying the split char and use will pasting
- */
 const SPLITTER_REGEX = /[\n#?=&\t,./-]+/;
 
-/**
- * used for formatting the pasted element for the correct value format to be added
- */
 const FORMATTING_REGEX = /^[^a-zA-Z0-9]*|[^a-zA-Z0-9]*$/g;
 
 export interface TagsInputProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -57,8 +53,8 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
     const [isValueSelected, setIsValueSelected] = React.useState(false);
     const [selectedValue, setSelectedValue] = React.useState("");
 
-		const parseMinItems = minItems ?? 0;
-		const parseMaxItems = maxItems ?? Infinity;
+    const parseMinItems = minItems ?? 0;
+    const parseMaxItems = maxItems ?? Infinity;
 
     const onValueChangeHandler = React.useCallback(
       (val: string) => {
@@ -165,33 +161,33 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
             }
             break;
 
-					case "ArrowRight":
-						if (dir === "rtl") {
-							if (value.length > 0 && target.selectionStart === 0) {
-								movePrev();
-							}
-						} else {
-							if (value.length > 0 && activeIndex !== -1) {
-								moveNext();
-							}
-						}
-						break;
+          case "ArrowRight":
+            if (dir === "rtl") {
+              if (value.length > 0 && target.selectionStart === 0) {
+                movePrev();
+              }
+            } else {
+              if (value.length > 0 && activeIndex !== -1) {
+                moveNext();
+              }
+            }
+            break;
 
-					case "Backspace":
-					case "Delete":
-						if (value.length > 0) {
-							if (activeIndex !== -1 && activeIndex < value.length) {
-								RemoveValue(value[activeIndex]);
-								moveCurrent();
-							} else {
-								if (target.selectionStart === 0) {
-									if (selectedValue === inputValue || isValueSelected) {
-										RemoveValue(value[value.length - 1]);
-									}
-								}
-							}
-						}
-						break;
+          case "Backspace":
+          case "Delete":
+            if (value.length > 0) {
+              if (activeIndex !== -1 && activeIndex < value.length) {
+                RemoveValue(value[activeIndex]);
+                moveCurrent();
+              } else {
+                if (target.selectionStart === 0) {
+                  if (selectedValue === inputValue || isValueSelected) {
+                    RemoveValue(value[value.length - 1]);
+                  }
+                }
+              }
+            }
+            break;
 
           case "Escape": {
             const newIndex = activeIndex === -1 ? value.length - 1 : -1;
@@ -220,10 +216,10 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
       ],
     );
 
-		const mousePreventDefault = React.useCallback((e: React.MouseEvent) => {
-			e.preventDefault();
-			e.stopPropagation();
-		}, []);
+    const mousePreventDefault = React.useCallback((e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+    }, []);
 
     const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.currentTarget.value);

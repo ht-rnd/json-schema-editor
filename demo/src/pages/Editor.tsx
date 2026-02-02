@@ -1,21 +1,13 @@
-import { JsonSchemaEditor } from "@json-schema-editor";
-import { useState, useMemo } from "react";
-import { RootType } from "src/types";
-import { exampleSchema } from "../data/examples";
-import { useTheme } from "../App";
-import type { Styles } from "../../../components/json-schema-editor/lib/constants";
+import { useMemo, useState } from "react";
+import { JsonSchemaEditor } from "../../../components/ui/json-schema-editor";
 import { EditorConfig } from "../components/EditorConfig";
+import { exampleSchema } from "../data/examples";
+import type { RootType } from "../types";
 
 export function Editor() {
-  const { theme } = useTheme();
   const [rootType, setRootType] = useState<RootType>("object");
   const [selectedSchema, setSelectedSchema] = useState<string>("emptySchema");
-  const [styles, setStyles] = useState<Partial<Styles>>({
-    form: { width: "full", height: "md" },
-    output: { position: "bottom", showJson: true, width: "full", height: "md" },
-    settings: { width: "md" },
-    spacing: "md",
-  });
+  const [showOutput, setShowOutput] = useState<boolean>(true);
 
   const schemas = useMemo(() => {
     return Object.entries(exampleSchema)
@@ -39,14 +31,13 @@ export function Editor() {
   return (
     <div className="my-8 mx-16 min-h-[calc(100vh-113px)] flex flex-col gap-6">
       <EditorConfig
-        theme={theme}
         rootType={rootType}
         selectedSchema={selectedSchema}
         schemas={schemas}
-        styles={styles}
+        showOutput={showOutput}
         onRootTypeChange={handleRootTypeChange}
         onSchemaChange={setSelectedSchema}
-        onStylesChange={setStyles}
+        onShowOutputChange={setShowOutput}
       />
 
       <p className="text-2xl font-medium">JSON Schema Editor</p>
@@ -55,9 +46,8 @@ export function Editor() {
         key={`${rootType}-${selectedSchema}`}
         rootType={rootType}
         readOnly={false}
+        showOutput={showOutput}
         defaultValue={exampleSchema[selectedSchema]}
-        theme={theme}
-        styles={styles}
       />
     </div>
   );

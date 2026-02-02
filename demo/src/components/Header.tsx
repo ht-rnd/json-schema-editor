@@ -1,6 +1,6 @@
-import { Moon, Sun, Github, Package, Layers } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { IHeaderProps } from "src/types/props";
+import { Github, Layers, Moon, Package, Sun } from "lucide-react";
+import type { IHeaderProps } from "../types/props";
 
 export function Header({ theme, onThemeChange }: IHeaderProps) {
   return (
@@ -11,9 +11,7 @@ export function Header({ theme, onThemeChange }: IHeaderProps) {
         </div>
         <div>
           <h1 className="text-xl font-bold">JSON Schema Editor</h1>
-          <p className="text-sm text-muted-foreground">
-            Headless • React • TypeScript
-          </p>
+          <p className="text-sm text-muted-foreground">Headless • React • TypeScript</p>
         </div>
       </Link>
 
@@ -42,11 +40,7 @@ export function Header({ theme, onThemeChange }: IHeaderProps) {
           className="p-2 rounded-md hover:bg-accent transition-colors"
           aria-label="Toggle theme"
         >
-          {theme === "light" ? (
-            <Moon className="w-5 h-5" />
-          ) : (
-            <Sun className="w-5 h-5" />
-          )}
+          {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
         </button>
       </div>
     </div>

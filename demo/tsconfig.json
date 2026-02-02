@@ -18,11 +18,10 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@ht-rnd/json-schema-editor": ["../src/lib"],
-      "@json-schema-editor": ["../components/json-schema-editor"],
-      "@json-schema-editor/*": ["../components/json-schema-editor/*"]
+      "@/*": ["../*"],
+      "@ht-rnd/json-schema-editor": ["../src/lib"]
     }
   },
-  "include": ["src", "../src/lib", "../components/json-schema-editor"]
+  "include": ["../src", "../lib", "../components"]
 }
 

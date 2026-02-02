@@ -1,10 +1,15 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./*"],
+			"@ht-rnd/json-schema-editor": ["./src/lib"]
+		},
+		"rootDir": ".",
 		"declaration": true,
 		"declarationDir": "./dist/types",
 		"emitDeclarationOnly": true,
 		"outDir": "dist",
-		"rootDir": "src",
 		"moduleResolution": "bundler",
 		"allowSyntheticDefaultImports": true,
 		"target": "ESNext",
@@ -14,6 +19,6 @@
 		"esModuleInterop": true,
 		"skipLibCheck": true
 	},
-	"include": ["src"],
+	"include": ["src", "components", "lib"],
 	"exclude": ["node_modules", "dist"]
 }
