@@ -19,7 +19,7 @@ import {
 import { Button } from "./button";
 import { Input } from "./input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 
 export interface DefinitionItem {
   id: string;
@@ -221,25 +221,27 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
               control={control}
               name={`${fieldPath}.isRequired`}
               render={({ field }) => (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      type="button"
-                      data-testid="required"
-                      disabled={readOnly}
-                      size="icon"
-                      variant={field.value ? "default" : "outline"}
-                      onClick={() => {
-                        field.onChange(!field.value);
-                      }}
-                    >
-                      <TriangleAlert />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Required</p>
-                  </TooltipContent>
-                </Tooltip>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        type="button"
+                        data-testid="required"
+                        disabled={readOnly}
+                        size="icon"
+                        variant={field.value ? "default" : "outline"}
+                        onClick={() => {
+                          field.onChange(!field.value);
+                        }}
+                      >
+                        <TriangleAlert />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Required</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
             />
             <div className="border-l-2 border-input"></div>
@@ -460,16 +462,18 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
           )}
         />
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button type="button" disabled size="icon">
-              <TriangleAlert />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Required</p>
-          </TooltipContent>
-        </Tooltip>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button type="button" disabled size="icon">
+                <TriangleAlert />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Required</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
         <div className="border-l-2 border-input"></div>
 
