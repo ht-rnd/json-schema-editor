@@ -197,7 +197,9 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
               }}
               value=""
             >
-              <SelectTrigger className="w-10 shrink-0" />
+              <SelectTrigger className="w-16 shrink-0">
+                <SelectValue placeholder="defs" />
+              </SelectTrigger>
               <SelectContent className="min-w-52 max-h-64 bg-background text-foreground border-input">
                 {definitions && definitions.length > 0 ? (
                   definitions.map((def) => (
