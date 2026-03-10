@@ -440,7 +440,7 @@ const IntegerSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
           />
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-start">
           <FormField
             control={control}
             name={`${basePath}.exclusiveMin`}
@@ -568,7 +568,8 @@ const IntegerSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
                     disabled={readOnly}
                     value={field.value || []}
                     onValueChange={field.onChange}
-                    placeholder="Enter your enums"
+                    placeholder="Add integer values"
+                    onValidate={(v) => v.trim() !== "" && Number.isInteger(Number(v))}
                   />
                 </FormControl>
                 <FormMessage />
@@ -657,7 +658,7 @@ const NumberSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
           />
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-start">
           <FormField
             control={control}
             name={`${basePath}.exclusiveMin`}
@@ -785,7 +786,8 @@ const NumberSettings = React.forwardRef<HTMLFormElement, SettingsProps>(
                     disabled={readOnly}
                     value={field.value || []}
                     onValueChange={field.onChange}
-                    placeholder="Enter your enums"
+                    placeholder="Add number values"
+                    onValidate={(v) => v.trim() !== "" && !Number.isNaN(Number(v))}
                   />
                 </FormControl>
                 <FormMessage />

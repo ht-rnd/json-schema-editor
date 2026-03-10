@@ -17,6 +17,7 @@ export interface TagsInputProps extends React.HTMLAttributes<HTMLDivElement> {
   maxItems?: number;
   minItems?: number;
   disabled?: boolean;
+  onValidate?: (value: string) => boolean;
 }
 
 interface TagsInputContextProps {
@@ -42,6 +43,7 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
       className,
       disabled = false,
       dir,
+      onValidate,
       ...props
     },
     ref,
@@ -59,10 +61,11 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
     const onValueChangeHandler = React.useCallback(
       (val: string) => {
         if (!value.includes(val) && value.length < parseMaxItems) {
+          if (onValidate && !onValidate(val)) return;
           onValueChange([...value, val]);
         }
       },
-      [value, parseMaxItems, onValueChange],
+      [value, parseMaxItems, onValueChange, onValidate],
     );
 
     const RemoveValue = React.useCallback(
@@ -86,13 +89,14 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
             !newValue.includes(parsedItem) &&
             newValue.length < parseMaxItems
           ) {
+            if (onValidate && !onValidate(parsedItem)) return;
             newValue.push(parsedItem);
           }
         });
         onValueChange(newValue);
         setInputValue("");
       },
-      [value, parseMaxItems, onValueChange],
+      [value, parseMaxItems, onValueChange, onValidate],
     );
 
     const handleSelect = React.useCallback(

@@ -8,6 +8,7 @@ export function Editor() {
   const [rootType, setRootType] = useState<RootType>("object");
   const [selectedSchema, setSelectedSchema] = useState<string>("emptySchema");
   const [showOutput, setShowOutput] = useState<boolean>(true);
+  const [defaultOutputCollapsed, setDefaultOutputCollapsed] = useState<boolean>(false);
 
   const schemas = useMemo(() => {
     return Object.entries(exampleSchema)
@@ -35,18 +36,21 @@ export function Editor() {
         selectedSchema={selectedSchema}
         schemas={schemas}
         showOutput={showOutput}
+        defaultOutputCollapsed={defaultOutputCollapsed}
         onRootTypeChange={handleRootTypeChange}
         onSchemaChange={setSelectedSchema}
         onShowOutputChange={setShowOutput}
+        onDefaultOutputCollapsedChange={setDefaultOutputCollapsed}
       />
 
       <p className="text-2xl font-medium">JSON Schema Editor</p>
 
       <JsonSchemaEditor
-        key={`${rootType}-${selectedSchema}`}
+        key={`${rootType}-${selectedSchema}-${defaultOutputCollapsed}`}
         rootType={rootType}
         readOnly={false}
         showOutput={showOutput}
+        defaultOutputCollapsed={defaultOutputCollapsed}
         defaultValue={exampleSchema[selectedSchema]}
       />
     </div>

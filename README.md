@@ -6,11 +6,11 @@ A powerful **headless** JSON Schema editor for React. Build fully customized edi
 
 ## Features
 
-- **JSON Schema Draft 2020-12** - Full specification support
+- **Multi-Draft Support** - Draft-07, 2019-09, and 2020-12 with automatic detection via `$schema` URI
 - **All Types** - string, number, integer, boolean, object, array, $ref
 - **Nested Schemas** - Unlimited depth for objects and arrays
-- **$defs Support** - Reusable definitions with `$ref`
-- **Validation** - AJV-powered real-time validation
+- **$defs / definitions Support** - Reusable definitions with `$ref`; emits the correct key per draft
+- **Validation** - AJV-powered real-time draft-aware validation
 - **Combinators** - allOf, anyOf, oneOf, not
 - **TypeScript** - Full type safety
 - **Headless** - Zero UI dependencies in core
@@ -87,17 +87,18 @@ Main hook for editor state management.
 {
   // State
   schema: JSONSchema;
-  errors: ErrorObject[] | null;
+  errors: SchemaError[] | null;  // null when valid
   fields: FieldItem[];
   definitions: DefinitionItem[];
   form: UseFormReturn;
   settingsState: { isOpen: boolean; fieldPath: string | null };
-  
+
   // Actions
   addField: () => void;
   removeField: (index: number) => void;
   addDefinition: () => void;
   removeDefinition: (index: number) => void;
+  updateReferences: (oldKey: string, newKey: string | null) => void;  // update $ref strings when a definition key changes
   openSettings: (path: string) => void;
   closeSettings: () => void;
   handleTypeChange: (path: string, type: string) => void;
@@ -114,7 +115,8 @@ Main hook for editor state management.
 | `defaultValue` | `JSONSchema` | - | Initial schema to load |
 | `onChange` | `(schema) => void` | - | Callback on schema change |
 | `readOnly` | `boolean` | `false` | View-only mode |
-| `showOutput` | `boolean` | `true` | Show/hide JSON output |
+| `showOutput` | `boolean` | `true` | Show/hide JSON output panel |
+| `defaultOutputCollapsed` | `boolean` | `false` | Start the JSON output panel collapsed |
 | `className` | `string` | - | Additional CSS classes |
 
 ### Exports
@@ -126,7 +128,7 @@ export { useJsonSchemaEditor } from "@ht-rnd/json-schema-editor";
 // Types
 export type { JSONSchema, FieldItem, DefinitionItem, UseJsonSchemaEditorReturn };
 
-// Utilities
+// Utilities (all draft-aware: select AJV instance / emit correct defs key based on $schema)
 export { validateSchema, formToSchema, schemaToForm };
 
 // Constants

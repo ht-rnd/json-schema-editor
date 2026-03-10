@@ -32,7 +32,7 @@ export function Home() {
 
       <button
         type="button"
-        className="mt-6 px-3 py-2 border rounded-md bg-primary text-primary-foreground hover:bg-primary/80 transition-colors text-sm"
+        className="m-6 px-3 py-2 border rounded-md bg-primary text-primary-foreground hover:bg-primary/80 transition-colors text-sm"
       >
         <Link to="/editor">Get Started</Link>
       </button>

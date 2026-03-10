@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { ErrorObject } from "ajv/dist/2020";
 import { nanoid } from "nanoid";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -13,11 +12,12 @@ import type {
   SettingsState,
 } from "./types";
 import { formSchema } from "./types";
+import type { SchemaError } from "./validator";
 import { validateSchema } from "./validator";
 
 export interface UseJsonSchemaEditorReturn {
   schema: JSONSchema;
-  errors: ErrorObject[] | null;
+  errors: SchemaError[] | null;
   fields: FieldItem[];
   definitions: DefinitionItem[];
   form: ReturnType<typeof useForm<FormSchema>>;
@@ -110,7 +110,7 @@ export function useJsonSchemaEditor(
   });
 
   const [jsonSchema, setJsonSchema] = useState<JSONSchema>(() => formToSchema(getValues()));
-  const [ajvErrors, setAjvErrors] = useState<ErrorObject[] | null>(null);
+  const [ajvErrors, setAjvErrors] = useState<SchemaError[] | null>(null);
   const [settingsState, setSettingsState] = useState<SettingsState>({
     isOpen: false,
     fieldPath: null,
@@ -143,6 +143,11 @@ export function useJsonSchemaEditor(
   }, [form]);
 
   useEffect(() => {
+    const FIELD_ALIAS: Record<string, string> = {
+      exclusiveMinimum: "exclusiveMin",
+      exclusiveMaximum: "exclusiveMax",
+    };
+
     clearErrors();
     if (ajvErrors) {
       const properties = getValues("properties");
@@ -152,13 +157,17 @@ export function useJsonSchemaEditor(
           const propertyIndex = properties?.findIndex((p) => p.key === pathParts[1]) ?? -1;
 
           if (propertyIndex !== -1) {
-            setError(`properties.${propertyIndex}.schema.${pathParts[2]}` as any, {
+            const rawField = pathParts[2];
+            const formField = FIELD_ALIAS[rawField] ?? rawField;
+            setError(`properties.${propertyIndex}.schema.${formField}` as any, {
               type: "ajv",
               message: error.message,
             });
           }
         } else if (pathParts.length > 0) {
-          setError(`root.${pathParts[0]}` as any, {
+          const rawField = pathParts[0];
+          const formField = FIELD_ALIAS[rawField] ?? rawField;
+          setError(`root.${formField}` as any, {
             type: "ajv",
             message: error.message,
           });

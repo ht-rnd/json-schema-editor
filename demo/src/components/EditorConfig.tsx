@@ -26,9 +26,11 @@ export function EditorConfig({
   selectedSchema,
   schemas,
   showOutput,
+  defaultOutputCollapsed,
   onRootTypeChange,
   onSchemaChange,
   onShowOutputChange,
+  onDefaultOutputCollapsedChange,
 }: EditorConfigProps) {
   return (
     <div>
@@ -81,6 +83,22 @@ export function EditorConfig({
             id="show-json"
             checked={showOutput}
             onCheckedChange={(checked) => onShowOutputChange(!!checked)}
+            className="w-8 h-8 rounded-lg"
+          />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Label
+            htmlFor="default-output-collapsed"
+            className="w-full text-sm text-muted-foreground"
+          >
+            Output Collapsed
+          </Label>
+
+          <Checkbox
+            id="default-output-collapsed"
+            checked={defaultOutputCollapsed}
+            onCheckedChange={(checked) => onDefaultOutputCollapsedChange(!!checked)}
             className="w-8 h-8 rounded-lg"
           />
         </div>
