@@ -23,4 +23,5 @@ export type {
 export { formSchema, jsonSchemaZod } from "./types";
 export type { UseJsonSchemaEditorReturn } from "./useJsonSchemaEditor";
 export { useJsonSchemaEditor } from "./useJsonSchemaEditor";
+export type { SchemaError } from "./validator";
 export { validateSchema } from "./validator";

@@ -15,6 +15,7 @@ export {
   NUMBER_FORMATS,
   SCHEMA_TYPES,
   SCHEMA_TYPES_WITH_REF,
+  type SchemaError,
   type SchemaType,
   type SchemaTypeValue,
   type SchemaTypeWithRefValue,

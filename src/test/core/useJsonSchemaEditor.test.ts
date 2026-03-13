@@ -541,6 +541,30 @@ describe("useJsonSchemaEditor", () => {
       });
     });
 
+    it("should surface exclusiveMaximum cross-field error at the correct instancePath", async () => {
+      const { result } = renderHook(() => useJsonSchemaEditor());
+
+      act(() => {
+        result.current.form.setValue("properties.0.key", "price");
+        result.current.form.setValue("properties.0.schema" as any, {
+          type: "number",
+          exclusiveMin: 10,
+          exclusiveMax: 5, // invalid: must be > exclusiveMinimum
+        });
+      });
+
+      // The validator should surface the error at /properties/price/exclusiveMaximum.
+      // The error mapper translates this to properties.N.schema.exclusiveMax via FIELD_ALIAS.
+      await waitFor(() => {
+        expect(result.current.errors).not.toBeNull();
+        expect(
+          result.current.errors!.some(
+            (e) => e.instancePath === "/properties/price/exclusiveMaximum",
+          ),
+        ).toBe(true);
+      });
+    });
+
     it("should set form errors based on AJV errors", async () => {
       const { result } = renderHook(() => useJsonSchemaEditor());
 

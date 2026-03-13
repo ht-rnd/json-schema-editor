@@ -258,6 +258,298 @@ describe("transforms", () => {
       const result = formToSchema(formData);
       expect(result.$defs).toBeUndefined();
     });
+
+    it("should convert exclusiveMin to exclusiveMinimum for modern draft", () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [
+          {
+            id: "1",
+            key: "count",
+            isRequired: false,
+            schema: { type: "number", exclusiveMin: 5 } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.count as any).exclusiveMinimum).toBe(5);
+      expect((result.properties?.count as any).exclusiveMin).toBeUndefined();
+    });
+
+    it("should convert exclusiveMin to minimum + exclusiveMinimum:true for draft-04", () => {
+      const formData: FormSchema = {
+        root: { type: "object", $schema: "http://json-schema.org/draft-04/schema" },
+        properties: [
+          {
+            id: "1",
+            key: "count",
+            isRequired: false,
+            schema: { type: "number", exclusiveMin: 5 } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.count as any).minimum).toBe(5);
+      expect((result.properties?.count as any).exclusiveMinimum).toBe(true);
+      expect((result.properties?.count as any).exclusiveMin).toBeUndefined();
+    });
+
+    it("should convert exclusiveMin to exclusiveMinimum (numeric) for draft-07", () => {
+      const formData: FormSchema = {
+        root: { type: "object", $schema: "http://json-schema.org/draft-07/schema" },
+        properties: [
+          {
+            id: "1",
+            key: "count",
+            isRequired: false,
+            schema: { type: "number", exclusiveMin: 3 } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.count as any).exclusiveMinimum).toBe(3);
+      expect((result.properties?.count as any).minimum).toBeUndefined();
+      expect((result.properties?.count as any).exclusiveMin).toBeUndefined();
+    });
+
+    it("should convert exclusiveMax to exclusiveMaximum for modern draft", () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [
+          {
+            id: "1",
+            key: "count",
+            isRequired: false,
+            schema: { type: "number", exclusiveMax: 10 } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.count as any).exclusiveMaximum).toBe(10);
+      expect((result.properties?.count as any).exclusiveMax).toBeUndefined();
+    });
+
+    it("should convert exclusiveMax to maximum + exclusiveMaximum:true for draft-04", () => {
+      const formData: FormSchema = {
+        root: { type: "object", $schema: "http://json-schema.org/draft-04/schema" },
+        properties: [
+          {
+            id: "1",
+            key: "count",
+            isRequired: false,
+            schema: { type: "number", exclusiveMax: 10 } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.count as any).maximum).toBe(10);
+      expect((result.properties?.count as any).exclusiveMaximum).toBe(true);
+      expect((result.properties?.count as any).exclusiveMax).toBeUndefined();
+    });
+
+    it("should convert exclusiveMax to exclusiveMaximum (numeric) for draft-07", () => {
+      const formData: FormSchema = {
+        root: { type: "object", $schema: "http://json-schema.org/draft-07/schema" },
+        properties: [
+          {
+            id: "1",
+            key: "count",
+            isRequired: false,
+            schema: { type: "number", exclusiveMax: 10 } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.count as any).exclusiveMaximum).toBe(10);
+      expect((result.properties?.count as any).maximum).toBeUndefined();
+      expect((result.properties?.count as any).exclusiveMax).toBeUndefined();
+    });
+
+    it("should convert enumEnabled + enumInput to enum and strip UI fields", () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [
+          {
+            id: "1",
+            key: "status",
+            isRequired: false,
+            schema: {
+              type: "string",
+              enumEnabled: true,
+              enumInput: ["active", "inactive"],
+              isModifiable: true,
+            } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.status as any).enum).toEqual(["active", "inactive"]);
+      expect((result.properties?.status as any).enumEnabled).toBeUndefined();
+      expect((result.properties?.status as any).enumInput).toBeUndefined();
+      expect((result.properties?.status as any).isModifiable).toBeUndefined();
+    });
+
+    it("should strip isModifiable even without enum fields", () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [
+          {
+            id: "1",
+            key: "field",
+            isRequired: false,
+            schema: { type: "string", isModifiable: false } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.field as any).isModifiable).toBeUndefined();
+    });
+
+    it('should strip format: "none"', () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [
+          {
+            id: "1",
+            key: "field",
+            isRequired: false,
+            schema: { type: "string", format: "none" } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.field as any).format).toBeUndefined();
+    });
+
+    it("should emit $defs for modern draft with definitions", () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [],
+        definitions: [{ id: "1", key: "MyType", schema: { type: "string" } }],
+      };
+
+      const result = formToSchema(formData);
+      expect(result.$defs?.MyType).toEqual({ type: "string" });
+      expect((result as any).definitions).toBeUndefined();
+    });
+
+    it("should coerce enumInput strings to numbers for number type", () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [
+          {
+            id: "1",
+            key: "price",
+            isRequired: false,
+            schema: {
+              type: "number",
+              enumEnabled: true,
+              enumInput: ["1.5", "2", "3.14"],
+            } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.price as any).enum).toEqual([1.5, 2, 3.14]);
+    });
+
+    it("should coerce enumInput strings to integers for integer type", () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [
+          {
+            id: "1",
+            key: "count",
+            isRequired: false,
+            schema: {
+              type: "integer",
+              enumEnabled: true,
+              enumInput: ["1", "2", "3"],
+            } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.count as any).enum).toEqual([1, 2, 3]);
+    });
+
+    it("should filter out non-numeric enumInput values for number type", () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [
+          {
+            id: "1",
+            key: "score",
+            isRequired: false,
+            schema: {
+              type: "number",
+              enumEnabled: true,
+              enumInput: ["1", "abc", "3"],
+            } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.score as any).enum).toEqual([1, 3]);
+    });
+
+    it("should filter out non-integer enumInput values for integer type", () => {
+      const formData: FormSchema = {
+        root: { type: "object" },
+        properties: [
+          {
+            id: "1",
+            key: "qty",
+            isRequired: false,
+            schema: {
+              type: "integer",
+              enumEnabled: true,
+              enumInput: ["1", "2.5", "3"],
+            } as any,
+          },
+        ],
+        definitions: [],
+      };
+
+      const result = formToSchema(formData);
+      expect((result.properties?.qty as any).enum).toEqual([1, 3]);
+    });
+
+    it("should emit definitions (not $defs) for draft-07", () => {
+      const formData: FormSchema = {
+        root: { type: "object", $schema: "http://json-schema.org/draft-07/schema" },
+        properties: [],
+        definitions: [{ id: "1", key: "MyType", schema: { type: "string" } }],
+      };
+
+      const result = formToSchema(formData);
+      expect((result as any).definitions?.MyType).toEqual({ type: "string" });
+      expect(result.$defs).toBeUndefined();
+    });
   });
 
   describe("schemaToForm", () => {
@@ -320,6 +612,77 @@ describe("transforms", () => {
       expect(result.root.type).toBe("array");
       expect(result.root.items).toEqual({ type: "number" });
       expect(result.properties).toHaveLength(0);
+    });
+
+    it("should reverse exclusiveMinimum (number) to exclusiveMin", () => {
+      const schema: JSONSchema = {
+        type: "object",
+        properties: {
+          count: { type: "number", exclusiveMinimum: 5 } as any,
+        },
+      };
+
+      const result = schemaToForm(schema);
+      const countField = result.properties.find((p) => p.key === "count");
+      expect((countField?.schema as any).exclusiveMin).toBe(5);
+      expect((countField?.schema as any).exclusiveMinimum).toBeUndefined();
+    });
+
+    it("should reverse draft-07 exclusiveMinimum:true + minimum to exclusiveMin", () => {
+      const schema: JSONSchema = {
+        type: "object",
+        properties: {
+          count: { type: "number", minimum: 5, exclusiveMinimum: true } as any,
+        },
+      };
+
+      const result = schemaToForm(schema);
+      const countField = result.properties.find((p) => p.key === "count");
+      expect((countField?.schema as any).exclusiveMin).toBe(5);
+      expect((countField?.schema as any).minimum).toBeUndefined();
+      expect((countField?.schema as any).exclusiveMinimum).toBeUndefined();
+    });
+
+    it("should reverse enum array to enumEnabled + enumInput", () => {
+      const schema: JSONSchema = {
+        type: "object",
+        properties: {
+          status: { type: "string", enum: ["active", "inactive"] } as any,
+        },
+      };
+
+      const result = schemaToForm(schema);
+      const statusField = result.properties.find((p) => p.key === "status");
+      expect((statusField?.schema as any).enumEnabled).toBe(true);
+      expect((statusField?.schema as any).enumInput).toEqual(["active", "inactive"]);
+    });
+
+    it("should stringify numeric enum values into enumInput", () => {
+      const schema: JSONSchema = {
+        type: "object",
+        properties: {
+          count: { type: "integer", enum: [1, 2, 3] } as any,
+        },
+      };
+
+      const result = schemaToForm(schema);
+      const countField = result.properties.find((p) => p.key === "count");
+      expect((countField?.schema as any).enumEnabled).toBe(true);
+      expect((countField?.schema as any).enumInput).toEqual(["1", "2", "3"]);
+    });
+
+    it("should handle draft-07 definitions key in schemaToForm", () => {
+      const schema = {
+        type: "object",
+        definitions: {
+          MyType: { type: "string" },
+        },
+      } as any;
+
+      const result = schemaToForm(schema);
+      expect(result.definitions).toHaveLength(1);
+      expect(result.definitions[0].key).toBe("MyType");
+      expect(result.definitions[0].schema.type).toBe("string");
     });
   });
 

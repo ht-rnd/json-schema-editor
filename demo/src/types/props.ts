@@ -10,7 +10,9 @@ export interface EditorConfigProps {
   selectedSchema: string;
   schemas: string[];
   showOutput: boolean;
+  defaultOutputCollapsed: boolean;
   onRootTypeChange: (rootType: RootType) => void;
   onSchemaChange: (schema: string) => void;
   onShowOutputChange: (showOutput: boolean) => void;
+  onDefaultOutputCollapsedChange: (v: boolean) => void;
 }
