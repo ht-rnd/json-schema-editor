@@ -278,7 +278,7 @@ export const schemaToForm = (schema: JSONSchema): FormSchema => {
       });
     });
   }
-  if (propertiesArray.length === 0) {
+  if (propertiesArray.length === 0 && (rootData.type === "object" || !rootData.type)) {
     propertiesArray.push({ id: nanoid(6), key: "", isRequired: false, schema: { type: "string" } });
   }
 
