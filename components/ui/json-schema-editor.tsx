@@ -34,7 +34,11 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
     },
     ref,
   ) => {
-    const editor = useJsonSchemaEditor({ rootType, defaultValue, onChange });
+    const editor = useJsonSchemaEditor({
+      rootType,
+      defaultValue,
+      onChange,
+    });
 
     const { fields, append, remove } = useFieldArray({
       control: editor.form.control,
