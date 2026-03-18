@@ -57,6 +57,8 @@ export function useJsonSchemaEditor(
 ): UseJsonSchemaEditorReturn {
   const { rootType = "object", defaultValue, onChange } = options;
 
+  const hasDefaultValue = defaultValue != null && Object.keys(defaultValue).length > 0;
+
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
 
@@ -88,7 +90,7 @@ export function useJsonSchemaEditor(
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema) as any,
-    defaultValues: defaultValue ? schemaToForm(defaultValue) : getDefaultValues(initialId),
+    defaultValues: hasDefaultValue ? schemaToForm(defaultValue!) : getDefaultValues(initialId),
   });
 
   const { setError, clearErrors, setValue, reset: formReset, getValues } = form;
@@ -177,11 +179,11 @@ export function useJsonSchemaEditor(
   }, [ajvErrors, clearErrors, setError, getValues]);
 
   useEffect(() => {
-    if (!defaultValue) {
+    if (!hasDefaultValue) {
       const id = nanoid(6);
       formReset(getDefaultValues(id));
     }
-  }, [rootType, formReset, defaultValue, getDefaultValues]);
+  }, [rootType, formReset, hasDefaultValue, getDefaultValues]);
 
   const addField = useCallback(() => {
     const id = nanoid(6);

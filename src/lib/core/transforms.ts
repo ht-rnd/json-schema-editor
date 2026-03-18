@@ -278,6 +278,9 @@ export const schemaToForm = (schema: JSONSchema): FormSchema => {
       });
     });
   }
+  if (propertiesArray.length === 0) {
+    propertiesArray.push({ id: nanoid(6), key: "", isRequired: false, schema: { type: "string" } });
+  }
 
   const definitionsArray: any[] = [];
   if (defsToUse) {
