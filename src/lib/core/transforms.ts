@@ -173,7 +173,28 @@ export const formToSchema = (formData: FormSchema): JSONSchema => {
   return finalSchema;
 };
 
+const sanitizeSchema = (schema: any): any => {
+  if (!schema || typeof schema !== "object" || Array.isArray(schema)) return schema;
+  const result = { ...schema };
+  for (const field of ["properties", "$defs", "definitions"]) {
+    if (result[field] === null) {
+      delete result[field];
+    } else if (
+      result[field] &&
+      typeof result[field] === "object" &&
+      !Array.isArray(result[field])
+    ) {
+      result[field] = Object.fromEntries(
+        Object.entries(result[field]).map(([k, v]) => [k, sanitizeSchema(v)]),
+      );
+    }
+  }
+  if (result.items === null) delete result.items;
+  return result;
+};
+
 export const schemaToForm = (schema: JSONSchema): FormSchema => {
+  schema = sanitizeSchema(schema);
   const transformToForm = (currentSchema: JSONSchema): any => {
     const newSchema: any = { ...currentSchema };
 
