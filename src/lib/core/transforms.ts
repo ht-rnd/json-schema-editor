@@ -104,32 +104,42 @@ export const formToSchema = (formData: FormSchema): JSONSchema => {
     const newSchema = applyUiTransforms({ ...schema }, d);
     if (newSchema.type === "ref") delete newSchema.type;
 
-    if (Array.isArray(newSchema.properties)) {
+    if (newSchema.type === "object") {
       const propertiesObject: { [key: string]: JSONSchema } = {};
       const requiredFields: string[] = [];
-      newSchema.properties.forEach((prop: any) => {
-        if (prop.key) {
-          propertiesObject[prop.key] = transformToSchema(prop.schema, d);
-          if (prop.isRequired) {
-            requiredFields.push(prop.key);
+      if (Array.isArray(newSchema.properties)) {
+        newSchema.properties.forEach((prop: any) => {
+          if (prop.key) {
+            propertiesObject[prop.key] = transformToSchema(prop.schema, d);
+            if (prop.isRequired) {
+              requiredFields.push(prop.key);
+            }
           }
-        }
-      });
+        });
+      }
 
       newSchema.properties = propertiesObject;
       if (requiredFields.length > 0) {
         newSchema.required = requiredFields;
       }
+    } else {
+      delete newSchema.properties;
     }
 
-    if (
-      typeof newSchema.items === "object" &&
-      newSchema.items !== null &&
-      !Array.isArray(newSchema.items)
-    ) {
-      newSchema.items = transformToSchema(newSchema.items, d);
-    } else if (Array.isArray(newSchema.items)) {
-      newSchema.items = newSchema.items.map((itemSchema: any) => transformToSchema(itemSchema, d));
+    if (newSchema.type === "array") {
+      if (
+        typeof newSchema.items === "object" &&
+        newSchema.items !== null &&
+        !Array.isArray(newSchema.items)
+      ) {
+        newSchema.items = transformToSchema(newSchema.items, d);
+      } else if (Array.isArray(newSchema.items)) {
+        newSchema.items = newSchema.items.map((itemSchema: any) => transformToSchema(itemSchema, d));
+      } else {
+        newSchema.items = {};
+      }
+    } else {
+      delete newSchema.items;
     }
 
     return cleanSchema(newSchema);
@@ -148,8 +158,14 @@ export const formToSchema = (formData: FormSchema): JSONSchema => {
     }
   });
 
-  if (Object.keys(properties).length > 0) {
+  if (finalSchema.type === "object") {
     finalSchema.properties = properties;
+  } else if (Object.keys(properties).length > 0) {
+    finalSchema.properties = properties;
+  }
+
+  if (finalSchema.type === "array" && !finalSchema.items) {
+    finalSchema.items = {};
   }
 
   if (required.length > 0) {
