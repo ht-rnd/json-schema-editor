@@ -2,6 +2,7 @@ import {
   type DefinitionItem,
   formToSchema,
   INTEGER_FORMATS,
+  type JSONSchema,
   NUMBER_FORMATS,
   STRING_FORMATS,
   schemaToForm,
@@ -1182,7 +1183,7 @@ const DefsJsonField = ({ readOnly = false }: { readOnly?: boolean }) => {
 
       const entryErrors = Object.entries(jsonObject)
         .map(([key, schema]) => {
-          const errors = validateSchema(schema);
+          const errors = validateSchema(schema as JSONSchema);
           if (!errors) return null;
           return Array.isArray(errors)
             ? errors
