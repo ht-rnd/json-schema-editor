@@ -4,6 +4,7 @@ export {
   createDefaultObjectSchema,
   DEFAULT_SCHEMA_URI,
   type DefinitionItem,
+  extractJsonSchema,
   type FieldItem,
   type FormSchema,
   formSchema,

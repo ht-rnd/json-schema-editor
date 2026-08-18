@@ -18,6 +18,7 @@ const baseSchema = z.object({
   maxProperties: z.number().optional(),
   isModifiable: z.boolean().optional(),
   "x-modifiable": z.array(z.string()).optional(),
+  encryptedProperty: z.array(z.string()).optional(),
   pattern: z.string().optional(),
   format: z.string().optional(),
   minItems: z.number().optional(),
@@ -27,6 +28,7 @@ const baseSchema = z.object({
   $id: z.string().optional(),
   $schema: z.string().optional(),
   $ref: z.string().optional(),
+  $comment: z.string().optional(),
 });
 
 export type JSONSchema = z.infer<typeof baseSchema> & {

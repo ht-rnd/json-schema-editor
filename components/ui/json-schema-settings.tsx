@@ -1,7 +1,10 @@
 import {
+  type DefinitionItem,
+  formToSchema,
   INTEGER_FORMATS,
   NUMBER_FORMATS,
   STRING_FORMATS,
+  schemaToForm,
   validateSchema,
 } from "@ht-rnd/json-schema-editor";
 import { ChevronDown, ChevronUp, PlusCircle } from "lucide-react";
@@ -1116,6 +1119,121 @@ const DefinitionsSettings = React.forwardRef<HTMLDivElement, DefinitionsSettings
 );
 DefinitionsSettings.displayName = "DefinitionsSettings";
 
+const definitionsToDefsJson = (definitions: DefinitionItem[] | undefined) => {
+  if (!definitions?.length) return {};
+  const schema = formToSchema({
+    root: { type: "object", $schema: "http://json-schema.org/draft/2020-12/schema" },
+    properties: [],
+    definitions,
+  });
+  return schema.$defs ?? {};
+};
+
+const defsJsonToDefinitions = (
+  defs: Record<string, unknown>,
+  existing?: DefinitionItem[],
+): DefinitionItem[] => {
+  const form = schemaToForm({
+    type: "object",
+    $defs: defs as any,
+  });
+  return form.definitions.map((def) => {
+    const existingDef = existing?.find((item) => item.key === def.key);
+    return existingDef ? { ...def, id: existingDef.id } : def;
+  });
+};
+
+const DefsJsonField = ({ readOnly = false }: { readOnly?: boolean }) => {
+  const { control, setValue, getValues, clearErrors } = useFormContext();
+
+  const definitions = useWatch({
+    control,
+    name: "definitions",
+  }) as DefinitionItem[] | undefined;
+
+  const [textValue, setTextValue] = useState(() =>
+    JSON.stringify(definitionsToDefsJson(getValues("definitions")), null, 2),
+  );
+  const [jsonError, setJsonError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!jsonError) {
+      setTextValue(JSON.stringify(definitionsToDefsJson(definitions), null, 2));
+    }
+  }, [definitions, jsonError]);
+
+  const handleTextChange = (newText: string) => {
+    setTextValue(newText);
+
+    if (newText.trim() === "" || newText.trim() === "null" || newText.trim() === "undefined") {
+      setValue("definitions", [], { shouldValidate: true, shouldDirty: true });
+      setJsonError(null);
+      clearErrors("definitions");
+      return;
+    }
+
+    try {
+      const jsonObject = JSON.parse(newText);
+
+      if (jsonObject === null || typeof jsonObject !== "object" || Array.isArray(jsonObject)) {
+        setJsonError("$defs must be a JSON object.");
+        return;
+      }
+
+      const entryErrors = Object.entries(jsonObject)
+        .map(([key, schema]) => {
+          const errors = validateSchema(schema);
+          if (!errors) return null;
+          return Array.isArray(errors)
+            ? errors
+                .map((error) => `/$defs/${key}${error.instancePath} - ${error.message}`)
+                .join(", ")
+            : `/$defs/${key} - Invalid schema structure.`;
+        })
+        .filter(Boolean);
+
+      if (entryErrors.length > 0) {
+        setJsonError(entryErrors.join(", "));
+        return;
+      }
+
+      setJsonError(null);
+      clearErrors("definitions");
+      setValue("definitions", defsJsonToDefinitions(jsonObject, getValues("definitions")), {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    } catch {
+      setJsonError("Invalid JSON format.");
+    }
+  };
+
+  return (
+    <FormField
+      control={control}
+      name="definitions"
+      render={() => (
+        <FormItem>
+          <FormLabel>$defs</FormLabel>
+          <FormControl>
+            <Textarea
+              rows={12}
+              disabled={readOnly}
+              className="font-mono text-xs min-h-[220px]"
+              placeholder={
+                'e.g., {\n  "voiceLine": {\n    "type": "object",\n    "properties": {}\n  }\n}'
+              }
+              value={textValue || ""}
+              onChange={(e) => handleTextChange(e.target.value)}
+            />
+          </FormControl>
+          <FormMessage>{jsonError}</FormMessage>
+        </FormItem>
+      )}
+    />
+  );
+};
+
 const RootSettings = React.forwardRef<HTMLDivElement, DivSettingsProps>(
   ({ className, basePath, readOnly = false, ...props }, ref) => {
     const { control } = useFormContext();
@@ -1154,6 +1272,8 @@ const RootSettings = React.forwardRef<HTMLDivElement, DivSettingsProps>(
             </FormItem>
           )}
         />
+
+        <DefsJsonField readOnly={readOnly} />
 
         <DefinitionsSettings readOnly={readOnly} />
       </div>

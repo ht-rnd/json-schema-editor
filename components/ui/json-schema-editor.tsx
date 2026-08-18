@@ -1,4 +1,8 @@
-import { useJsonSchemaEditor } from "@ht-rnd/json-schema-editor";
+import {
+  extractJsonSchema,
+  type JSONSchema,
+  useJsonSchemaEditor,
+} from "@ht-rnd/json-schema-editor";
 import { ChevronDown, ChevronUp, TriangleAlert } from "lucide-react";
 import { nanoid } from "nanoid";
 import * as React from "react";
@@ -15,6 +19,7 @@ export interface JsonSchemaEditorProps
   rootType?: "object" | "array";
   defaultValue?: any;
   onChange?: (schema: any) => void;
+  onRootTypeChange?: (rootType: "object" | "array", schema?: JSONSchema) => void;
   readOnly?: boolean;
   showOutput?: boolean;
   defaultOutputCollapsed?: boolean;
@@ -29,6 +34,7 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
       showOutput = true,
       defaultOutputCollapsed = false,
       onChange,
+      onRootTypeChange,
       defaultValue,
       ...props
     },
@@ -48,6 +54,16 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
 
     const textareaRef = React.useRef<AutosizeTextAreaRef>(null);
     const [isOutputCollapsed, setIsOutputCollapsed] = React.useState(defaultOutputCollapsed);
+    const [jsonText, setJsonText] = React.useState(() => JSON.stringify(editor.schema, null, 2));
+    const [jsonEditError, setJsonEditError] = React.useState<string | null>(null);
+    const [isJsonFocused, setIsJsonFocused] = React.useState(false);
+
+    React.useEffect(() => {
+      if (!isJsonFocused) {
+        setJsonText(JSON.stringify(editor.schema, null, 2));
+        setJsonEditError(null);
+      }
+    }, [editor.schema, isJsonFocused]);
 
     const handleAddField = () => {
       const id = nanoid(6);
@@ -57,6 +73,34 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
         isRequired: false,
         schema: { type: "string" },
       });
+    };
+
+    const applyJsonText = (text: string) => {
+      setJsonText(text);
+
+      if (readOnly) return;
+
+      if (text.trim() === "") {
+        setJsonEditError("JSON cannot be empty.");
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(text);
+        const schema = extractJsonSchema(parsed);
+        const nextRootType = schema.type === "array" ? "array" : "object";
+
+        setJsonEditError(null);
+
+        if (nextRootType !== rootType) {
+          onRootTypeChange?.(nextRootType, schema);
+          return;
+        }
+
+        editor.loadSchema(schema);
+      } catch (error) {
+        setJsonEditError(error instanceof Error ? error.message : "Invalid JSON.");
+      }
     };
 
     return (
@@ -114,38 +158,55 @@ const JsonSchemaEditor = React.forwardRef<HTMLDivElement, JsonSchemaEditorProps>
                   onClick={() => setIsOutputCollapsed((prev) => !prev)}
                   className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium hover:bg-muted/50 transition-colors"
                 >
-                  <span>{editor.errors ? "JSON Schema Errors" : "JSON Output"}</span>
+                  <span>{readOnly ? "JSON Output" : "JSON (edit / paste)"}</span>
                   {isOutputCollapsed ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
                 </button>
 
-                {!isOutputCollapsed &&
-                  (editor.errors ? (
-                    <div className="px-6 pb-6 text-foreground overflow-auto max-h-[360px]">
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        {`The generated JSON Schema has ${editor.errors.length} ${
-                          editor.errors.length > 1 ? "errors." : "error."
-                        }`}
-                      </p>
-                      <ul className="mt-4 flex flex-col gap-2">
-                        {editor.errors.map((error: any, index: any) => (
-                          <li key={index} className="flex items-start gap-2 text-sm">
-                            <Badge variant="destructive" className="font-mono text-xs shrink-0">
-                              root{error.instancePath}
-                            </Badge>
-                            <span>{error.message}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : (
+                {!isOutputCollapsed && (
+                  <div className="flex flex-col gap-2 px-2 pb-2">
+                    {editor.errors && (
+                      <div className="px-4 pt-2 text-foreground">
+                        <p className="text-sm text-muted-foreground">
+                          {`Schema has ${editor.errors.length} ${
+                            editor.errors.length > 1 ? "errors" : "error"
+                          }:`}
+                        </p>
+                        <ul className="mt-2 flex flex-col gap-2">
+                          {editor.errors.map((error: any, index: any) => (
+                            <li key={index} className="flex items-start gap-2 text-sm">
+                              <Badge variant="destructive" className="font-mono text-xs shrink-0">
+                                root{error.instancePath}
+                              </Badge>
+                              <span>{error.message}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
                     <AutosizeTextarea
                       ref={textareaRef}
-                      readOnly
-                      value={JSON.stringify(editor.schema, null, 2)}
+                      readOnly={readOnly}
+                      value={jsonText}
                       minHeight={200}
-                      className="font-mono text-sm border-0 resize-none h-full min-h-[200px] max-h-[400px]"
+                      maxHeight={480}
+                      placeholder='Paste a JSON Schema or a document with "targetEntitySchema"…'
+                      className="font-mono text-sm border-0 resize-none h-full min-h-[200px] max-h-[480px]"
+                      onFocus={() => setIsJsonFocused(true)}
+                      onBlur={() => {
+                        setIsJsonFocused(false);
+                        if (!jsonEditError) {
+                          setJsonText(JSON.stringify(editor.schema, null, 2));
+                        }
+                      }}
+                      onChange={(e) => applyJsonText(e.target.value)}
                     />
-                  ))}
+
+                    {jsonEditError && (
+                      <p className="px-4 pb-2 text-sm text-destructive">{jsonEditError}</p>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </div>

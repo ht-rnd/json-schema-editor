@@ -134,7 +134,9 @@ export const formToSchema = (formData: FormSchema): JSONSchema => {
       ) {
         newSchema.items = transformToSchema(newSchema.items, d);
       } else if (Array.isArray(newSchema.items)) {
-        newSchema.items = newSchema.items.map((itemSchema: any) => transformToSchema(itemSchema, d));
+        newSchema.items = newSchema.items.map((itemSchema: any) =>
+          transformToSchema(itemSchema, d),
+        );
       } else {
         newSchema.items = {};
       }

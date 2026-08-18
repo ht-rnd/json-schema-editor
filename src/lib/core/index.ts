@@ -10,6 +10,7 @@ export {
   SCHEMA_TYPES_WITH_REF,
   STRING_FORMATS,
 } from "./constants";
+export { extractJsonSchema } from "./extractJsonSchema";
 export { formToSchema, schemaToForm } from "./transforms";
 export type {
   DefinitionItem,

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { JsonSchemaEditor } from "../../../components/ui/json-schema-editor";
+import type { JSONSchema } from "../../../src/lib/core/types";
 import { EditorConfig } from "../components/EditorConfig";
 import { exampleSchema } from "../data/examples";
 import type { RootType } from "../types";
@@ -9,6 +10,8 @@ export function Editor() {
   const [selectedSchema, setSelectedSchema] = useState<string>("emptySchema");
   const [showOutput, setShowOutput] = useState<boolean>(true);
   const [defaultOutputCollapsed, setDefaultOutputCollapsed] = useState<boolean>(false);
+  const [importedSchema, setImportedSchema] = useState<JSONSchema | null>(null);
+  const [editorKey, setEditorKey] = useState(0);
 
   const schemas = useMemo(() => {
     return Object.entries(exampleSchema)
@@ -27,6 +30,21 @@ export function Editor() {
   const handleRootTypeChange = (newRootType: RootType) => {
     setRootType(newRootType);
     setSelectedSchema(newRootType === "object" ? "emptySchema" : "emptyArray");
+    setImportedSchema(null);
+    setEditorKey((key) => key + 1);
+  };
+
+  const handleSchemaChange = (schemaName: string) => {
+    setSelectedSchema(schemaName);
+    setImportedSchema(null);
+    setEditorKey((key) => key + 1);
+  };
+
+  const handleJsonRootTypeChange = (newRootType: RootType, schema?: JSONSchema) => {
+    setRootType(newRootType);
+    setSelectedSchema(newRootType === "object" ? "emptySchema" : "emptyArray");
+    setImportedSchema(schema ?? null);
+    setEditorKey((key) => key + 1);
   };
 
   return (
@@ -38,7 +56,7 @@ export function Editor() {
         showOutput={showOutput}
         defaultOutputCollapsed={defaultOutputCollapsed}
         onRootTypeChange={handleRootTypeChange}
-        onSchemaChange={setSelectedSchema}
+        onSchemaChange={handleSchemaChange}
         onShowOutputChange={setShowOutput}
         onDefaultOutputCollapsedChange={setDefaultOutputCollapsed}
       />
@@ -46,12 +64,13 @@ export function Editor() {
       <p className="text-2xl font-medium">JSON Schema Editor</p>
 
       <JsonSchemaEditor
-        key={`${rootType}-${selectedSchema}-${defaultOutputCollapsed}`}
+        key={`${rootType}-${selectedSchema}-${defaultOutputCollapsed}-${editorKey}`}
         rootType={rootType}
         readOnly={false}
         showOutput={showOutput}
         defaultOutputCollapsed={defaultOutputCollapsed}
-        defaultValue={exampleSchema[selectedSchema]}
+        defaultValue={importedSchema ?? exampleSchema[selectedSchema]}
+        onRootTypeChange={handleJsonRootTypeChange}
       />
     </div>
   );

@@ -32,6 +32,7 @@ export interface UseJsonSchemaEditorReturn {
   handleTypeChange: (fieldPath: string, newType: string) => void;
   addNestedField: (parentPath: string) => void;
   reset: () => void;
+  loadSchema: (schema: JSONSchema) => void;
 }
 
 /**
@@ -326,6 +327,20 @@ export function useJsonSchemaEditor(
     formReset(getDefaultValues(id));
   }, [formReset, getDefaultValues]);
 
+  const loadSchema = useCallback(
+    (schema: JSONSchema) => {
+      const formData = schemaToForm(schema);
+      formReset(formData);
+      const nextSchema = formToSchema(formData);
+      const nextSchemaString = JSON.stringify(nextSchema);
+      prevSchemaStringRef.current = nextSchemaString;
+      setJsonSchema(nextSchema);
+      onChangeRef.current?.(nextSchema);
+      setAjvErrors(validateSchema(nextSchema));
+    },
+    [formReset],
+  );
+
   return {
     schema: jsonSchema,
     errors: ajvErrors,
@@ -343,5 +358,6 @@ export function useJsonSchemaEditor(
     handleTypeChange,
     addNestedField,
     reset,
+    loadSchema,
   };
 }
