@@ -18,7 +18,6 @@ const baseSchema = z.object({
   maxProperties: z.number().optional(),
   isModifiable: z.boolean().optional(),
   "x-modifiable": z.array(z.string()).optional(),
-  encryptedProperty: z.array(z.string()).optional(),
   pattern: z.string().optional(),
   format: z.string().optional(),
   minItems: z.number().optional(),
