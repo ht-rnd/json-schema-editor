@@ -45,6 +45,7 @@ export interface FieldRowProps extends React.HTMLAttributes<HTMLDivElement> {
   schemaPath: string;
   defs?: boolean;
   isRootLevel?: boolean;
+  isSchemaDirect?: boolean;
   onRemove?: () => void;
   onOpenSettings?: (path: string) => void;
   onTypeChange?: (newType: string) => void;
@@ -75,6 +76,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
       schemaPath,
       defs = false,
       isRootLevel = false,
+      isSchemaDirect = false,
       onRemove,
       onOpenSettings,
       onTypeChange,
@@ -217,7 +219,7 @@ const FieldRow = React.forwardRef<HTMLDivElement, FieldRowProps>(
           </div>
         )}
 
-        {fieldType !== "array" && !defs && fieldType !== "ref" && (
+        {!defs && !isSchemaDirect && fieldType !== "ref" && (
           <div className="flex gap-2">
             <Controller
               control={control}
@@ -358,6 +360,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           schemaPath={schemaPath}
           defs={defs}
           isRootLevel={isRootLevel}
+          isSchemaDirect={isSchemaDirect}
           onRemove={onRemove}
           onOpenSettings={onOpenSettings}
           onTypeChange={handleTypeChange}
